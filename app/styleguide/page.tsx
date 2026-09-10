@@ -1,19 +1,32 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { Accordion } from "@/components/Accordion";
+import { Badge } from "@/components/Badge";
+import { BlogCard } from "@/components/BlogCard";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Counter } from "@/components/Counter";
+import { CTABand } from "@/components/CTABand";
+import { FeatureStatCard } from "@/components/FeatureStatCard";
+import { LogoLockup } from "@/components/LogoLockup";
+import { ProofCard } from "@/components/ProofCard";
+import { StatGrid } from "@/components/StatGrid";
+import { StepCard } from "@/components/StepCard";
+import { HomeIcon, BrandsIcon, AgenciesIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Styleguide — MediaMaxxing",
   description:
-    "Design tokens, type scale, and interactive states — the Phase 1 sign-off surface.",
+    "Design tokens and every primitive with every state — the design-system review surface.",
 };
 
-/* Local tokens — kept inline until Phase 3 formalizes primitives. */
 const swatches = [
-  { name: "canvas",  hex: "#FFFFFF", role: "page background",                    text: "ink"    },
-  { name: "panel",   hex: "#EDF1EC", role: "card surface, sidebar rail",         text: "ink"    },
-  { name: "ink",     hex: "#0E1A12", role: "primary text",                       text: "canvas" },
-  { name: "muted",   hex: "#5F6F63", role: "secondary text, metadata",           text: "canvas" },
-  { name: "payout",  hex: "#16C95C", role: "money, counters, primary CTA only",  text: "canvas" },
-  { name: "live",    hex: "#f6ff4dfe", role: "scarcity and status only",           text: "canvas" },
+  { name: "canvas",  hex: "#FFFFFF",   role: "page background",                    text: "ink"    },
+  { name: "panel",   hex: "#EDF1EC",   role: "card surface, sidebar rail",         text: "ink"    },
+  { name: "ink",     hex: "#0E1A12",   role: "primary text",                       text: "canvas" },
+  { name: "muted",   hex: "#5F6F63",   role: "secondary text, metadata",           text: "canvas" },
+  { name: "payout",  hex: "#16C95C",   role: "money, counters, primary CTA only",  text: "canvas" },
+  { name: "live",    hex: "#944dfffe", role: "scarcity and status only",           text: "canvas" },
 ] as const;
 
 const typeScale = [
@@ -25,48 +38,60 @@ const typeScale = [
   { label: "2xl", px: 64, use: "hero — one per page, at most"  },
 ] as const;
 
-const btn = {
-  base:
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 " +
-    "text-[15px] font-medium leading-none transition disabled:opacity-40 disabled:cursor-not-allowed",
-  primary:
-    "bg-payout text-canvas hover:brightness-95 active:brightness-90",
-  secondary:
-    "bg-ink text-canvas hover:opacity-90 active:opacity-80",
-  ghost:
-    "bg-transparent text-ink border border-ink/15 hover:border-ink/40 hover:bg-ink/[0.03] active:bg-ink/[0.06]",
-} as const;
+const sampleProof = {
+  name: "Steven",
+  handle: "stee.ugc",
+  tier: "Advanced" as const,
+  earnings: "$100,227",
+  dashboardSrc: "/proof/creators/steven/dashboard.png",
+  phoneSrc: "/proof/creators/steven/phone.jpg",
+  stats: [
+    { label: "Accounts",  value: "17"     },
+    { label: "Posts",     value: "5,900"  },
+    { label: "Per day",   value: "50"     },
+  ],
+  blurb:
+    "Started posting the day I got in. Hit six figures inside a year without touching a single edit myself.",
+};
 
-/* Forced-state previews — apply the "would-be" style so a reviewer can see
-   hover/focus/disabled without interacting. Interactive controls below still
-   respond naturally. */
-const stateCell = "flex flex-col items-start gap-2";
-const stateLabel = "text-[13px] text-muted";
+const sampleBlog = {
+  href: "/blog/brands-guide",
+  title: "The brand's guide to working with UGC creators in 2026",
+  excerpt:
+    "What to look for in a creator, how to brief work that actually converts, and the hidden costs of the old influencer model.",
+  cover: "/proof/blog/brands-guide-ugc-2026.png",
+  readMinutes: 8,
+};
+
+const sampleFaq = [
+  { question: "How much do creators actually earn?",
+    answer:
+      "Top creators clear six figures a year. Median payouts sit lower — see the earnings dashboards on the homepage for real, live numbers." },
+  { question: "Do I need a following to start?",
+    answer:
+      "No. The platform pays per view, not per follower — the algorithm decides distribution and we handle the placements." },
+  { question: "How do payouts work?",
+    answer:
+      "Weekly, direct-deposit. Every view is tracked and reconciled at the end of the week." },
+];
 
 export default function Styleguide() {
   return (
-    <main className="mx-auto max-w-[900px] px-6 py-16">
+    <div className="mx-auto max-w-[900px] px-6 py-16">
       <header className="mb-16 flex flex-col gap-3">
-        <h1 className="text-[40px] leading-[1.05] font-medium">
-          Styleguide
-        </h1>
+        <h1 className="text-[40px] leading-[1.05] font-medium">Styleguide</h1>
         <p className="text-muted max-w-[60ch]">
-          The Phase 1 sign-off surface — palette, type, and every interactive
-          state, rendered in isolation. Every later phase inherits these
-          decisions.
+          Every primitive, every state — the design-system review surface. Any
+          change to the palette, typeface, or type scale after this page is
+          signed off requires stopping and asking.
         </p>
       </header>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Palette                                                             */}
-      {/* ------------------------------------------------------------------ */}
+      {/* ── Palette ────────────────────────────────────────────────────── */}
       <Section title="Palette" note="Two chromatic colors, each with one job. Everything else is neutral.">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {swatches.map((s) => (
-            <div
-              key={s.name}
-              className="rounded-2xl overflow-hidden border border-ink/10"
-            >
+            <div key={s.name} className="rounded-2xl overflow-hidden border border-ink/10">
               <div
                 className="h-24 flex items-end px-4 py-3"
                 style={{ backgroundColor: s.hex, color: `var(--${s.text})` }}
@@ -82,27 +107,14 @@ export default function Styleguide() {
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Type scale                                                          */}
-      {/* ------------------------------------------------------------------ */}
-      <Section
-        title="Type scale"
-        note="Archivo, one family. Scale is 13 / 15 / 18 / 24 / 40 / 64. Body 15/1.6."
-      >
+      {/* ── Type scale ─────────────────────────────────────────────────── */}
+      <Section title="Type scale" note="Archivo, one family. Scale is 13 / 15 / 18 / 24 / 40 / 64. Body 15/1.6.">
         <div className="flex flex-col divide-y divide-ink/10">
           {typeScale.map((t) => (
-            <div
-              key={t.label}
-              className="grid grid-cols-[80px_1fr] gap-4 py-4 items-baseline"
-            >
-              <div className="text-[13px] text-muted font-mono">
-                {t.label} · {t.px}
-              </div>
+            <div key={t.label} className="grid grid-cols-[80px_1fr] gap-4 py-4 items-baseline">
+              <div className="text-[13px] text-muted font-mono">{t.label} · {t.px}</div>
               <div className="flex flex-col gap-1 min-w-0">
-                <div
-                  style={{ fontSize: `${t.px}px`, lineHeight: 1.2 }}
-                  className="truncate"
-                >
+                <div style={{ fontSize: `${t.px}px`, lineHeight: 1.2 }} className="truncate">
                   The order is the product.
                 </div>
                 <div className="text-[13px] text-muted">{t.use}</div>
@@ -112,167 +124,218 @@ export default function Styleguide() {
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Numerals                                                            */}
-      {/* ------------------------------------------------------------------ */}
+      {/* ── Numerals ──────────────────────────────────────────────────── */}
       <Section
         title="Numerals"
         note="Archivo's expanded width, reserved for dollar figures and counters. Tabular figures on every number so counters do not jitter."
       >
         <div className="rounded-2xl bg-panel px-6 py-8 flex flex-col gap-4">
-          <div className="flex items-baseline gap-6">
-            <span className="text-[13px] text-muted w-24">default</span>
+          <NumeralRow label="default">
             <span className="text-[40px] leading-none">$100,227</span>
-          </div>
-          <div className="flex items-baseline gap-6">
-            <span className="text-[13px] text-muted w-24">expanded</span>
-            <span className="text-[40px] leading-none font-expanded">
-              $100,227
-            </span>
-          </div>
-          <div className="flex items-baseline gap-6">
-            <span className="text-[13px] text-muted w-24">expanded lg</span>
-            <span className="text-[64px] leading-none font-expanded text-payout">
-              $45,402
-            </span>
-          </div>
-          <div className="flex items-baseline gap-6">
-            <span className="text-[13px] text-muted w-24">counter</span>
-            <span className="text-[24px] leading-none font-expanded">
-              1,204,908
-            </span>
-          </div>
+          </NumeralRow>
+          <NumeralRow label="expanded">
+            <span className="text-[40px] leading-none font-expanded">$100,227</span>
+          </NumeralRow>
+          <NumeralRow label="expanded lg">
+            <span className="text-[64px] leading-none font-expanded text-payout">$45,402</span>
+          </NumeralRow>
+          <NumeralRow label="counter">
+            <span className="text-[24px] leading-none font-expanded">1,204,908</span>
+          </NumeralRow>
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Buttons                                                             */}
-      {/* ------------------------------------------------------------------ */}
+      {/* ── LogoLockup ────────────────────────────────────────────────── */}
+      <Section title="LogoLockup" note="Icon + wordmark. Wordmark hides when the sidebar collapses to its icon rail.">
+        <div className="flex flex-col gap-5">
+          <StateRow label="sm">           <LogoLockup size="sm" /></StateRow>
+          <StateRow label="md (default)"> <LogoLockup size="md" /></StateRow>
+          <StateRow label="lg">           <LogoLockup size="lg" /></StateRow>
+          <StateRow label="icon-only">    <LogoLockup size="md" showWordmark={false} /></StateRow>
+        </div>
+      </Section>
+
+      {/* ── Button ────────────────────────────────────────────────────── */}
       <Section
-        title="Buttons"
-        note="Three variants. Primary is only ever green — if the action is not about earning, use secondary or ghost."
+        title="Button"
+        note="Three variants. Primary is only ever payout-green — if the action is not about earning, use secondary or ghost."
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(["primary", "secondary", "ghost"] as const).map((variant) => (
-            <div
-              key={variant}
-              className="rounded-2xl border border-ink/10 p-5 flex flex-col gap-5"
-            >
+            <div key={variant} className="rounded-2xl border border-ink/10 p-5 flex flex-col gap-5">
               <div className="text-[13px] text-muted">{variant}</div>
-
-              <div className={stateCell}>
-                <span className={stateLabel}>default</span>
-                <button className={`${btn.base} ${btn[variant]}`}>
-                  Get started
-                </button>
-              </div>
-
-              <div className={stateCell}>
-                <span className={stateLabel}>hover (forced)</span>
-                <button
-                  className={`${btn.base} ${btn[variant]}`}
-                  data-force-hover
-                  style={
-                    variant === "primary"
-                      ? { filter: "brightness(0.95)" }
-                      : variant === "secondary"
-                      ? { opacity: 0.9 }
-                      : {
-                          borderColor: "rgba(14,26,18,0.4)",
-                          backgroundColor: "rgba(14,26,18,0.03)",
-                        }
-                  }
-                >
-                  Get started
-                </button>
-              </div>
-
-              <div className={stateCell}>
-                <span className={stateLabel}>focus (forced)</span>
-                <button
-                  className={`${btn.base} ${btn[variant]}`}
-                  style={{
-                    outline: "2px solid var(--ink)",
-                    outlineOffset: 2,
-                  }}
-                >
-                  Get started
-                </button>
-              </div>
-
-              <div className={stateCell}>
-                <span className={stateLabel}>disabled</span>
-                <button className={`${btn.base} ${btn[variant]}`} disabled>
-                  Get started
-                </button>
-              </div>
+              <StateRow label="default">
+                <Button variant={variant}>Get started</Button>
+              </StateRow>
+              <StateRow label="disabled">
+                <Button variant={variant} disabled>Get started</Button>
+              </StateRow>
+              <StateRow label="small">
+                <Button variant={variant} size="sm">Get started</Button>
+              </StateRow>
+              <StateRow label="as link">
+                <Button variant={variant} href="#">Get started</Button>
+              </StateRow>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Badges                                                              */}
-      {/* ------------------------------------------------------------------ */}
+      {/* ── Badge ─────────────────────────────────────────────────────── */}
       <Section
-        title="Badges"
-        note="Tier badges use --live so they read as status, not decoration. Neutral badges for everything non-urgent."
+        title="Badge"
+        note="Tier badges use --live so they read as status, not decoration. Neutral for everything non-urgent."
       >
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <span className={stateLabel}>tier</span>
+          <StateRow label="tier">
             <div className="flex flex-wrap gap-2">
               <Badge tone="neutral">Beginner</Badge>
               <Badge tone="neutral">Intermediate</Badge>
               <Badge tone="live">Advanced</Badge>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <span className={stateLabel}>status</span>
+          </StateRow>
+          <StateRow label="status">
             <div className="flex flex-wrap gap-2">
-              <Badge tone="payout">
-                Payouts open
-              </Badge>
-              <Badge tone="live">
-                Limited spots
-              </Badge>
+              <Badge tone="payout">Payouts open</Badge>
+              <Badge tone="live">Limited spots</Badge>
               <Badge tone="neutral">Waitlist</Badge>
             </div>
-          </div>
+          </StateRow>
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Layout                                                              */}
-      {/* ------------------------------------------------------------------ */}
+      {/* ── Card ──────────────────────────────────────────────────────── */}
+      <Section
+        title="Card"
+        note="Variants exist so hierarchy is visible in the feed. Never render every card with the same radius and shadow."
+      >
+        <div className="grid grid-cols-1 gap-4">
+          {(["default", "panel", "spotlight"] as const).map((variant) => (
+            <Card key={variant} variant={variant} className="flex flex-col gap-1">
+              <p className="text-[13px] text-muted">variant: {variant}</p>
+              <p className="text-[18px]">The container for one item in the feed.</p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      {/* ── StatGrid ──────────────────────────────────────────────────── */}
+      <Section title="StatGrid" note="Replaces the middle-dot stat strings from the kill list.">
+        <div className="flex flex-col gap-6">
+          <Card variant="panel"><StatGrid stats={[
+            { label: "Accounts", value: "17" },
+            { label: "Posts",    value: "5,900" },
+          ]} /></Card>
+          <Card variant="panel"><StatGrid stats={[
+            { label: "Accounts", value: "17"    },
+            { label: "Posts",    value: "5,900" },
+            { label: "Per day",  value: "50"    },
+          ]} /></Card>
+          <Card variant="panel"><StatGrid stats={[
+            { label: "Accounts", value: "17"      },
+            { label: "Posts",    value: "5,900"   },
+            { label: "Per day",  value: "50"      },
+            { label: "Earned",   value: "$100,227", expanded: true },
+          ]} /></Card>
+        </div>
+      </Section>
+
+      {/* ── Counter ───────────────────────────────────────────────────── */}
+      <Section
+        title="Counter"
+        note="Count-up on first view only. Respects prefers-reduced-motion — reduced-motion users see the final value immediately."
+      >
+        <Card variant="panel" className="flex items-baseline gap-3">
+          <span className="text-[13px] text-muted w-24">Paid this month</span>
+          <Counter value={1204908} prefix="$" className="text-[40px] leading-none font-expanded text-payout" />
+        </Card>
+      </Section>
+
+      {/* ── StepCard ──────────────────────────────────────────────────── */}
+      <Section title="StepCard" note="Icon + title + body. No numeric markers, except in the MCP flow.">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <StepCard icon={<HomeIcon width={20} height={20} />} title="Sign up">
+            Free to join. No résumé, no follower count.
+          </StepCard>
+          <StepCard icon={<BrandsIcon width={20} height={20} />} title="Get matched">
+            The platform pairs your voice with brands that fit.
+          </StepCard>
+          <StepCard icon={<AgenciesIcon width={20} height={20} />} title="Get paid">
+            Weekly direct deposits. Every view tracked and reconciled.
+          </StepCard>
+        </div>
+      </Section>
+
+      {/* ── FeatureStatCard ───────────────────────────────────────────── */}
+      <Section title="FeatureStatCard" note="Anchors a section with a single expanded numeral.">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FeatureStatCard value="$1.2M" label="Paid to creators this month" tone="payout">
+            The number keeps climbing — updated as payouts land.
+          </FeatureStatCard>
+          <FeatureStatCard value="342" label="Creators earning right now">
+            Median payout is up 41% year over year.
+          </FeatureStatCard>
+        </div>
+      </Section>
+
+      {/* ── Accordion ─────────────────────────────────────────────────── */}
+      <Section
+        title="Accordion"
+        note="Wraps native <details>/<summary> — keyboard nav and ARIA come for free. No JS state, no animation library."
+      >
+        <Card variant="panel" pad="lg">
+          <Accordion items={sampleFaq} />
+        </Card>
+      </Section>
+
+      {/* ── BlogCard ──────────────────────────────────────────────────── */}
+      <Section title="BlogCard" note="Cover image + title + excerpt + read-time meta.">
+        <div className="max-w-[520px]">
+          <BlogCard data={sampleBlog} />
+        </div>
+      </Section>
+
+      {/* ── CTABand ───────────────────────────────────────────────────── */}
+      <Section title="CTABand" note="Ink-toned band that ends a section or a page. Inverted button reads as CTA even in the dark box.">
+        <CTABand
+          eyebrow="For creators"
+          headline="Turn your feed into a paycheck."
+          ctaLabel="Get started"
+          ctaHref="#"
+        >
+          Free to join. Weekly payouts. No résumé, no follower count. It works the way a real creator economy should.
+        </CTABand>
+      </Section>
+
+      {/* ── ProofCard ─────────────────────────────────────────────────── */}
+      <Section
+        title="ProofCard"
+        note="The center of gravity of the feed. Click the dashboard to open the full screenshot + phone shot in a native modal."
+      >
+        <ProofCard data={sampleProof} />
+      </Section>
+
+      {/* ── Layout ────────────────────────────────────────────────────── */}
       <Section
         title="Layout"
         note="Left rail 240 · feed 600 max · right rail 300. Right rail drops below 1280, sidebar collapses to icons below 1024, becomes a bottom tab bar below 768."
       >
         <div className="hidden md:grid rounded-2xl border border-ink/10 overflow-hidden [grid-template-columns:240px_1fr_300px]">
-          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">
-            sidebar · 240
-          </div>
-          <div className="bg-canvas h-40 flex items-center justify-center text-[13px] text-muted border-x border-ink/10">
-            feed · max 600
-          </div>
-          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">
-            right rail · 300
-          </div>
+          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">sidebar · 240</div>
+          <div className="bg-canvas h-40 flex items-center justify-center text-[13px] text-muted border-x border-ink/10">feed · max 600</div>
+          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">right rail · 300</div>
         </div>
         <p className="mt-3 text-[13px] text-muted md:hidden">
-          (This diagram is a desktop preview — you&rsquo;re currently on a
-          narrower viewport.)
+          (Diagram is a desktop preview — you&rsquo;re currently on a narrower viewport.)
         </p>
       </Section>
-    </main>
+    </div>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Local rendering helpers — inline, not exported                             */
-/* -------------------------------------------------------------------------- */
+/* ────────────────────────────────────────────────────────────────────── */
+/* Local rendering helpers — inline, not exported                         */
+/* ────────────────────────────────────────────────────────────────────── */
 
 function Section({
   title,
@@ -281,39 +344,33 @@ function Section({
 }: {
   title: string;
   note?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <section className="mb-16">
       <div className="mb-6 flex flex-col gap-2">
         <h2 className="text-[24px] leading-tight font-medium">{title}</h2>
-        {note ? (
-          <p className="text-[15px] text-muted max-w-[60ch]">{note}</p>
-        ) : null}
+        {note ? <p className="text-[15px] text-muted max-w-[60ch]">{note}</p> : null}
       </div>
       {children}
     </section>
   );
 }
 
-function Badge({
-  tone,
-  children,
-}: {
-  tone: "neutral" | "payout" | "live";
-  children: React.ReactNode;
-}) {
-  const toneClass =
-    tone === "payout"
-      ? "bg-payout/10 text-payout"
-      : tone === "live"
-      ? "bg-live/10 text-live"
-      : "bg-ink/[0.06] text-ink";
+function StateRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium ${toneClass}`}
-    >
+    <div className="flex flex-col items-start gap-2">
+      <span className="text-[13px] text-muted">{label}</span>
       {children}
-    </span>
+    </div>
+  );
+}
+
+function NumeralRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex items-baseline gap-6">
+      <span className="text-[13px] text-muted w-24">{label}</span>
+      {children}
+    </div>
   );
 }
