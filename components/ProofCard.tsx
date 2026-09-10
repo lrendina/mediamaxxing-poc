@@ -61,27 +61,48 @@ export function ProofCard({ data }: { data: ProofCardData }) {
           onClick={open}
           aria-label={`Open ${data.name}'s dashboard`}
           className="
-            group relative block overflow-hidden rounded-2xl bg-panel
-            aspect-[16/9]
+            group relative block w-full text-left rounded-2xl
             focus:outline-none
           "
         >
-          <Image
-            src={data.dashboardSrc}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 600px, 100vw"
-            className="object-cover transition group-hover:scale-[1.01]"
-          />
-          <span
+          {/* Dashboard — card matches the graph's native 2:1 so the whole
+              chart is visible, never cropped. */}
+          <div
             className="
-              absolute bottom-3 right-3 rounded-full
-              bg-ink/85 text-canvas text-[13px] px-3 py-1.5
-              backdrop-blur-sm
+              relative aspect-[2/1] rounded-2xl overflow-hidden bg-panel
+              transition group-hover:brightness-[0.98]
             "
           >
-            Open dashboard
-          </span>
+            <Image
+              src={data.dashboardSrc}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 600px, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          {/* Phone — hovers over the dashboard, lifted by shadow.
+              Positioned as a sibling of the clipped dashboard so the shadow
+              is not clipped by overflow-hidden. */}
+          <div
+            className="
+              absolute bottom-3 right-3
+              h-[86%] aspect-[900/1955]
+              rounded-[22px] overflow-hidden
+              bg-panel ring-1 ring-ink/10
+              shadow-[0_20px_45px_-12px_rgba(14,26,18,0.45)]
+              transition-transform group-hover:-translate-y-1
+            "
+          >
+            <Image
+              src={data.phoneSrc}
+              alt=""
+              fill
+              sizes="140px"
+              className="object-cover"
+            />
+          </div>
         </button>
 
         <StatGrid stats={data.stats} />
