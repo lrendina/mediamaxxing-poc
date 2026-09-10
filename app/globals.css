@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------------- */
+/* Design tokens                                                             */
+/* Single source of truth for palette, type, and layout constants.           */
+/* Surfaced to Tailwind via @theme inline below.                             */
+/* ------------------------------------------------------------------------- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette — two chromatic colors, each with one job. */
+  --canvas: #ffffff;   /* page background */
+  --panel:  #edf1ec;   /* card surface, sidebar rail */
+  --ink:    #0e1a12;   /* primary text */
+  --muted:  #5f6f63;   /* secondary text */
+  --payout: #16c95c;   /* accent — money, counters, primary CTA only */
+  --live:   #ff4a2b;   /* scarcity and status only — tier badges, "limited spots" */
+
+  /* Layout shell */
+  --rail-left:    240px;
+  --rail-right:   300px;
+  --feed-max:     600px;
+  --mobile-tabs:  56px;
+
+  /* Type scale (px) — 13/15/18/24/40/64 */
+  --text-xs:  13px;
+  --text-sm:  15px;
+  --text-md:  18px;
+  --text-lg:  24px;
+  --text-xl:  40px;
+  --text-2xl: 64px;
 }
 
+/* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-panel:  var(--panel);
+  --color-ink:    var(--ink);
+  --color-muted:  var(--muted);
+  --color-payout: var(--payout);
+  --color-live:   var(--live);
+
+  --font-sans: var(--font-archivo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ------------------------------------------------------------------------- */
+/* Base styles                                                               */
+/* ------------------------------------------------------------------------- */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--canvas);
+  /* Tabular numbers everywhere so counters and figures do not jitter. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Archivo's "expanded" width — reserved for dollar figures and counters. */
+.font-expanded {
+  font-variation-settings: "wdth" 125;
+}
+
+/* Visible keyboard focus on every interactive element. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Reduced motion — collapse transitions and animations for users who opt out. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
