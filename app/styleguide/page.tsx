@@ -13,7 +13,7 @@ const swatches = [
   { name: "ink",     hex: "#0E1A12", role: "primary text",                       text: "canvas" },
   { name: "muted",   hex: "#5F6F63", role: "secondary text, metadata",           text: "canvas" },
   { name: "payout",  hex: "#16C95C", role: "money, counters, primary CTA only",  text: "canvas" },
-  { name: "live",    hex: "#FF4A2B", role: "scarcity and status only",           text: "canvas" },
+  { name: "live",    hex: "#f6ff4dfe", role: "scarcity and status only",           text: "canvas" },
 ] as const;
 
 const typeScale = [
@@ -231,10 +231,10 @@ export default function Styleguide() {
           <div className="flex flex-col gap-2">
             <span className={stateLabel}>status</span>
             <div className="flex flex-wrap gap-2">
-              <Badge tone="payout" dot>
+              <Badge tone="payout">
                 Payouts open
               </Badge>
-              <Badge tone="live" dot>
+              <Badge tone="live">
                 Limited spots
               </Badge>
               <Badge tone="neutral">Waitlist</Badge>
@@ -298,11 +298,9 @@ function Section({
 
 function Badge({
   tone,
-  dot,
   children,
 }: {
   tone: "neutral" | "payout" | "live";
-  dot?: boolean;
   children: React.ReactNode;
 }) {
   const toneClass =
@@ -311,22 +309,10 @@ function Badge({
       : tone === "live"
       ? "bg-live/10 text-live"
       : "bg-ink/[0.06] text-ink";
-  const dotClass =
-    tone === "payout"
-      ? "bg-payout"
-      : tone === "live"
-      ? "bg-live"
-      : "bg-ink/40";
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium ${toneClass}`}
     >
-      {dot ? (
-        <span
-          aria-hidden
-          className={`h-1.5 w-1.5 rounded-full ${dotClass}`}
-        />
-      ) : null}
       {children}
     </span>
   );

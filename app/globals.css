@@ -13,7 +13,7 @@
   --ink:    #0e1a12;   /* primary text */
   --muted:  #5f6f63;   /* secondary text */
   --payout: #16c95c;   /* accent — money, counters, primary CTA only */
-  --live:   #ff4a2b;   /* scarcity and status only — tier badges, "limited spots" */
+  --live:   #f6ff4dfe; /* scarcity and status only — tier badges, "limited spots" */
 
   /* Layout shell */
   --rail-left:    240px;
