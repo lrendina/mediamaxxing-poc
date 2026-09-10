@@ -4,15 +4,9 @@ import Image from "next/image";
 import { Card } from "./Card";
 import { Counter } from "./Counter";
 import { Button } from "./Button";
+import { CREATORS } from "@/content/creators";
 
-/* Placeholder content for Phase 2/3. Real values wire up in Phase 4
-   (content extraction) and Phase 5 (homepage assembly). */
-
-const suggested = [
-  { name: "Steven",   handle: "stee.ugc",          earnings: "$100,227", src: "/proof/creators/steven/dashboard.png"   },
-  { name: "Jennifer", handle: "jennymakescontent", earnings: "$45,402",  src: "/proof/creators/jennifer/dashboard.png" },
-  { name: "Brayden",  handle: "bray.codes",        earnings: "$42,225",  src: "/proof/creators/brayden/dashboard.png"  },
-];
+const suggested = CREATORS.slice(0, 3);
 
 export function RightRail() {
   return (
@@ -71,9 +65,9 @@ export function RightRail() {
         <p className="text-[13px] text-muted px-1">Earning right now</p>
         <ul className="flex flex-col gap-1">
           {suggested.map((c) => (
-            <li key={c.handle}>
+            <li key={c.id}>
               <a
-                href={`#creator-${c.handle}`}
+                href={`#creator-${c.id}`}
                 className="
                   flex items-center gap-3 rounded-xl p-2 min-h-11
                   hover:bg-ink/[0.04] transition
@@ -81,7 +75,7 @@ export function RightRail() {
               >
                 <span className="relative h-9 w-9 shrink-0 rounded-full overflow-hidden bg-panel">
                   <Image
-                    src={c.src}
+                    src={c.dashboardSrc}
                     alt=""
                     fill
                     sizes="36px"

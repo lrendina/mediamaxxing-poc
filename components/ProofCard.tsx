@@ -4,22 +4,10 @@ import Image from "next/image";
 import { useRef } from "react";
 import { Card } from "./Card";
 import { Badge } from "./Badge";
-import { StatGrid, type Stat } from "./StatGrid";
+import { StatGrid } from "./StatGrid";
+import type { Creator } from "@/content/creators";
 
-export type Tier = "Beginner" | "Intermediate" | "Advanced";
-
-export type ProofCardData = {
-  name: string;
-  handle: string;
-  tier: Tier;
-  earnings: string;
-  dashboardSrc: string;
-  phoneSrc: string;
-  stats: Stat[];
-  blurb: string;
-};
-
-export function ProofCard({ data }: { data: ProofCardData }) {
+export function ProofCard({ data }: { data: Creator }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = () => dialogRef.current?.showModal();

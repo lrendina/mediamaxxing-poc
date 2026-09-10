@@ -13,6 +13,10 @@ import { ProofCard } from "@/components/ProofCard";
 import { StatGrid } from "@/components/StatGrid";
 import { StepCard } from "@/components/StepCard";
 import { HomeIcon, BrandsIcon, AgenciesIcon } from "@/components/icons";
+import { CREATORS } from "@/content/creators";
+import { STEPS } from "@/content/steps";
+import { FAQ } from "@/content/faq";
+import { BLOG_POSTS } from "@/content/blog";
 
 export const metadata: Metadata = {
   title: "Styleguide — MediaMaxxing",
@@ -38,42 +42,15 @@ const typeScale = [
   { label: "2xl", px: 64, use: "hero — one per page, at most"  },
 ] as const;
 
-const sampleProof = {
-  name: "Steven",
-  handle: "stee.ugc",
-  tier: "Advanced" as const,
-  earnings: "$100,227",
-  dashboardSrc: "/proof/creators/steven/dashboard.png",
-  phoneSrc: "/proof/creators/steven/phone.jpg",
-  stats: [
-    { label: "Accounts",  value: "17"     },
-    { label: "Posts",     value: "5,900"  },
-    { label: "Per day",   value: "50"     },
-  ],
-  blurb:
-    "Started posting the day I got in. Hit six figures inside a year without touching a single edit myself.",
+const sampleProof = CREATORS[0];
+const samplePost = BLOG_POSTS[0];
+const sampleBlogCardData = {
+  href: `/blog/${samplePost.slug}`,
+  title: samplePost.title,
+  excerpt: samplePost.excerpt,
+  cover: samplePost.cover,
+  readMinutes: samplePost.readMinutes,
 };
-
-const sampleBlog = {
-  href: "/blog/brands-guide",
-  title: "The brand's guide to working with UGC creators in 2026",
-  excerpt:
-    "What to look for in a creator, how to brief work that actually converts, and the hidden costs of the old influencer model.",
-  cover: "/proof/blog/brands-guide-ugc-2026.png",
-  readMinutes: 8,
-};
-
-const sampleFaq = [
-  { question: "How much do creators actually earn?",
-    answer:
-      "Top creators clear six figures a year. Median payouts sit lower — see the earnings dashboards on the homepage for real, live numbers." },
-  { question: "Do I need a following to start?",
-    answer:
-      "No. The platform pays per view, not per follower — the algorithm decides distribution and we handle the placements." },
-  { question: "How do payouts work?",
-    answer:
-      "Weekly, direct-deposit. Every view is tracked and reconciled at the end of the week." },
-];
 
 export default function Styleguide() {
   return (
@@ -254,15 +231,14 @@ export default function Styleguide() {
       {/* ── StepCard ──────────────────────────────────────────────────── */}
       <Section title="StepCard" note="Icon + title + body. No numeric markers, except in the MCP flow.">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StepCard icon={<HomeIcon width={20} height={20} />} title="Sign up">
-            Free to join. No résumé, no follower count.
-          </StepCard>
-          <StepCard icon={<BrandsIcon width={20} height={20} />} title="Get matched">
-            The platform pairs your voice with brands that fit.
-          </StepCard>
-          <StepCard icon={<AgenciesIcon width={20} height={20} />} title="Get paid">
-            Weekly direct deposits. Every view tracked and reconciled.
-          </StepCard>
+          {STEPS.map((step, i) => {
+            const Icon = [HomeIcon, BrandsIcon, AgenciesIcon][i] ?? HomeIcon;
+            return (
+              <StepCard key={step.title} icon={<Icon width={20} height={20} />} title={step.title}>
+                {step.description}
+              </StepCard>
+            );
+          })}
         </div>
       </Section>
 
@@ -284,14 +260,14 @@ export default function Styleguide() {
         note="Wraps native <details>/<summary> — keyboard nav and ARIA come for free. No JS state, no animation library."
       >
         <Card variant="panel" pad="lg">
-          <Accordion items={sampleFaq} />
+          <Accordion items={FAQ} />
         </Card>
       </Section>
 
       {/* ── BlogCard ──────────────────────────────────────────────────── */}
       <Section title="BlogCard" note="Cover image + title + excerpt + read-time meta.">
         <div className="max-w-[520px]">
-          <BlogCard data={sampleBlog} />
+          <BlogCard data={sampleBlogCardData} />
         </div>
       </Section>
 
