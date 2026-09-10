@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SIDEBAR_NAV } from "@/content/nav";
 import { iconByName, ArrowRightIcon } from "./icons";
+import { LogoLockup } from "./LogoLockup";
+import { Button } from "./Button";
 
 function isActive(href: string, pathname: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -25,23 +26,15 @@ export function Sidebar() {
     >
       <Link
         href="/"
-        className="
-          flex items-center gap-2 mb-8 rounded-lg
-          px-1 lg:px-2 py-2 min-h-11
-        "
+        className="mb-8 rounded-lg px-1 lg:px-2 py-2 min-h-11 flex items-center"
+        aria-label="MediaMaxxing home"
       >
-        <Image
-          src="/proof/brand/logo.png"
-          alt=""
-          width={28}
-          height={28}
-          className="rounded-md"
-          priority
-        />
-        <span className="hidden lg:inline text-[18px] font-medium tracking-tight">
-          MediaMaxxing
+        <span className="hidden lg:inline">
+          <LogoLockup size="md" />
         </span>
-        <span className="sr-only lg:hidden">MediaMaxxing home</span>
+        <span className="lg:hidden">
+          <LogoLockup size="md" showWordmark={false} />
+        </span>
       </Link>
 
       <nav className="flex-1 flex flex-col gap-1">
@@ -59,11 +52,7 @@ export function Sidebar() {
                 text-[15px]
                 justify-center lg:justify-start
                 transition
-                ${
-                  active
-                    ? "bg-ink text-canvas"
-                    : "text-ink/80 hover:bg-ink/[0.05]"
-                }
+                ${active ? "bg-ink text-canvas" : "text-ink/80 hover:bg-ink/[0.05]"}
               `}
             >
               <Icon aria-hidden className="shrink-0" />
@@ -74,20 +63,23 @@ export function Sidebar() {
         })}
       </nav>
 
-      <Link
-        href="/#get-started"
-        className="
-          mt-6 inline-flex items-center justify-center gap-2
-          rounded-full bg-payout text-canvas
-          px-3 lg:px-5 py-3 min-h-11
-          text-[15px] font-medium leading-none
-          hover:brightness-95 active:brightness-90 transition
-        "
-      >
-        <span className="hidden lg:inline">Get started</span>
-        <ArrowRightIcon aria-hidden className="lg:hidden" />
-        <span className="sr-only lg:hidden">Get started</span>
-      </Link>
+      <div className="mt-6 flex flex-col">
+        <span className="hidden lg:block">
+          <Button href="/#get-started" variant="primary" className="w-full">
+            Get started
+          </Button>
+        </span>
+        <span className="lg:hidden">
+          <Button
+            href="/#get-started"
+            variant="primary"
+            aria-label="Get started"
+            className="w-full !px-3"
+          >
+            <ArrowRightIcon aria-hidden />
+          </Button>
+        </span>
+      </div>
     </aside>
   );
 }
