@@ -7,7 +7,15 @@ import { Badge } from "./Badge";
 import { StatGrid } from "./StatGrid";
 import type { Creator } from "@/content/creators";
 
-export function ProofCard({ data }: { data: Creator }) {
+export function ProofCard({
+  data,
+  priority = false,
+}: {
+  data: Creator;
+  /* Set true on the first card in a feed so its dashboard image loads
+     eagerly and Next.js emits a preload hint — matters for LCP. */
+  priority?: boolean;
+}) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = () => dialogRef.current?.showModal();
@@ -50,7 +58,6 @@ export function ProofCard({ data }: { data: Creator }) {
           aria-label={`Open ${data.name}'s dashboard`}
           className="
             group relative block w-full text-left rounded-2xl
-            focus:outline-none
           "
         >
           {/* Dashboard — card matches the graph's native 2:1 so the whole
@@ -67,6 +74,7 @@ export function ProofCard({ data }: { data: Creator }) {
               fill
               sizes="(min-width: 1024px) 600px, 100vw"
               className="object-cover"
+              priority={priority}
             />
           </div>
 
@@ -120,8 +128,9 @@ export function ProofCard({ data }: { data: Creator }) {
             type="button"
             onClick={close}
             className="
-              inline-flex h-9 w-9 items-center justify-center rounded-full
+              inline-flex h-11 w-11 items-center justify-center rounded-full
               bg-panel text-ink hover:bg-ink/[0.08] transition
+              text-[20px] leading-none
             "
             aria-label="Close"
           >

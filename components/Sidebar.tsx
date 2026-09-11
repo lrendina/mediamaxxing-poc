@@ -24,10 +24,13 @@ export function Sidebar() {
         border-r border-ink/5
       "
     >
+      {/* No aria-label — LogoLockup itself supplies "MediaMaxxing" as the
+          accessible name (visible wordmark at lg+, sr-only span below). An
+          aria-label of "MediaMaxxing home" would mismatch the visible text
+          and confuse voice-control users. */}
       <Link
         href="/"
         className="mb-8 rounded-lg px-1 lg:px-2 py-2 min-h-11 flex items-center"
-        aria-label="MediaMaxxing home"
       >
         <span className="hidden lg:inline">
           <LogoLockup size="md" />
