@@ -15,6 +15,10 @@ to prove the template generalizes, stubs for everything else.
 **Out:** `/mcp` beyond a stub, `/blog`, `/auth`, `/careers`, `/legal`, working forms,
 any backend.
 
+**Additive:** the scroll-driven device intro (Phase 8). It sits on top of a site that is
+already finished and deployed. It is deliberately the last thing built and the first thing
+cut.
+
 `/mcp` is the most complex page on the live site — tabs, a client selector, clipboard
 interaction, a simulated chat thread. It is not worth the time for a POC and building it
 badly is worse than not building it.
@@ -184,3 +188,109 @@ that actually decides the interview: before/after screenshots, the twelve-primit
 inventory, the footer inconsistency you found on the live site, and a paragraph on why the
 funnel order survived inside the feed metaphor. Most candidates submit a prettier page. You
 are submitting a structural read of their site. Lead with that.
+
+---
+
+## Phase 8 — Scroll-driven device intro
+
+Deliberately after Phase 7. The site is already finished, polished, and deployed by the time
+this starts. If Phase 8 runs long, gets cut, or doesn't land visually, deleting it leaves a
+complete build behind. Do not start it early, and do not start it while anything in Phases
+0–7 is still open.
+
+### The decision, already made
+
+The intro zooms into a **phone**, not a laptop. Three reasons, so you don't relitigate it:
+
+1. Every creator in the testimonials posts from a phone, dozens of times a day. A laptop on
+   a desk is B2B SaaS vernacular and reads as borrowed from a different company.
+2. A phone screen is roughly 9:19.5 and a mobile viewport is roughly 9:19.5. A laptop's
+   16:10 screen inside a portrait viewport is a postage stamp — the effect dies on the device
+   most of the audience uses.
+3. The feed column is capped at 600px, so the phone screen expands to *exactly* the feed
+   column rather than to full bleed, while the sidebar and right rail slide in around it.
+   The object you fly into becomes the object you scroll. That is the whole thesis of the
+   redesign, delivered in three seconds without copy.
+
+### Structure
+
+There is no transition between "the screen" and "the page." It is one element throughout.
+The content inside the phone is the **real hero DOM rendered at natural size and scaled
+down**, never a screenshot. Zooming in is just returning it to `scale(1)` — no resolution
+loss, no crossfade seam, no second copy of the hero to keep in sync.
+
+```
+<section class="intro">        height: 250vh
+  <div class="stage">          position: sticky; top: 0; height: 100vh; overflow: hidden
+    <div class="scene">        transform-origin: center of the phone screen
+      <div class="field" />    background wash — scales 1.15x for parallax, fades out
+      <div class="device" />   phone chrome, CSS/SVG only — fades out over p 0.6–0.9
+      <div class="viewport">   the real hero, full size, pointer-events: none until p === 1
+    </div>
+  </div>
+</section>
+```
+
+### The math
+
+Progress `p` runs 0 to 1 across the 150vh above the sticky release.
+
+```js
+const s0    = screenWidthPx / targetWidthPx        // e.g. 210 / 600 = 0.35
+const scale = s0 * Math.pow(1 / s0, p)             // geometric, not linear
+```
+
+Use geometric interpolation. Linear interpolation between `s0` and `1` reads as a zoom
+decelerating into a wall; geometric reads as constant velocity, which is what flying in
+actually feels like. This one line is most of the difference between the effect looking
+expensive and looking cheap.
+
+### Driver
+
+`position: sticky` plus an `IntersectionObserver` that attaches a rAF-throttled scroll
+handler **only while the section is in view**, and detaches on exit. Roughly forty lines.
+
+- No GSAP, no Framer Motion, no ScrollMagic. A scroll-jacked hero shipping a 50kb animation
+  library is an easy thing for a reviewer to poke at.
+- No native `animation-timeline: scroll()`. It is the better long-term answer, but its
+  failure mode is bad: a browser that doesn't implement `animation-timeline` drops only that
+  declaration and keeps the rest of the rule, firing a time-based animation immediately on
+  page load, all at once, in the wrong place. Guarding it needs `@supports` plus a parallel
+  JS path, which is two implementations of the same effect. Not worth it here.
+- The device frame is CSS or inline SVG. No stock photography — a photographed desk scene
+  will fight the flat bright palette from Phase 1.
+
+### Tasks
+
+- [AGENT] `components/DeviceIntro.tsx` implementing the structure above
+- [AGENT] Compute `s0` from measured element rects on mount and on resize, never hardcode it
+- [AGENT] Wire the sidebar and right rail to fade and slide in over `p` 0.75–1.0
+- [AGENT] Confirm that at `p === 1` the hero is pixel-identical to the static Phase 5 hero
+- [AGENT] `prefers-reduced-motion: reduce` collapses the section to `height: 100vh`, locks
+  scale at 1, hides the device and field layers. The hero simply appears.
+- [AGENT] Below 768px, same collapse. Mid-range Android turns 250vh of transform into a
+  slideshow.
+- [AGENT] A single `INTRO_ENABLED` flag that removes the whole thing cleanly
+- [AGENT] Verify no layout shift on load and no scroll position restoration bug on refresh
+  partway through the intro
+
+### Acceptance criteria
+
+- Keyboard tab from the address bar reaches real, focusable hero content, not a 200px-wide
+  button floating in space
+- Refreshing mid-intro restores to a coherent state
+- Scroll stays at 60fps on a throttled CPU profile
+- Removing `INTRO_ENABLED` leaves Phase 7's site byte-for-byte intact
+
+**[HUMAN] Decide whether it earns the scroll.** You are making every visitor pass through
+150vh of nothing before reaching content. On a real marketing site that is a measurable
+conversion trade. For a POC it is probably the right call, but you have to look at it and
+judge — an agent cannot tell you whether flying into a phone feels expensive or feels like a
+gimmick. If it feels like a gimmick, cut it. The flag is there for exactly that.
+
+**[HUMAN] Test on real hardware.** A throttled desktop profile is not an older Android phone.
+
+**[HUMAN] Name the trade-off in the writeup.** Do not let a reviewer raise the
+time-to-content cost first. "I added this knowing it delays time-to-content, and here is why
+I think it earns the delay on this specific site" is a far stronger position than being
+asked about it. Then redeploy.
