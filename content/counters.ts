@@ -1,3 +1,5 @@
+export const COUNTERS_A11Y_LABEL = "Platform totals";
+
 export type HeroCounter = {
   value: number;
   prefix?: string;

@@ -1,5 +1,7 @@
 import type { AccordionItem } from "@/components/Accordion";
 
+export const FAQ_HEADING = "Questions";
+
 /* Only the first answer was extractable verbatim from the live site — the
    other four answers are loaded inside a React streaming payload that our
    fetch could not read. The stand-in answers below are our best summary of

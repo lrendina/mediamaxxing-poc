@@ -12,3 +12,11 @@ export const HERO = {
 /* Section headline for the proof/testimonials block. Same problem — the
    original leaned on italicized "real" and reads flat once that's stripped. */
 export const PROOF_HEADLINE_VERBATIM = "Real creators, real income";
+
+export const FOOTER_CTA = {
+  eyebrow:  "For creators",
+  headline: "Turn your feed into a paycheck.",
+  body:     "Free to join. Weekly payouts. No résumé, no follower count.",
+  ctaLabel: "Start creating",
+  ctaHref:  "/#get-started",
+};

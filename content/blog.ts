@@ -1,3 +1,5 @@
+export const BLOG_HEADING = "From the blog";
+
 export type BlogPost = {
   slug: string;
   title: string;
