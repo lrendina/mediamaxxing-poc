@@ -46,6 +46,12 @@
 /* Base styles                                                               */
 /* ------------------------------------------------------------------------- */
 
+html {
+  /* Smooth scroll for anchor-based feed filter chips. Overridden to `auto`
+     in the prefers-reduced-motion block below. */
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: var(--text-sm);
