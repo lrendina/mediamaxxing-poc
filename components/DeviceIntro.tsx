@@ -35,6 +35,15 @@ const SECTION_HEIGHT_VH = 250;
 const FALLBACK_S0 = 0.28;
 const TARGET_PHONE_WIDTH_PX = 220;
 
+/* Screen width as fraction of phone width (from Iphone SVG geometry:
+   SCREEN_WIDTH / PHONE_WIDTH = 389.5 / 433 ≈ 0.8995). At p=1 we want the
+   phone SCREEN to match the feed column width, so the whole scene ends up
+   scaled by 1/0.8995 — the phone body extends slightly past the feed edges
+   while the chrome fades to 0, leaving hero content that perfectly fills
+   the feed column as the eye lands on the proof section below. */
+const SCREEN_TO_PHONE = 389.5 / 433;
+const END_SCALE = 1 / SCREEN_TO_PHONE;
+
 export function DeviceIntro({ children }: { children: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -89,7 +98,10 @@ export function DeviceIntro({ children }: { children: ReactNode }) {
       const denom = section.offsetHeight - window.innerHeight;
       const p = denom > 0 ? Math.max(0, Math.min(1, scrollY / denom)) : 1;
 
-      const scale = s0 * Math.pow(1 / s0, p);
+      /* Geometric interpolation from s0 to END_SCALE (>1) so the phone
+         screen ends up at feed-column width. Chrome fades over p 0.6→0.9
+         so only the screen content is visible when scale exceeds 1. */
+      const scale = s0 * Math.pow(END_SCALE / s0, p);
       scene.style.transform = `scale(${scale})`;
 
       const deviceOpacity = clamp01((0.9 - p) / 0.3);
