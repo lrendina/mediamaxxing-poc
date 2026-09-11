@@ -15,12 +15,14 @@ import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
+import { DeviceIntro } from "@/components/DeviceIntro";
 import { FeedFilters } from "@/components/FeedFilters";
 import { PageIntro } from "@/components/PageIntro";
 import { ProofCard } from "@/components/ProofCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StepCard } from "@/components/StepCard";
 import { HomeIcon, BrandsIcon, AgenciesIcon } from "@/components/icons";
+import { INTRO_ENABLED } from "@/lib/features";
 
 const STEP_ICONS = [HomeIcon, BrandsIcon, AgenciesIcon];
 
@@ -52,37 +54,64 @@ function CountersRow() {
   );
 }
 
+/* Hero children — a fragment, so the DOM around it (PageIntro's div for
+   the INTRO_ENABLED=false path, DeviceIntro's viewport for =true) stays
+   in charge of layout. Padding for the intro path is applied to
+   .intro-viewport in globals.css, not baked in here — this way flipping
+   INTRO_ENABLED to false gives back Phase 7's DOM byte-for-byte. */
+function HeroContent() {
+  return (
+    <>
+      <h1
+        id="hero-heading"
+        className="text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
+      >
+        {HERO.headlineVerbatim}
+      </h1>
+      <p className="text-[18px] text-muted max-w-[52ch] mt-4">
+        {HERO.subhead}
+      </p>
+      <div className="flex flex-wrap gap-3 mt-6">
+        <Button href={HERO.primaryCta.href} variant="primary">
+          {HERO.primaryCta.label}
+        </Button>
+        <Button href={HERO.secondaryCta.href} variant="ghost">
+          {HERO.secondaryCta.label}
+        </Button>
+      </div>
+    </>
+  );
+}
+
 export default function Home() {
   return (
     <div id="top" className="mx-auto w-full max-w-[640px] md:max-w-[880px]">
       <FeedFilters />
 
       <div className="flex flex-col gap-10 px-4 md:px-6 pt-6 pb-16">
-        {/* ── Hero — the one orchestrated page-load moment ─────────── */}
-        <section
-          aria-labelledby="hero-heading"
-          className="scroll-mt-24 flex flex-col gap-5"
-        >
-          <PageIntro>
-            <h1
-              id="hero-heading"
-              className="text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
-            >
-              {HERO.headlineVerbatim}
-            </h1>
-            <p className="text-[18px] text-muted max-w-[52ch] mt-4">
-              {HERO.subhead}
-            </p>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <Button href={HERO.primaryCta.href} variant="primary">
-                {HERO.primaryCta.label}
-              </Button>
-              <Button href={HERO.secondaryCta.href} variant="ghost">
-                {HERO.secondaryCta.label}
-              </Button>
-            </div>
-          </PageIntro>
-        </section>
+        {/* ── Hero ─────────────────────────────────────────────────── */}
+        {/* Two hero paths, one gated behind INTRO_ENABLED. The paths use
+            different section classnames on purpose — flipping the flag off
+            must give back Phase 7's exact DOM. */}
+        {INTRO_ENABLED ? (
+          <section
+            aria-labelledby="hero-heading"
+            className="scroll-mt-24"
+          >
+            <DeviceIntro>
+              <HeroContent />
+            </DeviceIntro>
+          </section>
+        ) : (
+          <section
+            aria-labelledby="hero-heading"
+            className="scroll-mt-24 flex flex-col gap-5"
+          >
+            <PageIntro>
+              <HeroContent />
+            </PageIntro>
+          </section>
+        )}
 
         {/* ── Proof — the feed's center of gravity ──────────────────── */}
         <section
