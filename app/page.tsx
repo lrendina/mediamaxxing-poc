@@ -56,7 +56,7 @@ function CountersRow() {
 
 export default function Home() {
   return (
-    <div id="top" className="mx-auto w-full max-w-[640px]">
+    <div id="top" className="mx-auto w-full max-w-[640px] md:max-w-[880px]">
       <FeedFilters />
 
       <div className="flex flex-col gap-10 px-4 md:px-6 pt-6 pb-16">
@@ -98,7 +98,7 @@ export default function Home() {
           >
             {PROOF_HEADLINE_VERBATIM}
           </h2>
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {CREATORS.map((c) => (
               <div
                 key={c.id}
