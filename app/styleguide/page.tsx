@@ -29,8 +29,8 @@ const swatches = [
   { name: "panel",   hex: "#EDF1EC",   role: "card surface, sidebar rail",         text: "ink"    },
   { name: "ink",     hex: "#0E1A12",   role: "primary text",                       text: "canvas" },
   { name: "muted",   hex: "#5F6F63",   role: "secondary text, metadata",           text: "canvas" },
-  { name: "payout",  hex: "#16C95C",   role: "money, counters, primary CTA only",  text: "canvas" },
-  { name: "live",    hex: "#944dfffe", role: "scarcity and status only",           text: "canvas" },
+  { name: "payout",  hex: "#04773A",   role: "money, counters, primary CTA only",  text: "canvas" },
+  { name: "live",    hex: "#7A3AE0",   role: "scarcity and status only",           text: "canvas" },
 ] as const;
 
 const typeScale = [

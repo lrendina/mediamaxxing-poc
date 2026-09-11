@@ -12,8 +12,8 @@
   --panel:  #edf1ec;   /* card surface, sidebar rail */
   --ink:    #0e1a12;   /* primary text */
   --muted:  #5f6f63;   /* secondary text */
-  --payout: #16c95c;   /* accent — money, counters, primary CTA only */
-  --live:   #944dfffe; /* scarcity and status only — tier badges, "limited spots" */
+  --payout: #04773a;   /* accent — money, counters, primary CTA only. Contrast vs white ~5.6:1 (WCAG AA all text). */
+  --live:   #7a3ae0;   /* scarcity and status only — tier badges, "limited spots". Contrast vs white ≥4.5:1. */
 
   /* Layout shell */
   --rail-left:    240px;
