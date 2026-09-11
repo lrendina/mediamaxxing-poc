@@ -61,8 +61,14 @@ export function RightRail() {
         </p>
       </Card>
 
+      {/* Suggested-creators block sits directly on the page bg (no Card
+          wrapper) — its text needs to invert when a dark section is
+          active. `.on-page-bg` / `.on-page-bg-muted` are flipped by
+          BackdropController via data-page-theme on <html>. */}
       <div className="flex flex-col gap-3">
-        <p className="text-[13px] text-muted px-1">Earning right now</p>
+        <p className="text-[13px] text-muted on-page-bg-muted px-1">
+          Earning right now
+        </p>
         <ul className="flex flex-col gap-1">
           {suggested.map((c) => (
             <li key={c.id}>
@@ -83,8 +89,10 @@ export function RightRail() {
                   />
                 </span>
                 <span className="flex flex-col leading-tight min-w-0">
-                  <span className="text-[15px] truncate">{c.name}</span>
-                  <span className="text-[13px] text-muted truncate">
+                  <span className="text-[15px] on-page-bg truncate">
+                    {c.name}
+                  </span>
+                  <span className="text-[13px] text-muted on-page-bg-muted truncate">
                     @{c.handle}
                   </span>
                 </span>
