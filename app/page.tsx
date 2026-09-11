@@ -83,157 +83,140 @@ function HeroContent() {
   );
 }
 
+/* Full-bleed section wrapper. Each section on the homepage carries its own
+   background color and its own internal padding, so bgs meet edge-to-edge as
+   the user scrolls through — no gap-10 canvas gutters between coloured
+   blocks. `dark` inverts text tokens via the .section-dark utility. */
+function FeedSection({
+  id,
+  ariaLabelledBy,
+  ariaLabel,
+  dark = false,
+  className = "",
+  children,
+}: {
+  id?: string;
+  ariaLabelledBy?: string;
+  ariaLabel?: string;
+  dark?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      aria-labelledby={ariaLabelledBy}
+      aria-label={ariaLabel}
+      className={`scroll-mt-24 py-10 md:py-14 px-4 md:px-6 ${dark ? "section-dark" : ""} ${className}`}
+    >
+      <div className="mx-auto w-full max-w-[608px] md:max-w-[832px]">
+        {children}
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
-    <div id="top" className="mx-auto w-full max-w-[640px] md:max-w-[880px]">
-      <FeedFilters />
-
-      <div className="flex flex-col gap-10 px-4 md:px-6 pt-6 pb-16">
-        {/* ── Hero ─────────────────────────────────────────────────── */}
-        {/* Two hero paths, one gated behind INTRO_ENABLED. The paths use
-            different section classnames on purpose — flipping the flag off
-            must give back Phase 7's exact DOM. */}
-        {INTRO_ENABLED ? (
-          <section
-            aria-labelledby="hero-heading"
-            className="scroll-mt-24"
-          >
-            <DeviceIntro>
-              <HeroContent />
-            </DeviceIntro>
-          </section>
-        ) : (
-          <section
-            aria-labelledby="hero-heading"
-            className="scroll-mt-24 flex flex-col gap-5"
-          >
-            <PageIntro>
-              <HeroContent />
-            </PageIntro>
-          </section>
-        )}
-
-        {/* ── Proof — the feed's center of gravity ──────────────────── */}
-        <section
-          id="proof"
-          aria-labelledby="proof-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="proof-heading"
-            className="text-[24px] leading-tight font-medium"
-          >
-            {PROOF_HEADLINE_VERBATIM}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {CREATORS.map((c, i) => (
-              <div
-                key={c.id}
-                id={`creator-${c.id}`}
-                className="scroll-mt-24"
-              >
-                <ProofCard data={c} priority={i === 0} />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── How it works ──────────────────────────────────────────── */}
-        <section
-          id="how-it-works"
-          aria-labelledby="how-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="how-heading"
-            className="text-[24px] leading-tight font-medium"
-          >
-            {STEPS_HEADLINE_VERBATIM}
-          </h2>
-          <div className="flex flex-col gap-3">
-            {STEPS.map((step, i) => {
-              const Icon = STEP_ICONS[i] ?? HomeIcon;
-              return (
-                <StepCard
-                  key={step.title}
-                  icon={<Icon width={20} height={20} />}
-                  title={step.title}
-                >
-                  {step.description}
-                </StepCard>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ── Counters ──────────────────────────────────────────────── */}
-        <section
-          id="counters"
-          aria-label={COUNTERS_A11Y_LABEL}
-          className="scroll-mt-24"
-        >
-          <CountersRow />
-        </section>
-
-        {/* ── FAQ ───────────────────────────────────────────────────── */}
-        <section
-          id="questions"
-          aria-labelledby="faq-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="faq-heading"
-            className="text-[24px] leading-tight font-medium"
-          >
-            {FAQ_HEADING}
-          </h2>
-          <Card variant="panel" pad="lg">
-            <Accordion items={FAQ} />
-          </Card>
-        </section>
-
-        {/* ── Blog ──────────────────────────────────────────────────── */}
-        <section
-          id="blog"
-          aria-labelledby="blog-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="blog-heading"
-            className="text-[24px] leading-tight font-medium"
-          >
-            {BLOG_HEADING}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {BLOG_POSTS.map((post) => (
-              <BlogCard
-                key={post.slug}
-                data={{
-                  href: `/blog/${post.slug}`,
-                  title: post.title,
-                  excerpt: post.excerpt,
-                  cover: post.cover,
-                  readMinutes: post.readMinutes,
-                }}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* ── Footer CTA card ───────────────────────────────────────── */}
-        <section id="get-started" className="scroll-mt-24">
-          <CTABand
-            eyebrow={FOOTER_CTA.eyebrow}
-            headline={FOOTER_CTA.headline}
-            ctaLabel={FOOTER_CTA.ctaLabel}
-            ctaHref={FOOTER_CTA.ctaHref}
-          >
-            {FOOTER_CTA.body}
-          </CTABand>
-        </section>
-
-        <SiteFooter />
+    <div id="top" className="w-full">
+      <div className="mx-auto w-full max-w-[640px] md:max-w-[880px] px-4 md:px-6">
+        <FeedFilters />
       </div>
+
+      {/* ── Hero — DARK so the iPhone screen (canvas) stands out ─────── */}
+      {INTRO_ENABLED ? (
+        <FeedSection ariaLabelledBy="hero-heading" dark>
+          <DeviceIntro>
+            <HeroContent />
+          </DeviceIntro>
+        </FeedSection>
+      ) : (
+        <FeedSection ariaLabelledBy="hero-heading" dark className="flex flex-col gap-5">
+          <PageIntro>
+            <HeroContent />
+          </PageIntro>
+        </FeedSection>
+      )}
+
+      {/* ── Proof — canvas, the feed's center of gravity ────────────── */}
+      <FeedSection id="proof" ariaLabelledBy="proof-heading">
+        <h2 id="proof-heading" className="text-[24px] leading-tight font-medium mb-4">
+          {PROOF_HEADLINE_VERBATIM}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {CREATORS.map((c, i) => (
+            <div key={c.id} id={`creator-${c.id}`} className="scroll-mt-24">
+              <ProofCard data={c} priority={i === 0} />
+            </div>
+          ))}
+        </div>
+      </FeedSection>
+
+      {/* ── How it works — DARK ─────────────────────────────────────── */}
+      <FeedSection id="how-it-works" ariaLabelledBy="how-heading" dark>
+        <h2 id="how-heading" className="text-[24px] leading-tight font-medium mb-4">
+          {STEPS_HEADLINE_VERBATIM}
+        </h2>
+        <div className="flex flex-col gap-3">
+          {STEPS.map((step, i) => {
+            const Icon = STEP_ICONS[i] ?? HomeIcon;
+            return (
+              <StepCard key={step.title} icon={<Icon width={20} height={20} />} title={step.title}>
+                {step.description}
+              </StepCard>
+            );
+          })}
+        </div>
+      </FeedSection>
+
+      {/* ── Counters — canvas ───────────────────────────────────────── */}
+      <FeedSection id="counters" ariaLabel={COUNTERS_A11Y_LABEL}>
+        <CountersRow />
+      </FeedSection>
+
+      {/* ── FAQ — DARK ──────────────────────────────────────────────── */}
+      <FeedSection id="questions" ariaLabelledBy="faq-heading" dark>
+        <h2 id="faq-heading" className="text-[24px] leading-tight font-medium mb-4">
+          {FAQ_HEADING}
+        </h2>
+        <Card variant="panel" pad="lg">
+          <Accordion items={FAQ} />
+        </Card>
+      </FeedSection>
+
+      {/* ── Blog — canvas ───────────────────────────────────────────── */}
+      <FeedSection id="blog" ariaLabelledBy="blog-heading">
+        <h2 id="blog-heading" className="text-[24px] leading-tight font-medium mb-4">
+          {BLOG_HEADING}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {BLOG_POSTS.map((post) => (
+            <BlogCard
+              key={post.slug}
+              data={{
+                href: `/blog/${post.slug}`,
+                title: post.title,
+                excerpt: post.excerpt,
+                cover: post.cover,
+                readMinutes: post.readMinutes,
+              }}
+            />
+          ))}
+        </div>
+      </FeedSection>
+
+      {/* ── Footer CTA + site footer — canvas ───────────────────────── */}
+      <FeedSection id="get-started">
+        <CTABand
+          eyebrow={FOOTER_CTA.eyebrow}
+          headline={FOOTER_CTA.headline}
+          ctaLabel={FOOTER_CTA.ctaLabel}
+          ctaHref={FOOTER_CTA.ctaHref}
+        >
+          {FOOTER_CTA.body}
+        </CTABand>
+        <SiteFooter />
+      </FeedSection>
     </div>
   );
 }
