@@ -17,7 +17,6 @@ import { Card } from "@/components/Card";
 import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
 import { DeviceIntro } from "@/components/DeviceIntro";
-import { FeedFilters } from "@/components/FeedFilters";
 import { PageIntro } from "@/components/PageIntro";
 import { ProofCard } from "@/components/ProofCard";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -123,10 +122,6 @@ export default function Home() {
     <div id="top" className="w-full">
       <BackdropController />
 
-      <div className="mx-auto w-full max-w-[640px] md:max-w-[880px] px-4 md:px-6">
-        <FeedFilters />
-      </div>
-
       {/* ── Hero — DARK so the iPhone screen (canvas) stands out ─────── */}
       {INTRO_ENABLED ? (
         <FeedSection ariaLabelledBy="hero-heading" dark>
@@ -141,6 +136,18 @@ export default function Home() {
           </PageIntro>
         </FeedSection>
       )}
+
+      {/* Transition zone: canvas-bg spacer between hero (dark) and proof.
+          As the hero release-scrolls out, this element scrolls in — the
+          BackdropController's IntersectionObserver sees a canvas section
+          taking over and the body bg fades dark → canvas, so the phone-
+          screen white "expands to the sides" and lands on the proof
+          section already at canvas. */}
+      <div
+        aria-hidden
+        data-section-bg="canvas"
+        className="h-[35vh]"
+      />
 
       {/* ── Proof — canvas, the feed's center of gravity ────────────── */}
       <FeedSection id="proof" ariaLabelledBy="proof-heading">
