@@ -10,6 +10,7 @@ import {
 import { HERO_COUNTERS, COUNTERS_A11Y_LABEL } from "@/content/counters";
 
 import { Accordion } from "@/components/Accordion";
+import { BackdropController } from "@/components/BackdropController";
 import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
@@ -83,10 +84,10 @@ function HeroContent() {
   );
 }
 
-/* Full-bleed section wrapper. Each section on the homepage carries its own
-   background color and its own internal padding, so bgs meet edge-to-edge as
-   the user scrolls through — no gap-10 canvas gutters between coloured
-   blocks. `dark` inverts text tokens via the .section-dark utility. */
+/* Section wrapper. Section itself carries NO bg — the body's --page-bg
+   handles that, driven by BackdropController based on which section is
+   visible. `dark` here just declares the target colour via data attribute
+   for the observer to read. Text colours stay canonical (ink/muted). */
 function FeedSection({
   id,
   ariaLabelledBy,
@@ -107,7 +108,8 @@ function FeedSection({
       id={id}
       aria-labelledby={ariaLabelledBy}
       aria-label={ariaLabel}
-      className={`scroll-mt-24 py-10 md:py-14 px-4 md:px-6 ${dark ? "section-dark" : ""} ${className}`}
+      data-section-bg={dark ? "canvas-alt" : "canvas"}
+      className={`scroll-mt-24 py-10 md:py-14 px-4 md:px-6 ${className}`}
     >
       <div className="mx-auto w-full max-w-[608px] md:max-w-[832px]">
         {children}
@@ -119,6 +121,8 @@ function FeedSection({
 export default function Home() {
   return (
     <div id="top" className="w-full">
+      <BackdropController />
+
       <div className="mx-auto w-full max-w-[640px] md:max-w-[880px] px-4 md:px-6">
         <FeedFilters />
       </div>
@@ -140,7 +144,7 @@ export default function Home() {
 
       {/* ── Proof — canvas, the feed's center of gravity ────────────── */}
       <FeedSection id="proof" ariaLabelledBy="proof-heading">
-        <h2 id="proof-heading" className="text-[24px] leading-tight font-medium mb-4">
+        <h2 id="proof-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {PROOF_HEADLINE_VERBATIM}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -154,7 +158,7 @@ export default function Home() {
 
       {/* ── How it works — DARK ─────────────────────────────────────── */}
       <FeedSection id="how-it-works" ariaLabelledBy="how-heading" dark>
-        <h2 id="how-heading" className="text-[24px] leading-tight font-medium mb-4">
+        <h2 id="how-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {STEPS_HEADLINE_VERBATIM}
         </h2>
         <div className="flex flex-col gap-3">
@@ -169,14 +173,14 @@ export default function Home() {
         </div>
       </FeedSection>
 
-      {/* ── Counters — canvas ───────────────────────────────────────── */}
-      <FeedSection id="counters" ariaLabel={COUNTERS_A11Y_LABEL}>
+      {/* ── Counters — DARK ─────────────────────────────────────────── */}
+      <FeedSection id="counters" ariaLabel={COUNTERS_A11Y_LABEL} dark>
         <CountersRow />
       </FeedSection>
 
       {/* ── FAQ — DARK ──────────────────────────────────────────────── */}
       <FeedSection id="questions" ariaLabelledBy="faq-heading" dark>
-        <h2 id="faq-heading" className="text-[24px] leading-tight font-medium mb-4">
+        <h2 id="faq-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {FAQ_HEADING}
         </h2>
         <Card variant="panel" pad="lg">
@@ -186,7 +190,7 @@ export default function Home() {
 
       {/* ── Blog — canvas ───────────────────────────────────────────── */}
       <FeedSection id="blog" ariaLabelledBy="blog-heading">
-        <h2 id="blog-heading" className="text-[24px] leading-tight font-medium mb-4">
+        <h2 id="blog-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {BLOG_HEADING}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
