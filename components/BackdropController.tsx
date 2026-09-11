@@ -20,6 +20,11 @@ const COLOR_TOKENS: Record<string, string> = {
   "canvas-alt": "var(--canvas-alt)",
 };
 
+/* Which colour tokens count as "dark" — drives data-page-theme on <html>
+   so CSS can flip section headings and other on-bg text without checking
+   the raw colour value. */
+const DARK_TOKENS = new Set(["canvas-alt"]);
+
 export function BackdropController() {
   useEffect(() => {
     const sections = Array.from(
@@ -44,6 +49,11 @@ export function BackdropController() {
       const key = best.dataset.sectionBg ?? "canvas";
       const value = COLOR_TOKENS[key] ?? COLOR_TOKENS.canvas;
       document.documentElement.style.setProperty("--page-bg", value);
+      /* Also expose the theme so CSS can invert on-bg text (section
+         headings, sidebar labels) without knowing the exact colour. */
+      document.documentElement.dataset.pageTheme = DARK_TOKENS.has(key)
+        ? "dark"
+        : "light";
     };
 
     const observer = new IntersectionObserver(

@@ -97,21 +97,27 @@ body {
   transition: background 500ms ease;
 }
 
-/* Intro page starts on the dark background so first paint doesn't flash
-   canvas before the observer kicks in. */
+/* Intro page starts on the dark background AND dark theme so first paint
+   doesn't flash canvas before the observer kicks in. */
 html:has(.intro-section) {
   --page-bg: var(--canvas-alt);
 }
+html:has(.intro-section):not([data-page-theme]) {
+  /* SSR fallback for the theme attribute until BackdropController mounts. */
+}
 
-/* Section headings on the dark bg — they're outside cards, on the raw
-   backdrop. Cards inside dark sections still keep their own light bg with
-   canonical text, so this only reskins section-level h2s. */
-[data-section-bg="dark"] > .section-heading,
-[data-section-bg="dark"] .section-heading {
+/* Section headings sit directly on the page bg (outside cards). Cards
+   inside dark sections keep their own light bg + canonical text, so this
+   only reskins section-level h2s and equivalent sidebar labels. */
+.section-heading {
+  color: var(--ink);
+}
+[data-page-theme="dark"] .section-heading,
+[data-page-theme="dark"] .on-page-bg {
   color: var(--canvas);
 }
-[data-section-bg="dark"] .section-heading + * {
-  /* Room for card content underneath to breathe. */
+[data-page-theme="dark"] .on-page-bg-muted {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
