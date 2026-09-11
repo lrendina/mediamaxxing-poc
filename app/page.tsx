@@ -177,7 +177,7 @@ export default function Home() {
           >
             {BLOG_HEADING}
           </h2>
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {BLOG_POSTS.map((post) => (
               <BlogCard
                 key={post.slug}
