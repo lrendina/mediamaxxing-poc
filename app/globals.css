@@ -86,3 +86,105 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ------------------------------------------------------------------------- */
+/* Phase 8 — scroll-driven device intro                                       */
+/*                                                                            */
+/* Layout rules only apply on desktop + non-reduced-motion. Under either      */
+/* condition the .intro-* elements fall back to natural block flow and the    */
+/* hero content appears in place. No JS branching, no hydration flash.        */
+/*                                                                            */
+/* Shell fade tokens (--intro-shell-p) default to 1 site-wide. When a page    */
+/* contains an .intro-section (via :has()), the sidebar and right rail       */
+/* pre-hide so there's no first-paint flash of visible chrome that then      */
+/* slides out.                                                                */
+/* ------------------------------------------------------------------------- */
+
+:root {
+  --intro-shell-p: 1;
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  html:has(.intro-section) {
+    --intro-shell-p: 0;
+  }
+
+  .intro-section {
+    position: relative;
+    height: var(--intro-h-vh, 250vh);
+  }
+  .intro-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .intro-field {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      60% 50% at 50% 45%,
+      var(--panel) 0%,
+      transparent 65%
+    );
+    opacity: var(--field-opacity, 1);
+  }
+  .intro-scene-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .intro-scene {
+    position: relative;
+    width: 100%;
+    will-change: transform;
+    transform-origin: center center;
+    transform: scale(var(--scene-scale, 0.33));
+  }
+  .intro-device {
+    position: absolute;
+    top: -40px;
+    bottom: -40px;
+    left: -20px;
+    right: -20px;
+    border-radius: 56px;
+    border: 14px solid var(--ink);
+    background: var(--ink);
+    pointer-events: none;
+    box-shadow: 0 60px 120px -40px rgba(14, 26, 18, 0.55);
+    opacity: var(--device-opacity, 1);
+  }
+  .intro-notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 18px;
+    width: 110px;
+    border-radius: 0 0 16px 16px;
+    background: var(--ink);
+  }
+  .intro-viewport {
+    position: relative;
+    background: var(--canvas);
+    border-radius: 26px;
+    overflow: hidden;
+    /* Breathing room from the phone bezels. Only applied when intro is
+       active — the collapsed hero path (mobile/reduced-motion) inherits
+       the feed column's px-4/px-6 padding from its parent. */
+    padding: 28px 32px;
+  }
+
+  /* Sidebar + right rail fade + slide in over p 0.75 → 1.0. The transform
+     direction differs per side (left slides in from -100%, right from +100%). */
+  aside[aria-label="Primary"] {
+    opacity: var(--intro-shell-p);
+    transform: translateX(calc((var(--intro-shell-p) - 1) * 100%));
+  }
+  aside[aria-label="Complementary"] {
+    opacity: var(--intro-shell-p);
+    transform: translateX(calc((1 - var(--intro-shell-p)) * 100%));
+  }
+}
