@@ -15,7 +15,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${archivo.variable} h-full antialiased`}>
-      <body className="min-h-full bg-canvas text-ink font-sans">
+      {/* No bg-canvas here — body background is driven by --page-bg
+          in globals.css so it can fade between section colours. */}
+      <body className="min-h-full text-ink font-sans">
         <SkipToContent />
 
         <div

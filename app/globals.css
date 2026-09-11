@@ -78,27 +78,40 @@ body {
 }
 
 /* ------------------------------------------------------------------------- */
-/* Alternating section backgrounds                                            */
+/* Alternating page backgrounds                                               */
 /*                                                                            */
-/* Homepage feed alternates canvas and canvas-alt (dark) full-bleed. Cards    */
-/* inside dark sections keep their white surface — the contrast is the       */
-/* whole point. Body text switches to canvas on dark; muted stays legible    */
-/* via an rgba override.                                                      */
+/* The body carries the "current" background colour and transitions between   */
+/* values as the user scrolls between sections (a client-side observer picks  */
+/* the active section and updates --page-bg). Sections themselves declare     */
+/* their target colour via data-section-bg but don't paint it — the body      */
+/* does, so the colour extends behind the sidebar and right rail as well as   */
+/* the feed column.                                                           */
+/*                                                                            */
+/* Text colours inside sections stay canonical (ink, muted). Cards on dark    */
+/* backgrounds carry their own white surface. Section headings that sit       */
+/* directly on the dark bg get lifted per-section as needed.                  */
 /* ------------------------------------------------------------------------- */
 
-.section-dark {
-  background: var(--canvas-alt);
+body {
+  background: var(--page-bg, var(--canvas));
+  transition: background 500ms ease;
+}
+
+/* Intro page starts on the dark background so first paint doesn't flash
+   canvas before the observer kicks in. */
+html:has(.intro-section) {
+  --page-bg: var(--canvas-alt);
+}
+
+/* Section headings on the dark bg — they're outside cards, on the raw
+   backdrop. Cards inside dark sections still keep their own light bg with
+   canonical text, so this only reskins section-level h2s. */
+[data-section-bg="dark"] > .section-heading,
+[data-section-bg="dark"] .section-heading {
   color: var(--canvas);
 }
-.section-dark .text-muted {
-  color: rgba(255, 255, 255, 0.65);
-}
-.section-dark .text-ink {
-  color: var(--canvas);
-}
-/* Keyboard focus needs to be visible on dark surfaces too. */
-.section-dark :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline-color: var(--canvas);
+[data-section-bg="dark"] .section-heading + * {
+  /* Room for card content underneath to breathe. */
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
