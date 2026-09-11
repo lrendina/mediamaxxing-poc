@@ -1,24 +1,239 @@
+import Link from "next/link";
+
+import { CREATORS } from "@/content/creators";
+import { STEPS, STEPS_HEADLINE_VERBATIM } from "@/content/steps";
+import { FAQ, FAQ_HEADING } from "@/content/faq";
+import { BLOG_POSTS, BLOG_HEADING } from "@/content/blog";
+import {
+  HERO,
+  PROOF_HEADLINE_VERBATIM,
+  FOOTER_CTA,
+} from "@/content/hero";
+import { HERO_COUNTERS, COUNTERS_A11Y_LABEL } from "@/content/counters";
+import { FOOTER_NAV, FOOTER_COPYRIGHT } from "@/content/nav";
+
+import { Accordion } from "@/components/Accordion";
+import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/Button";
-import { ArrowRightIcon } from "@/components/icons";
+import { Card } from "@/components/Card";
+import { Counter } from "@/components/Counter";
+import { CTABand } from "@/components/CTABand";
+import { FeedFilters } from "@/components/FeedFilters";
+import { PageIntro } from "@/components/PageIntro";
+import { ProofCard } from "@/components/ProofCard";
+import { StepCard } from "@/components/StepCard";
+import { HomeIcon, BrandsIcon, AgenciesIcon } from "@/components/icons";
+
+const STEP_ICONS = [HomeIcon, BrandsIcon, AgenciesIcon];
+
+/* Numeric counter component consumed by both hero counters and RightRail.
+   Layout deliberately reuses FeatureStatCard-like proportions but drops the
+   card chrome — the counter row reads as a stat strip inside the feed. */
+function CountersRow() {
+  return (
+    <div className="grid grid-cols-3 gap-2 sm:gap-4">
+      {HERO_COUNTERS.map((c, i) => (
+        <Card
+          key={c.label}
+          variant={i === 1 ? "spotlight" : "default"}
+          pad="md"
+          className="flex flex-col gap-1 min-w-0"
+        >
+          <Counter
+            value={c.value}
+            prefix={c.prefix}
+            suffix={c.suffix}
+            className={`text-[24px] sm:text-[32px] leading-none font-expanded truncate ${
+              i === 1 ? "text-payout" : "text-ink"
+            }`}
+          />
+          <p className="text-[13px] text-muted truncate">{c.label}</p>
+        </Card>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-start justify-center gap-6 max-w-[600px] mx-auto px-6 py-24">
-      <p className="text-[13px] text-muted">
-        Phase 3 — primitives extracted, styleguide extended.
-      </p>
-      <h1 className="text-[40px] leading-[1.1] font-medium">
-        MediaMaxxing reskin
-      </h1>
-      <p className="text-muted max-w-[52ch]">
-        Proof-of-concept for a design interview. The feed of real content
-        arrives in Phase 5. For now, the design system and every primitive are
-        reviewable in isolation.
-      </p>
-      <Button href="/styleguide" variant="primary">
-        Open styleguide
-        <ArrowRightIcon aria-hidden />
-      </Button>
-    </main>
+    <div id="top" className="mx-auto w-full max-w-[640px]">
+      <FeedFilters />
+
+      <div className="flex flex-col gap-10 px-4 md:px-6 pt-6 pb-16">
+        {/* ── Hero — the one orchestrated page-load moment ─────────── */}
+        <section
+          aria-labelledby="hero-heading"
+          className="scroll-mt-24 flex flex-col gap-5"
+        >
+          <PageIntro>
+            <h1
+              id="hero-heading"
+              className="text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
+            >
+              {HERO.headlineVerbatim}
+            </h1>
+            <p className="text-[18px] text-muted max-w-[52ch] mt-4">
+              {HERO.subhead}
+            </p>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button href={HERO.primaryCta.href} variant="primary">
+                {HERO.primaryCta.label}
+              </Button>
+              <Button href={HERO.secondaryCta.href} variant="ghost">
+                {HERO.secondaryCta.label}
+              </Button>
+            </div>
+          </PageIntro>
+        </section>
+
+        {/* ── Proof — the feed's center of gravity ──────────────────── */}
+        <section
+          id="proof"
+          aria-labelledby="proof-heading"
+          className="scroll-mt-24 flex flex-col gap-4"
+        >
+          <h2
+            id="proof-heading"
+            className="text-[24px] leading-tight font-medium"
+          >
+            {PROOF_HEADLINE_VERBATIM}
+          </h2>
+          <div className="flex flex-col gap-4">
+            {CREATORS.map((c) => (
+              <div
+                key={c.id}
+                id={`creator-${c.id}`}
+                className="scroll-mt-24"
+              >
+                <ProofCard data={c} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── How it works ──────────────────────────────────────────── */}
+        <section
+          id="how-it-works"
+          aria-labelledby="how-heading"
+          className="scroll-mt-24 flex flex-col gap-4"
+        >
+          <h2
+            id="how-heading"
+            className="text-[24px] leading-tight font-medium"
+          >
+            {STEPS_HEADLINE_VERBATIM}
+          </h2>
+          <div className="flex flex-col gap-3">
+            {STEPS.map((step, i) => {
+              const Icon = STEP_ICONS[i] ?? HomeIcon;
+              return (
+                <StepCard
+                  key={step.title}
+                  icon={<Icon width={20} height={20} />}
+                  title={step.title}
+                >
+                  {step.description}
+                </StepCard>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── Counters ──────────────────────────────────────────────── */}
+        <section
+          id="counters"
+          aria-label={COUNTERS_A11Y_LABEL}
+          className="scroll-mt-24"
+        >
+          <CountersRow />
+        </section>
+
+        {/* ── FAQ ───────────────────────────────────────────────────── */}
+        <section
+          id="questions"
+          aria-labelledby="faq-heading"
+          className="scroll-mt-24 flex flex-col gap-4"
+        >
+          <h2
+            id="faq-heading"
+            className="text-[24px] leading-tight font-medium"
+          >
+            {FAQ_HEADING}
+          </h2>
+          <Card variant="panel" pad="lg">
+            <Accordion items={FAQ} />
+          </Card>
+        </section>
+
+        {/* ── Blog ──────────────────────────────────────────────────── */}
+        <section
+          id="blog"
+          aria-labelledby="blog-heading"
+          className="scroll-mt-24 flex flex-col gap-4"
+        >
+          <h2
+            id="blog-heading"
+            className="text-[24px] leading-tight font-medium"
+          >
+            {BLOG_HEADING}
+          </h2>
+          <div className="flex flex-col gap-3">
+            {BLOG_POSTS.map((post) => (
+              <BlogCard
+                key={post.slug}
+                data={{
+                  href: `/blog/${post.slug}`,
+                  title: post.title,
+                  excerpt: post.excerpt,
+                  cover: post.cover,
+                  readMinutes: post.readMinutes,
+                }}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* ── Footer CTA card ───────────────────────────────────────── */}
+        <section id="get-started" className="scroll-mt-24">
+          <CTABand
+            eyebrow={FOOTER_CTA.eyebrow}
+            headline={FOOTER_CTA.headline}
+            ctaLabel={FOOTER_CTA.ctaLabel}
+            ctaHref={FOOTER_CTA.ctaHref}
+          >
+            {FOOTER_CTA.body}
+          </CTABand>
+        </section>
+
+        {/* ── Footer ────────────────────────────────────────────────── */}
+        <footer className="mt-4 pt-8 border-t border-ink/10 flex flex-col gap-6">
+          <div className="grid grid-cols-2 gap-6">
+            {FOOTER_NAV.map((group) => (
+              <div key={group.heading} className="flex flex-col gap-2.5">
+                <h3 className="text-[13px] font-medium text-ink">
+                  {group.heading}
+                </h3>
+                {group.items.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="text-[13px] text-muted hover:text-ink transition"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-[13px] text-muted">{FOOTER_COPYRIGHT}</p>
+            <p className="text-[11px] text-muted">
+              Unaffiliated proof-of-concept reskin. Nothing here is a real
+              service.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
   );
 }
