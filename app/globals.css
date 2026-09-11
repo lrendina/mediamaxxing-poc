@@ -12,6 +12,7 @@
   --panel:  #edf1ec;   /* card surface, sidebar rail */
   --ink:    #0e1a12;   /* primary text */
   --muted:  #5f6f63;   /* secondary text */
+  --canvas-alt: #181821; /* alternating dark section background */
   --payout: #04773a;   /* accent — money, counters, primary CTA only. Contrast vs white ~5.6:1 (WCAG AA all text). */
   --live:   #7a3ae0;   /* scarcity and status only — tier badges, "limited spots". Contrast vs white ≥4.5:1. */
 
@@ -33,6 +34,7 @@
 /* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
   --color-canvas: var(--canvas);
+  --color-canvas-alt: var(--canvas-alt);
   --color-panel:  var(--panel);
   --color-ink:    var(--ink);
   --color-muted:  var(--muted);
@@ -73,6 +75,30 @@ body {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Alternating section backgrounds                                            */
+/*                                                                            */
+/* Homepage feed alternates canvas and canvas-alt (dark) full-bleed. Cards    */
+/* inside dark sections keep their white surface — the contrast is the       */
+/* whole point. Body text switches to canvas on dark; muted stays legible    */
+/* via an rgba override.                                                      */
+/* ------------------------------------------------------------------------- */
+
+.section-dark {
+  background: var(--canvas-alt);
+  color: var(--canvas);
+}
+.section-dark .text-muted {
+  color: rgba(255, 255, 255, 0.65);
+}
+.section-dark .text-ink {
+  color: var(--canvas);
+}
+/* Keyboard focus needs to be visible on dark surfaces too. */
+.section-dark :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline-color: var(--canvas);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
@@ -143,38 +169,29 @@ body {
     transform-origin: center center;
     transform: scale(var(--scene-scale, 0.33));
   }
-  .intro-device {
-    position: absolute;
-    top: -40px;
-    bottom: -40px;
-    left: -20px;
-    right: -20px;
-    border-radius: 56px;
-    border: 14px solid var(--ink);
-    background: var(--ink);
-    pointer-events: none;
-    box-shadow: 0 60px 120px -40px rgba(14, 26, 18, 0.55);
+  /* iPhone SVG chrome fades to 0 over p 0.6→0.9. The screen area is
+     masked out of the SVG, so hero content underneath stays visible. */
+  .intro-iphone > svg {
     opacity: var(--device-opacity, 1);
+    filter: drop-shadow(0 60px 120px rgba(14, 26, 18, 0.35));
+    transition: opacity 60ms linear;
   }
-  .intro-notch {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 18px;
-    width: 110px;
-    border-radius: 0 0 16px 16px;
-    background: var(--ink);
-  }
-  .intro-viewport {
-    position: relative;
+
+  /* screenClassName applied by Iphone to the screen wrapper — carries the
+     white "screen" surface so the hero has a bg against dark section bg. */
+  .intro-viewport-screen {
     background: var(--canvas);
-    border-radius: 26px;
-    overflow: hidden;
-    /* Breathing room from the phone bezels. Only applied when intro is
-       active — the collapsed hero path (mobile/reduced-motion) inherits
-       the feed column's px-4/px-6 padding from its parent. */
-    padding: 28px 32px;
+  }
+
+  /* Hero content inside the phone screen. Fills the screen area and centers
+     the hero vertically since the phone is ~2× as tall as the hero copy. */
+  .intro-viewport {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6% 8%;
   }
 
   /* Sidebar + right rail fade + slide in over p 0.75 → 1.0. The transform
