@@ -97,13 +97,13 @@ export default function Home() {
             {PROOF_HEADLINE_VERBATIM}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {CREATORS.map((c) => (
+            {CREATORS.map((c, i) => (
               <div
                 key={c.id}
                 id={`creator-${c.id}`}
                 className="scroll-mt-24"
               >
-                <ProofCard data={c} />
+                <ProofCard data={c} priority={i === 0} />
               </div>
             ))}
           </div>
