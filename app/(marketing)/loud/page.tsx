@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { CREATORS } from "@/content/creators";
 import { STEPS, STEPS_HEADLINE_VERBATIM } from "@/content/steps";
 import { FAQ, FAQ_HEADING } from "@/content/faq";
@@ -10,13 +11,24 @@ import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/Button";
 import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
+import { DemoVariantToggle } from "@/components/DemoVariantToggle";
 import { Marquee } from "@/components/Marquee";
 import { ProofCard } from "@/components/ProofCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StepCard } from "@/components/StepCard";
 
-/* Section order is the product: hero → proof → how it works → counters →
-   FAQ → blog → CTA. Every section is full-bleed and owns its colour. */
+export const metadata: Metadata = {
+  title: "Loud homepage (demo) — MediaMaxxing",
+  description:
+    "The black-and-acid-lime redesign direction, kept at /loud for an interview demo toggle against the restored default homepage.",
+};
+
+/* /loud — the black-and-acid-lime, full-bleed redesign direction. Moved
+   here from the site root per explicit request to restore the pre-redesign
+   homepage (app/(home)) as the default; stays reachable via
+   DemoVariantToggle. Section order is the product: hero → proof → how it
+   works → counters → FAQ → blog → CTA. Every section is full-bleed and
+   owns its colour. */
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -178,6 +190,7 @@ export default function Home() {
         </CTABand>
       </div>
       <SiteFooter />
+      <DemoVariantToggle active="loud" />
     </div>
   );
 }

@@ -139,6 +139,58 @@
   outline: 2px solid var(--action);
 }
 
+/* /original demo route only — the same "paper and signal" tokens the
+   marketing surface used before the loud redesign (3be1d3d), kept so a
+   reviewer can compare the two homepages side by side. Values match
+   .creator-surface, which happens to be the same direction; kept as its
+   own scope since the two surfaces are conceptually independent (one is
+   the real creator app, this is a shelved marketing direction) and free
+   to diverge later. Not part of the design system proper — see
+   components/DemoVariantToggle.tsx. */
+.original-surface {
+  --canvas:        #f4f2ec;
+  --surface:       #ffffff;
+  --surface-sunk:  #ebe8df;
+  --surface-dark:  #0f1411;
+  --border:        #e1ddd2;
+  --border-strong: #c9c4b6;
+  --ink:           #14130f;
+  --muted:         #6b675c;
+  --ink-inverse:   #f7f6f1;
+  --action:        #2a4bd7;
+  --action-sunk:   #e3e8fb;
+  --money:         #0e9f5e;
+  --money-sunk:    #dcf3e6;
+  --streak:        #ef6420;
+  --streak-sunk:   #fde6d9;
+  --warn:          #96690f;
+  --warn-sunk:     #f8eed7;
+  --status:        #5b3fc9;
+  --status-sunk:   #ebe5fa;
+  --panel:      var(--surface-sunk);
+  --canvas-alt: var(--surface-dark);
+  --payout:     var(--money);
+  --live:       var(--status);
+  --radius-card:    20px;
+  --radius-control: 12px;
+  --radius-tile:    12px;
+  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
+  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
+  background: var(--canvas);
+  color: var(--ink);
+}
+.original-surface .font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
+  text-transform: none;
+}
+.original-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--action);
+}
+
 /* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
   --color-canvas:       var(--canvas);
