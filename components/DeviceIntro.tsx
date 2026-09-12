@@ -108,12 +108,28 @@ export function DeviceIntro({ children }: { children: ReactNode }) {
       const fieldOpacity = clamp01((0.9 - p) / 0.9);
       const shellP = clamp01((p - 0.75) / 0.25);
 
+      /* Page background transitions from dark to canvas over the same
+         window the phone screen expands to feed width — so the "white
+         expanding to the sides" reaches the viewport edges by p=1 and
+         no dark strip is left visible between the phone-screen white
+         and the proof section below. */
+      const bgP = clamp01((p - 0.75) / 0.25);
+      const bg =
+        bgP <= 0
+          ? "var(--canvas-alt)"
+          : bgP >= 1
+          ? "var(--canvas)"
+          : `color-mix(in oklab, var(--canvas-alt) ${(1 - bgP) * 100}%, var(--canvas) ${bgP * 100}%)`;
+
       scene.style.setProperty("--device-opacity", String(deviceOpacity));
       scene.style.setProperty("--field-opacity", String(fieldOpacity));
       document.documentElement.style.setProperty(
         "--intro-shell-p",
         String(shellP)
       );
+      document.documentElement.style.setProperty("--page-bg", bg);
+      document.documentElement.dataset.pageTheme =
+        bgP < 0.5 ? "dark" : "light";
 
       vp.style.pointerEvents = p >= 1 ? "auto" : "none";
     };
