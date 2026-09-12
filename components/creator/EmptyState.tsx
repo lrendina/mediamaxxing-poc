@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { IconTile, type TileTone } from "./IconTile";
 
-/* Centered glyph, poster title, body. Doubles as the LockedState. */
+/* Centered glyph, title, two-line body. Doubles as the LockedState on
+   Retainers (orange lock in a soft square) via `tone`. */
 export function EmptyState({
   icon,
   tone = "neutral",
@@ -16,12 +17,12 @@ export function EmptyState({
   children?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center text-center gap-4 px-4 py-14 md:py-20">
+    <div className="flex flex-col items-center text-center gap-3 px-4 py-12">
       <IconTile tone={tone} size="lg">
         {icon}
       </IconTile>
-      <p className="font-display text-[clamp(32px,5vw,64px)] max-w-[14ch]">{title}</p>
-      <p className="text-[16px] text-muted max-w-[44ch]">{body}</p>
+      <p className="font-display text-[26px] leading-tight">{title}</p>
+      <p className="text-[15px] text-muted max-w-[44ch]">{body}</p>
       {children}
     </div>
   );

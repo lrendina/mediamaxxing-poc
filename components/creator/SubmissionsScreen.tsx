@@ -54,7 +54,7 @@ export function SubmissionsScreen() {
       </div>
 
       {submissions.length === 0 ? (
-        <div className="rounded-[var(--radius-card)] bg-surface border-2 border-border">
+        <div className="rounded-[var(--radius-card)] bg-surface border border-border">
           <EmptyState
             icon={<VideoIcon width={24} height={24} />}
             title={SUBMISSIONS_PAGE.empty.title}

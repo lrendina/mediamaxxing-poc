@@ -15,9 +15,9 @@ export function FilterChipBar({ chips }: { chips: string[] }) {
           aria-haspopup="listbox"
           className="
             inline-flex shrink-0 items-center gap-1.5 min-h-10 px-3.5
-            rounded-full bg-surface border-2 border-border
-            text-[13px] font-semibold text-ink whitespace-nowrap
-            hover:border-lime transition
+            rounded-full bg-surface border border-border
+            text-[13px] font-medium text-ink whitespace-nowrap
+            hover:border-ink transition
           "
         >
           <FilterIcon aria-hidden width={14} height={14} className="text-muted" />

@@ -33,7 +33,7 @@ export function IconTile({
   return (
     <span
       aria-hidden
-      className={`inline-flex shrink-0 items-center justify-center rounded-[8px] ${toneClass[tone]} ${sizeClass[size]} ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded-[var(--radius-tile)] ${toneClass[tone]} ${sizeClass[size]} ${className}`}
     >
       {children}
     </span>

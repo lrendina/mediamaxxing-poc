@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import { ChevronDownIcon } from "./app-icons";
 
-/* Section header at display size with the count in lime. Native <details>. */
+/* Collapsible section header: chevron, label, count ("My Brands · 1").
+   Native <details> like the marketing Accordion — keyboard and ARIA for
+   free. Open by default; both observed sections were expanded. */
 export function SectionDisclosure({
   label,
   count,
@@ -17,23 +19,24 @@ export function SectionDisclosure({
     <details open={defaultOpen} className="group">
       <summary
         className="
-          flex items-center gap-3 min-h-11 py-3
+          flex items-center gap-2 min-h-11 py-2 -mx-1 px-1 rounded-[var(--radius-control)]
           cursor-pointer list-none select-none
-          border-t-2 border-border
+          text-[15px] font-medium
           [&::-webkit-details-marker]:hidden
+          hover:bg-ink/[0.03]
         "
       >
-        <span className="font-display text-[28px] md:text-[36px]">{label}</span>
-        <span className="font-display text-[28px] md:text-[36px] text-lime">{count}</span>
         <ChevronDownIcon
           aria-hidden
-          width={22}
-          height={22}
-          strokeWidth={2.2}
-          className="ml-auto text-muted transition group-open:rotate-0 -rotate-90"
+          width={18}
+          height={18}
+          className="text-muted transition group-open:rotate-0 -rotate-90"
         />
+        <span>{label}</span>
+        <span className="text-muted" aria-hidden>·</span>
+        <span className="text-muted">{count}</span>
       </summary>
-      <div className="pt-3 pb-8">{children}</div>
+      <div className="pt-2 pb-4">{children}</div>
     </details>
   );
 }

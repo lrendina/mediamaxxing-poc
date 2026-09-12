@@ -15,7 +15,7 @@ export function DiscordBanner() {
   return (
     <div
       role="status"
-      className="flex items-center gap-3 rounded-[8px] bg-warn text-surface-dark px-4 py-2.5 text-[14px] font-semibold"
+      className="flex items-center gap-3 rounded-[var(--radius-control)] bg-warn-sunk text-warn px-4 py-2.5 text-[14px]"
     >
       <WarningIcon aria-hidden width={20} height={20} className="shrink-0" />
       <p className="flex-1 min-w-0">
@@ -23,7 +23,7 @@ export function DiscordBanner() {
         <button
           type="button"
           title={SHELL.prototypeControl}
-          className="underline underline-offset-2 font-bold hover:opacity-80"
+          className="underline underline-offset-2 font-medium hover:opacity-80"
         >
           {SHELL.discordBanner.link}
         </button>
@@ -32,7 +32,7 @@ export function DiscordBanner() {
         type="button"
         onClick={() => setDismissed(true)}
         aria-label={SHELL.discordBanner.dismiss}
-        className="inline-flex h-11 w-11 -mr-2 shrink-0 items-center justify-center rounded-full hover:bg-surface-dark/10"
+        className="inline-flex h-11 w-11 -mr-2 shrink-0 items-center justify-center rounded-full hover:bg-warn/10"
       >
         <CloseIcon aria-hidden width={18} height={18} />
       </button>

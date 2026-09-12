@@ -31,10 +31,10 @@ export function TopBar({
       </button>
 
       <nav aria-label="Breadcrumb" className="min-w-0 flex-1">
-        <ol className="flex items-center gap-2 text-[12px] uppercase tracking-[0.12em] font-bold text-muted">
+        <ol className="flex items-center gap-1.5 text-[13px] text-muted">
           <li>{APP_BREADCRUMB_ROOT}</li>
           <li aria-hidden className="text-border-strong">/</li>
-          <li className="text-ink truncate" aria-current="page">
+          <li className="text-ink font-medium truncate" aria-current="page">
             {page}
           </li>
         </ol>

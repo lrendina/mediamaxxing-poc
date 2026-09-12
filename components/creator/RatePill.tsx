@@ -14,8 +14,8 @@ export function RatePill({
   return (
     <span
       className={`
-        inline-flex items-center gap-1 rounded-[6px] px-2 py-1
-        bg-lime text-surface-dark text-[12px] font-bold uppercase tracking-[0.04em] leading-none
+        inline-flex items-center gap-1 rounded-full px-2.5 py-1
+        bg-action-sunk text-action text-[13px] font-medium leading-none
         whitespace-nowrap
         ${className}
       `}
