@@ -25,32 +25,65 @@ retuned brighter and cleaner. Fidelity of meaning, freedom of appearance.
 Never use a role outside its meaning. A neutral button does not get `money` because it looks
 good, and a deadline does not get `warn` because it feels urgent — deadlines are `streak`.
 
-## Values
+## Values — "paper and signal" (redesign, September 2026)
+
+Supersedes the first draft below. Warm paper canvas, white cards on hairline borders,
+warm near-black ink, one saturated colour per role. `app/globals.css` is the source of
+truth; this is the reference.
 
 ```css
 :root {
   /* surfaces */
-  --canvas:        #F6F7F9;   /* page */
-  --surface:       #FFFFFF;   /* cards, sidebar */
-  --surface-sunk:  #EEF0F4;   /* inset rows, tracks, chips */
-  --surface-dark:  #0B0D10;   /* featured campaign cards, artwork frames */
-  --border:        #E3E6EB;
+  --canvas:        #F4F2EC;   /* page — warm paper, both surfaces */
+  --surface:       #FFFFFF;   /* cards, panels */
+  --surface-sunk:  #EBE8DF;   /* inset rows, tracks, chips, tiles */
+  --surface-dark:  #0F1411;   /* dark bands, featured cards — green-black */
+  --border:        #E1DDD2;
+  --border-strong: #C9C4B6;
 
   /* text */
-  --ink:           #0D1220;
-  --muted:         #5B6472;
-  --ink-inverse:   #FFFFFF;
+  --ink:           #14130F;
+  --muted:         #6B675C;
+  --ink-inverse:   #F7F6F1;
 
   /* roles */
-  --action:        #2F5BEA;
-  --action-sunk:   #E9EFFE;
-  --money:         #0FA958;
-  --money-sunk:    #E4F6EC;
-  --streak:        #F4741F;
-  --streak-sunk:   #FDEEE3;
-  --warn:          #A8761A;
-  --warn-sunk:     #FBF3E2;
+  --action:        #2A4BD7;   --action-sunk: #E3E8FB;
+  --money:         #0E9F5E;   --money-sunk:  #DCF3E6;
+  --streak:        #EF6420;   --streak-sunk: #FDE6D9;
+  --warn:          #96690F;   --warn-sunk:   #F8EED7;
   --discord:       #5865F2;
+  --status:        #5B3FC9;   --status-sunk: #EBE5FA;   /* marketing tier badges only */
+}
+```
+
+**Buttons.** Primary is ink, not a colour: on paper the darkest object is the most
+pressable one, and it leaves green free to mean money. Secondary is `money`, reserved for
+the one CTA per page that is literally about getting paid. In the app, `action` blue is the
+press colour (Submit, Apply, Explore), matching the live product.
+
+**Type.** Archivo for UI and body. **Instrument Serif** for display headings at 24px and
+up — h1, section h2, page headers, the CTA band, empty-state titles. Never for numbers
+(no tabular figures) and never for body. Archivo Expanded for every number, as before.
+
+**Geometry.** Card 20px, control 12px, tile 12px, pill 999px. Buttons are pills on both
+surfaces. Hairline borders everywhere; `--shadow-lift` only on the one object per section
+that should float (spotlight proof card, featured campaign, brand card on hover),
+`--shadow-pop` only on overlays.
+
+**Data.** Numbers get shape: the revenue chart carries gridlines, a gradient area, and an
+endpoint marker with the last value; leaderboard rows draw a proportional bar behind the
+figure; Earnings stat tiles carry sparklines; the rank bar is a segmented track; the
+streak meter is fourteen cells.
+
+### First draft (superseded)
+
+```css
+:root {
+  --canvas: #F6F7F9; --surface: #FFFFFF; --surface-sunk: #EEF0F4; --surface-dark: #0B0D10;
+  --border: #E3E6EB; --ink: #0D1220; --muted: #5B6472; --ink-inverse: #FFFFFF;
+  --action: #2F5BEA; --action-sunk: #E9EFFE; --money: #0FA958; --money-sunk: #E4F6EC;
+  --streak: #F4741F; --streak-sunk: #FDEEE3; --warn: #A8761A; --warn-sunk: #FBF3E2;
+  --discord: #5865F2;
 }
 ```
 

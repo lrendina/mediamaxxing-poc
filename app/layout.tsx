@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Agentation } from "agentation";
-import { archivo } from "./fonts";
+import { archivo, instrumentSerif } from "./fonts";
 import { SkipToContent } from "@/components/SkipToContent";
 import "./globals.css";
 
@@ -17,7 +17,10 @@ export const metadata: Metadata = {
    having to know about the other. */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${instrumentSerif.variable} h-full antialiased`}
+    >
       {/* No bg-canvas here — body background is driven by --page-bg
           in globals.css so it can fade between section colours. */}
       <body className="min-h-full text-ink font-sans">

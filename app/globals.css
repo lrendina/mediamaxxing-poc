@@ -1,48 +1,47 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------------- */
-/* Design tokens                                                             */
-/* Single source of truth for palette, type, and layout constants.           */
-/* Surfaced to Tailwind via @theme inline below.                             */
+/* Design tokens — "paper and signal"                                        */
+/*                                                                           */
+/* One system, two surfaces. A warm paper canvas, white cards on hairline    */
+/* borders, warm near-black ink, and one saturated colour per semantic role. */
+/* Roles come from the live creator app (DESIGN-TOKENS.md) and are not up    */
+/* for renegotiation; the values are ours.                                   */
 /* ------------------------------------------------------------------------- */
 
 :root {
-  /* Palette — two chromatic colors, each with one job. */
-  --canvas: #ffffff;   /* page background */
-  --panel:  #edf1ec;   /* card surface, sidebar rail */
-  --ink:    #0e1a12;   /* primary text */
-  --muted:  #5f6f63;   /* secondary text */
-  --canvas-alt: #181821; /* alternating dark section background */
-  --payout: #04773a;   /* accent — money, counters, primary CTA only. Contrast vs white ~5.6:1 (WCAG AA all text). */
-  --live:   #7a3ae0;   /* scarcity and status only — tier badges, "limited spots". Contrast vs white ≥4.5:1. */
-
-  /* ----------------------------------------------------------------------
-     DESIGN-TOKENS.md roles — shared by the marketing surface and the
-     creator app. Added alongside the Phase 1 palette above rather than
-     replacing it: retheming the signed-off marketing surface onto these
-     values is a palette decision (see CLAUDE.md "Stop and ask"), so the
-     old aliases stay until that call is made.
-     ---------------------------------------------------------------------- */
-
   /* surfaces */
-  --surface:       #ffffff;   /* cards, sidebar */
-  --surface-sunk:  #eef0f4;   /* inset rows, tracks, chips */
-  --surface-dark:  #0b0d10;   /* featured campaign cards, artwork frames */
-  --border:        #e3e6eb;
+  --canvas:        #f4f2ec;   /* page — warm paper */
+  --surface:       #ffffff;   /* cards, panels */
+  --surface-sunk:  #ebe8df;   /* inset rows, tracks, chips, tiles */
+  --surface-dark:  #0f1411;   /* dark bands, featured cards — green-black, ties to money */
+  --border:        #e1ddd2;   /* hairline */
+  --border-strong: #c9c4b6;
 
   /* text */
-  --ink-inverse:   #ffffff;
+  --ink:           #14130f;
+  --muted:         #6b675c;
+  --ink-inverse:   #f7f6f1;
 
   /* roles — never use a role outside its meaning */
-  --action:        #2f5bea;   /* something to press */
-  --action-sunk:   #e9effe;
-  --money:         #0fa958;   /* dollars, payouts, acceptance */
-  --money-sunk:    #e4f6ec;
-  --streak:        #f4741f;   /* progress, XP, momentum, urgency */
-  --streak-sunk:   #fdeee3;
-  --warn:          #a8761a;   /* attention, scarcity, bounty */
-  --warn-sunk:     #fbf3e2;
+  --action:        #2a4bd7;   /* something to press */
+  --action-sunk:   #e3e8fb;
+  --money:         #0e9f5e;   /* dollars, payouts, acceptance */
+  --money-sunk:    #dcf3e6;
+  --streak:        #ef6420;   /* progress, XP, momentum, urgency */
+  --streak-sunk:   #fde6d9;
+  --warn:          #96690f;   /* attention, scarcity, bounty */
+  --warn-sunk:     #f8eed7;
   --discord:       #5865f2;   /* brand-locked: Join Discord only */
+  --status:        #5b3fc9;   /* marketing tier badges only */
+  --status-sunk:   #ebe5fa;
+
+  /* Aliases kept for the marketing surface's existing utilities. They now
+     resolve to the shared roles so both surfaces are literally one palette. */
+  --panel:      var(--surface-sunk);
+  --canvas-alt: var(--surface-dark);
+  --payout:     var(--money);
+  --live:       var(--status);
 
   /* Layout shell */
   --rail-left:    240px;
@@ -50,19 +49,23 @@
   --feed-max:     600px;
   --mobile-tabs:  56px;
 
-  /* Creator app shell (DESIGN-TOKENS.md geometry) */
+  /* Creator app shell */
   --app-sidebar:            248px;
   --app-sidebar-collapsed:  56px;
   --app-rail:               380px;
   --app-content-max:        1160px;
 
   /* Geometry */
-  --radius-card:    12px;
-  --radius-control: 10px;
-  --radius-tile:    10px;
+  --radius-card:    20px;
+  --radius-control: 12px;
+  --radius-tile:    12px;
   --radius-pill:    999px;
 
-  /* Type scale (px) — 13/15/18/24/40/64 */
+  /* Elevation — used only on objects that genuinely float */
+  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
+  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
+
+  /* Type scale (px) — 13/15/18/24/32/40/48/64 */
   --text-xs:  13px;
   --text-sm:  15px;
   --text-md:  18px;
@@ -73,19 +76,19 @@
 
 /* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
-  --color-canvas: var(--canvas);
-  --color-canvas-alt: var(--canvas-alt);
-  --color-panel:  var(--panel);
-  --color-ink:    var(--ink);
-  --color-muted:  var(--muted);
-  --color-payout: var(--payout);
-  --color-live:   var(--live);
+  --color-canvas:       var(--canvas);
+  --color-canvas-alt:   var(--canvas-alt);
+  --color-panel:        var(--panel);
+  --color-ink:          var(--ink);
+  --color-muted:        var(--muted);
+  --color-payout:       var(--payout);
+  --color-live:         var(--live);
 
-  /* DESIGN-TOKENS.md roles */
   --color-surface:      var(--surface);
   --color-surface-sunk: var(--surface-sunk);
   --color-surface-dark: var(--surface-dark);
   --color-border:       var(--border);
+  --color-border-strong: var(--border-strong);
   --color-ink-inverse:  var(--ink-inverse);
   --color-action:       var(--action);
   --color-action-sunk:  var(--action-sunk);
@@ -96,12 +99,18 @@
   --color-warn:         var(--warn);
   --color-warn-sunk:    var(--warn-sunk);
   --color-discord:      var(--discord);
+  --color-status:       var(--status);
+  --color-status-sunk:  var(--status-sunk);
 
   --radius-card:    var(--radius-card);
   --radius-control: var(--radius-control);
   --radius-tile:    var(--radius-tile);
 
-  --font-sans: var(--font-archivo);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-pop:  var(--shadow-pop);
+
+  --font-sans:    var(--font-archivo);
+  --font-display: var(--font-display);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -128,13 +137,23 @@ body {
 /* Archivo's "expanded" width — reserved for dollar figures and counters. */
 .font-expanded {
   font-variation-settings: "wdth" 125;
+  letter-spacing: -0.01em;
+}
+
+/* Display headings. Serif, tight, slightly negative tracking. */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
 }
 
 /* Visible keyboard focus on every interactive element. */
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
-  border-radius: 2px;
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -146,10 +165,6 @@ body {
 /* their target colour via data-section-bg but don't paint it — the body      */
 /* does, so the colour extends behind the sidebar and right rail as well as   */
 /* the feed column.                                                           */
-/*                                                                            */
-/* Text colours inside sections stay canonical (ink, muted). Cards on dark    */
-/* backgrounds carry their own white surface. Section headings that sit       */
-/* directly on the dark bg get lifted per-section as needed.                  */
 /* ------------------------------------------------------------------------- */
 
 body {
@@ -165,9 +180,6 @@ body {
 html:has(.intro-section) {
   --page-bg: var(--canvas-alt);
 }
-html:has(.intro-section):not([data-page-theme]) {
-  /* SSR fallback for the theme attribute until BackdropController mounts. */
-}
 
 /* Section headings sit directly on the page bg (outside cards). Cards
    inside dark sections keep their own light bg + canonical text, so this
@@ -177,19 +189,19 @@ html:has(.intro-section):not([data-page-theme]) {
 }
 [data-page-theme="dark"] .section-heading,
 [data-page-theme="dark"] .on-page-bg {
-  color: var(--canvas);
+  color: var(--ink-inverse);
 }
 [data-page-theme="dark"] .on-page-bg-muted {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(247, 246, 241, 0.62);
+}
+[data-page-theme="dark"] .on-page-bg-border {
+  border-color: rgba(247, 246, 241, 0.12);
 }
 
-/* Creator app surface — flat app canvas from DESIGN-TOKENS.md. The
-   marketing body bg transition is irrelevant here; the surface paints its
-   own ground so the two surfaces can sit on different canvases while
-   sharing every other token. */
+/* Creator app surface — same paper as the marketing canvas. The marketing
+   body bg transition never runs here (no data-section-bg elements). */
 .creator-surface {
-  background: var(--surface-sunk);
-  background: color-mix(in srgb, var(--surface-sunk) 55%, var(--surface));
+  background: var(--canvas);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
@@ -256,18 +268,18 @@ html:has(.intro-section):not([data-page-theme]) {
      the real (theme-driven) page background, so it needs to invert too —
      scoped to this query so desktop's white-card case is never touched. */
   [data-page-theme="dark"] .hero-heading {
-    color: var(--canvas);
+    color: var(--ink-inverse);
   }
   [data-page-theme="dark"] .hero-subhead {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(247, 246, 241, 0.7);
   }
   [data-page-theme="dark"] .hero-ghost-cta {
-    color: var(--canvas);
-    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--ink-inverse);
+    border-color: rgba(247, 246, 241, 0.25);
   }
   [data-page-theme="dark"] .hero-ghost-cta:hover {
-    border-color: rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(247, 246, 241, 0.45);
+    background: rgba(247, 246, 241, 0.06);
   }
 }
 
@@ -291,7 +303,7 @@ html:has(.intro-section):not([data-page-theme]) {
     inset: 0;
     background: radial-gradient(
       60% 50% at 50% 45%,
-      var(--panel) 0%,
+      rgba(14, 159, 94, 0.18) 0%,
       transparent 65%
     );
     opacity: var(--field-opacity, 1);
@@ -314,12 +326,12 @@ html:has(.intro-section):not([data-page-theme]) {
      masked out of the SVG, so hero content underneath stays visible. */
   .intro-iphone > svg {
     opacity: var(--device-opacity, 1);
-    filter: drop-shadow(0 60px 120px rgba(14, 26, 18, 0.35));
+    filter: drop-shadow(0 60px 120px rgba(0, 0, 0, 0.5));
     transition: opacity 60ms linear;
   }
 
   /* screenClassName applied by Iphone to the screen wrapper — carries the
-     white "screen" surface so the hero has a bg against dark section bg. */
+     paper "screen" surface so the hero has a bg against dark section bg. */
   .intro-viewport-screen {
     background: var(--canvas);
   }
