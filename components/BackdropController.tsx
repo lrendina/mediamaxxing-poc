@@ -27,8 +27,18 @@ const DARK_TOKENS = new Set(["canvas-alt"]);
 
 export function BackdropController() {
   useEffect(() => {
+    /* Below 768px, DeviceIntro's scroll-jack never runs (see FeedSection's
+       "manual" bg comment in page.tsx), so sections that rely on it to
+       drive --page-bg need a fallback candidate here instead — checked
+       once at mount, matching DeviceIntro's own non-reactive breakpoint
+       check, since neither drives an actual scroll-jack layout that could
+       change without a reload. */
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const selector = isMobile
+      ? "[data-section-bg], [data-section-bg-mobile]"
+      : "[data-section-bg]";
     const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-section-bg]")
+      document.querySelectorAll<HTMLElement>(selector)
     );
     if (sections.length === 0) return;
 
@@ -46,7 +56,10 @@ export function BackdropController() {
         }
       }
       if (!best) return;
-      const key = best.dataset.sectionBg ?? "canvas";
+      const key =
+        best.dataset.sectionBg ??
+        (isMobile ? best.dataset.sectionBgMobile : undefined) ??
+        "canvas";
       const value = COLOR_TOKENS[key] ?? COLOR_TOKENS.canvas;
       document.documentElement.style.setProperty("--page-bg", value);
       /* Also expose the theme so CSS can invert on-bg text (section

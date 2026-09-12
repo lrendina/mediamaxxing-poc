@@ -64,18 +64,22 @@ function HeroContent() {
     <>
       <h1
         id="hero-heading"
-        className="text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
+        className="hero-heading text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
       >
         {HERO.headlineVerbatim}
       </h1>
-      <p className="text-[18px] text-muted max-w-[52ch] mt-4">
+      <p className="hero-subhead text-[18px] text-muted max-w-[52ch] mt-4">
         {HERO.subhead}
       </p>
       <div className="flex flex-wrap gap-3 mt-6">
         <Button href={HERO.primaryCta.href} variant="primary">
           {HERO.primaryCta.label}
         </Button>
-        <Button href={HERO.secondaryCta.href} variant="ghost">
+        <Button
+          href={HERO.secondaryCta.href}
+          variant="ghost"
+          className="hero-ghost-cta"
+        >
           {HERO.secondaryCta.label}
         </Button>
       </div>
@@ -90,8 +94,16 @@ function HeroContent() {
    `bg` values:
      "canvas"     — default, light bg via observer
      "dark"       — canvas-alt bg via observer
-     "manual"     — no observer attribute, another driver (DeviceIntro)
-                    sets --page-bg directly for this section's scroll range */
+     "manual"     — no observer attribute on desktop; DeviceIntro's scroll
+                    handler sets --page-bg directly for this section's
+                    scroll range instead. On mobile DeviceIntro's scroll-jack
+                    never runs (collapsed to plain flow), so this section
+                    would otherwise be invisible to BackdropController and
+                    lose every highest-visibility vote to whatever peeks
+                    into view below it — data-section-bg-mobile is the
+                    dark-on-mobile fallback BackdropController checks only
+                    below the 768px breakpoint, so desktop's scroll-driven
+                    crossfade is unaffected. */
 function FeedSection({
   id,
   ariaLabelledBy,
@@ -119,6 +131,7 @@ function FeedSection({
       aria-labelledby={ariaLabelledBy}
       aria-label={ariaLabel}
       data-section-bg={dataAttr}
+      data-section-bg-mobile={bg === "manual" ? "canvas-alt" : undefined}
       className={`scroll-mt-24 py-10 md:py-14 px-4 md:px-6 ${className}`}
     >
       <div className="mx-auto w-full max-w-[608px] md:max-w-[832px]">

@@ -85,6 +85,11 @@ export function DeviceIntro({ children }: { children: ReactNode }) {
       ).matches
     ) {
       document.documentElement.style.setProperty("--intro-shell-p", "1");
+      /* --page-bg for this path is driven by BackdropController via the
+         section's data-section-bg-mobile attribute (see FeedSection in
+         page.tsx) — not from here. A second observer in this component
+         raced BackdropController's for the same CSS variable and produced
+         a coin-flip dark/light result on load; one authority avoids that. */
       return;
     }
 

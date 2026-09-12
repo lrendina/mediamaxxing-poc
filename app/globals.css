@@ -152,6 +152,56 @@ html:has(.intro-section):not([data-page-theme]) {
   --intro-shell-p: 1;
 }
 
+/* Collapse condition mirrors the JS matchMedia check in DeviceIntro.tsx
+   ("(prefers-reduced-motion: reduce), (max-width: 767px)"). The .intro-*
+   layout rules below are already gated to the opposite (desktop + motion)
+   query, which resets .intro-section/.intro-sticky/.intro-scene to plain
+   block flow — but the Iphone component's SVG chrome and its absolutely
+   positioned "screen" cutout are plain inline styles set unconditionally
+   by iphone.tsx, so without this block they still render on mobile and
+   pinch the hero into a tiny off-layout inset. This drops the chrome and
+   flattens the screen box so the hero renders exactly like the
+   INTRO_ENABLED=false fallback (PageIntro). */
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .intro-iphone {
+    aspect-ratio: auto !important;
+  }
+  .intro-iphone > svg {
+    display: none;
+  }
+  .intro-viewport-screen {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+  .intro-viewport {
+    padding: 0;
+  }
+
+  /* On desktop this content sits inside .intro-viewport-screen's own white
+     surface, so the default --ink text always has contrast regardless of
+     the page-level dark/light theme. Flattened here, it sits directly on
+     the real (theme-driven) page background, so it needs to invert too —
+     scoped to this query so desktop's white-card case is never touched. */
+  [data-page-theme="dark"] .hero-heading {
+    color: var(--canvas);
+  }
+  [data-page-theme="dark"] .hero-subhead {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  [data-page-theme="dark"] .hero-ghost-cta {
+    color: var(--canvas);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  [data-page-theme="dark"] .hero-ghost-cta:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   html:has(.intro-section) {
     --intro-shell-p: 0;
