@@ -76,7 +76,9 @@ icon-only rail to make room for the campaign's own sidebar. Same component, `col
 - **`BrandCard`** — the grid unit. 16:9 artwork, then a footer row: small brand logo, brand
   name, "N campaigns" beneath, right-aligned blue rate pill ("$7/1K Views"). Badge pills
   overlay the artwork: amber "🏆 Bounty available" top-left, dark amber "⚡ 2x XP" top-right.
-  Two-column grid on desktop.
+  **Three-column grid on desktop (deviation, not observed)** — the source screenshots show
+  two columns; widened to three per explicit request to fit more campaigns above the fold.
+  Two columns at `sm`, one below that.
 - **`RatePill`**, **`BadgePill`** — small shared primitives. Badge kinds: accepted, bounty,
   xp-multiplier, live.
 
