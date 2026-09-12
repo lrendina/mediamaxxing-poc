@@ -16,11 +16,51 @@
   --payout: #04773a;   /* accent — money, counters, primary CTA only. Contrast vs white ~5.6:1 (WCAG AA all text). */
   --live:   #7a3ae0;   /* scarcity and status only — tier badges, "limited spots". Contrast vs white ≥4.5:1. */
 
+  /* ----------------------------------------------------------------------
+     DESIGN-TOKENS.md roles — shared by the marketing surface and the
+     creator app. Added alongside the Phase 1 palette above rather than
+     replacing it: retheming the signed-off marketing surface onto these
+     values is a palette decision (see CLAUDE.md "Stop and ask"), so the
+     old aliases stay until that call is made.
+     ---------------------------------------------------------------------- */
+
+  /* surfaces */
+  --surface:       #ffffff;   /* cards, sidebar */
+  --surface-sunk:  #eef0f4;   /* inset rows, tracks, chips */
+  --surface-dark:  #0b0d10;   /* featured campaign cards, artwork frames */
+  --border:        #e3e6eb;
+
+  /* text */
+  --ink-inverse:   #ffffff;
+
+  /* roles — never use a role outside its meaning */
+  --action:        #2f5bea;   /* something to press */
+  --action-sunk:   #e9effe;
+  --money:         #0fa958;   /* dollars, payouts, acceptance */
+  --money-sunk:    #e4f6ec;
+  --streak:        #f4741f;   /* progress, XP, momentum, urgency */
+  --streak-sunk:   #fdeee3;
+  --warn:          #a8761a;   /* attention, scarcity, bounty */
+  --warn-sunk:     #fbf3e2;
+  --discord:       #5865f2;   /* brand-locked: Join Discord only */
+
   /* Layout shell */
   --rail-left:    240px;
   --rail-right:   300px;
   --feed-max:     600px;
   --mobile-tabs:  56px;
+
+  /* Creator app shell (DESIGN-TOKENS.md geometry) */
+  --app-sidebar:            248px;
+  --app-sidebar-collapsed:  56px;
+  --app-rail:               380px;
+  --app-content-max:        1160px;
+
+  /* Geometry */
+  --radius-card:    12px;
+  --radius-control: 10px;
+  --radius-tile:    10px;
+  --radius-pill:    999px;
 
   /* Type scale (px) — 13/15/18/24/40/64 */
   --text-xs:  13px;
@@ -40,6 +80,26 @@
   --color-muted:  var(--muted);
   --color-payout: var(--payout);
   --color-live:   var(--live);
+
+  /* DESIGN-TOKENS.md roles */
+  --color-surface:      var(--surface);
+  --color-surface-sunk: var(--surface-sunk);
+  --color-surface-dark: var(--surface-dark);
+  --color-border:       var(--border);
+  --color-ink-inverse:  var(--ink-inverse);
+  --color-action:       var(--action);
+  --color-action-sunk:  var(--action-sunk);
+  --color-money:        var(--money);
+  --color-money-sunk:   var(--money-sunk);
+  --color-streak:       var(--streak);
+  --color-streak-sunk:  var(--streak-sunk);
+  --color-warn:         var(--warn);
+  --color-warn-sunk:    var(--warn-sunk);
+  --color-discord:      var(--discord);
+
+  --radius-card:    var(--radius-card);
+  --radius-control: var(--radius-control);
+  --radius-tile:    var(--radius-tile);
 
   --font-sans: var(--font-archivo);
 }
