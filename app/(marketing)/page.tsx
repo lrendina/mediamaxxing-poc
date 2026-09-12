@@ -31,26 +31,24 @@ const STEP_ICONS = [HomeIcon, BrandsIcon, AgenciesIcon];
    card chrome — the counter row reads as a stat strip inside the feed. */
 function CountersRow() {
   return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-4">
+    <Card variant="default" pad="none" className="grid grid-cols-3 divide-x divide-border">
       {HERO_COUNTERS.map((c, i) => (
-        <Card
+        <div
           key={c.label}
-          variant={i === 1 ? "spotlight" : "default"}
-          pad="md"
-          className="flex flex-col gap-1 min-w-0"
+          className="flex flex-col gap-1.5 min-w-0 px-4 sm:px-6 py-5"
         >
           <Counter
             value={c.value}
             prefix={c.prefix}
             suffix={c.suffix}
-            className={`text-[24px] sm:text-[32px] leading-none font-expanded truncate ${
-              i === 1 ? "text-payout" : "text-ink"
+            className={`text-[26px] sm:text-[36px] leading-none font-expanded truncate ${
+              i === 1 ? "text-money" : "text-ink"
             }`}
           />
-          <p className="text-[13px] text-muted truncate">{c.label}</p>
-        </Card>
+          <p className="text-[12px] sm:text-[13px] text-muted truncate">{c.label}</p>
+        </div>
       ))}
-    </div>
+    </Card>
   );
 }
 
@@ -64,20 +62,21 @@ function HeroContent() {
     <>
       <h1
         id="hero-heading"
-        className="hero-heading text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
+        className="hero-heading font-display text-[48px] sm:text-[64px] leading-[0.98] max-w-[14ch]"
       >
         {HERO.headlineVerbatim}
       </h1>
-      <p className="hero-subhead text-[18px] text-muted max-w-[52ch] mt-4">
+      <p className="hero-subhead text-[17px] sm:text-[18px] text-muted max-w-[46ch] mt-5 leading-[1.5]">
         {HERO.subhead}
       </p>
-      <div className="flex flex-wrap gap-3 mt-6">
-        <Button href={HERO.primaryCta.href} variant="primary">
+      <div className="flex flex-wrap gap-3 mt-7">
+        <Button href={HERO.primaryCta.href} variant="primary" size="lg">
           {HERO.primaryCta.label}
         </Button>
         <Button
           href={HERO.secondaryCta.href}
           variant="ghost"
+          size="lg"
           className="hero-ghost-cta"
         >
           {HERO.secondaryCta.label}
@@ -170,7 +169,7 @@ export default function Home() {
 
       {/* ── Proof — canvas, the feed's center of gravity ────────────── */}
       <FeedSection id="proof" ariaLabelledBy="proof-heading">
-        <h2 id="proof-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
+        <h2 id="proof-heading" className="section-heading font-display text-[32px] md:text-[36px] leading-[1.05] mb-5">
           {PROOF_HEADLINE_VERBATIM}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -184,7 +183,7 @@ export default function Home() {
 
       {/* ── How it works — DARK ─────────────────────────────────────── */}
       <FeedSection id="how-it-works" ariaLabelledBy="how-heading" bg="dark">
-        <h2 id="how-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
+        <h2 id="how-heading" className="section-heading font-display text-[32px] md:text-[36px] leading-[1.05] mb-5">
           {STEPS_HEADLINE_VERBATIM}
         </h2>
         <div className="flex flex-col gap-3">
@@ -206,17 +205,17 @@ export default function Home() {
 
       {/* ── FAQ — DARK ──────────────────────────────────────────────── */}
       <FeedSection id="questions" ariaLabelledBy="faq-heading" bg="dark">
-        <h2 id="faq-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
+        <h2 id="faq-heading" className="section-heading font-display text-[32px] md:text-[36px] leading-[1.05] mb-5">
           {FAQ_HEADING}
         </h2>
-        <Card variant="panel" pad="lg">
+        <Card variant="default" pad="lg" className="!py-2">
           <Accordion items={FAQ} />
         </Card>
       </FeedSection>
 
       {/* ── Blog — canvas ───────────────────────────────────────────── */}
       <FeedSection id="blog" ariaLabelledBy="blog-heading">
-        <h2 id="blog-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
+        <h2 id="blog-heading" className="section-heading font-display text-[32px] md:text-[36px] leading-[1.05] mb-5">
           {BLOG_HEADING}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

@@ -35,12 +35,12 @@ export function MobileTabBar({
       aria-label="Primary"
       className="
         md:hidden fixed bottom-0 inset-x-0 z-40
-        bg-canvas/95 backdrop-blur
-        border-t border-ink/10
+        bg-canvas/92 backdrop-blur-md
+        border-t border-border
         pb-[env(safe-area-inset-bottom)]
       "
     >
-      <ul className="flex items-stretch justify-between px-2 py-1">
+      <ul className="flex items-stretch justify-between px-1.5 py-1">
         {items.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href, pathname);
@@ -52,12 +52,18 @@ export function MobileTabBar({
                 aria-label={item.shortLabel ? item.label : undefined}
                 className={`
                   flex flex-col items-center justify-center gap-1
-                  min-h-11 py-1.5 rounded-lg
-                  text-[11px] leading-none whitespace-nowrap
+                  min-h-12 py-1.5 rounded-[10px]
+                  text-[11px] font-medium leading-none whitespace-nowrap
                   ${active ? "text-ink" : "text-muted"}
                 `}
               >
-                <Icon aria-hidden className="shrink-0" width={22} height={22} />
+                <span
+                  className={`inline-flex h-7 w-11 items-center justify-center rounded-full transition ${
+                    active ? "bg-surface-sunk" : ""
+                  }`}
+                >
+                  <Icon aria-hidden className="shrink-0" width={20} height={20} strokeWidth={active ? 1.9 : 1.6} />
+                </span>
                 {item.shortLabel ?? item.label}
               </Link>
             </li>

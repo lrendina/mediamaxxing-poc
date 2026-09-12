@@ -15,17 +15,17 @@ export function Accordion({
   className?: string;
 }) {
   return (
-    <div className={`divide-y divide-ink/10 ${className}`}>
+    <div className={`divide-y divide-border ${className}`}>
       {items.map((item, i) => (
         <details
           key={i}
-          className="group py-1"
+          className="group"
         >
           <summary
             className="
               flex items-center justify-between gap-4 py-4
               cursor-pointer list-none min-h-11
-              text-[18px] leading-snug
+              text-[17px] leading-snug font-medium tracking-[-0.005em]
               [&::-webkit-details-marker]:hidden
             "
           >
@@ -33,15 +33,15 @@ export function Accordion({
             <span
               aria-hidden
               className="
-                shrink-0 h-6 w-6 rounded-full bg-panel
-                flex items-center justify-center text-[18px] leading-none
-                transition group-open:rotate-45
+                shrink-0 h-7 w-7 rounded-full border border-border
+                flex items-center justify-center text-[18px] leading-none text-muted
+                transition group-open:rotate-45 group-open:bg-ink group-open:text-ink-inverse group-open:border-ink
               "
             >
               +
             </span>
           </summary>
-          <div className="pb-4 text-[15px] text-muted">{item.answer}</div>
+          <div className="pb-5 pr-10 text-[15px] text-muted leading-[1.6]">{item.answer}</div>
         </details>
       ))}
     </div>

@@ -1,23 +1,27 @@
 import type { ElementType, ReactNode } from "react";
 
-export type CardVariant = "default" | "panel" | "spotlight";
+export type CardVariant = "default" | "panel" | "spotlight" | "dark";
 
-/* Variants exist so hierarchy is visible in the feed. Never render every
-   card with the same radius and shadow — that flattens the whole page. */
+/* Hierarchy through surface and border, not shadow. Only `spotlight`
+   floats, and only slightly — it is for the one object per section that
+   should read as the point. `dark` is the green-black object that anchors
+   a section (CTA band, featured campaign). */
 const variantClasses: Record<CardVariant, string> = {
   default:
-    "rounded-2xl bg-canvas border border-ink/10",
+    "rounded-[var(--radius-card)] bg-surface border border-border",
   panel:
-    "rounded-2xl bg-panel",
+    "rounded-[var(--radius-card)] bg-surface-sunk/70",
   spotlight:
-    "rounded-3xl bg-canvas border border-ink/15 shadow-[0_2px_0_rgba(14,26,18,0.06)]",
+    "rounded-[var(--radius-card)] bg-surface border border-border shadow-lift",
+  dark:
+    "rounded-[var(--radius-card)] bg-surface-dark text-ink-inverse",
 };
 
 const padClasses = {
   none: "",
   sm:   "p-4",
   md:   "p-5",
-  lg:   "p-6",
+  lg:   "p-6 md:p-7",
 } as const;
 
 export type CardPad = keyof typeof padClasses;

@@ -3,30 +3,28 @@ import type { ComponentType, ReactNode, SVGProps } from "react";
 
 export type SidebarNavTone = "marketing" | "app" | "promoted";
 
-/* Active treatment differs per surface, and that difference is observed,
-   not invented: the marketing feed uses an ink pill (Phase 2); the live
-   creator app uses a light gray pill with a left accent bar. `promoted`
-   is the Campaign White Label entry — a gradient-tinted item that is a
-   promotion wearing a nav item's clothes. */
+/* One nav item, both surfaces. Active state is a white card lifted off the
+   paper by a hairline — the same treatment everywhere, so the two sidebars
+   are visibly one component. `promoted` is the Campaign White Label entry:
+   a promotion wearing a nav item's clothes, tinted so it reads as such. */
 const toneClasses: Record<
   SidebarNavTone,
   { base: string; active: string; idle: string }
 > = {
   marketing: {
-    base: "rounded-full",
-    active: "bg-ink text-canvas",
-    idle: "text-ink/80 hover:bg-ink/[0.05]",
+    base: "rounded-[var(--radius-control)]",
+    active: "bg-surface text-ink border border-border shadow-[0_1px_2px_rgba(20,19,15,0.04)]",
+    idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
   },
   app: {
-    base: "rounded-[var(--radius-control)] relative",
-    active:
-      "bg-surface-sunk text-ink before:absolute before:left-0 before:top-2 before:bottom-2 before:w-[3px] before:rounded-full before:bg-action",
-    idle: "text-ink/80 hover:bg-ink/[0.04]",
+    base: "rounded-[var(--radius-control)]",
+    active: "bg-surface text-ink border border-border shadow-[0_1px_2px_rgba(20,19,15,0.04)]",
+    idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
   },
   promoted: {
-    base: "rounded-[var(--radius-control)] relative bg-gradient-to-r from-action-sunk to-money-sunk",
-    active: "text-ink ring-1 ring-action/30",
-    idle: "text-ink hover:brightness-[0.98]",
+    base: "rounded-[var(--radius-control)] bg-gradient-to-r from-action-sunk to-money-sunk border",
+    active: "text-ink border-action/30",
+    idle: "text-ink border-transparent hover:brightness-[0.98]",
   },
 };
 
@@ -60,17 +58,17 @@ export function SidebarNavItem({
       title={collapsed ? label : undefined}
       className={`
         flex items-center gap-3 min-h-11 px-3 py-2
-        text-[15px] transition
+        text-[15px] font-medium tracking-[-0.005em] transition
         ${collapsed ? "justify-center" : "justify-start"}
         ${t.base} ${active ? t.active : t.idle}
       `}
     >
       <span className="relative shrink-0">
-        <Icon aria-hidden />
+        <Icon aria-hidden width={20} height={20} strokeWidth={active ? 1.9 : 1.6} />
         {dot ? (
           <span
             aria-hidden
-            className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-streak ring-2 ring-surface"
+            className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-streak ring-2 ring-canvas"
           />
         ) : null}
       </span>

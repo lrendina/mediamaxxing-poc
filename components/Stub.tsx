@@ -20,10 +20,10 @@ export function Stub({
           {eyebrow ? (
             <p className="text-[13px] text-muted">{eyebrow}</p>
           ) : null}
-          <h1 className="text-[40px] leading-[1.05] font-medium max-w-[18ch]">
+          <h1 className="font-display text-[48px] sm:text-[56px] leading-[1.0] max-w-[16ch]">
             {title}
           </h1>
-          <div className="text-[18px] text-muted flex flex-col gap-4 max-w-[60ch]">
+          <div className="text-[17px] text-muted flex flex-col gap-4 max-w-[58ch] leading-[1.55]">
             {children}
           </div>
           <div className="mt-2">

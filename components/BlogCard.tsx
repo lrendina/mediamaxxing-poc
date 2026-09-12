@@ -12,25 +12,25 @@ export type BlogCardData = {
 
 export function BlogCard({ data }: { data: BlogCardData }) {
   return (
-    <Card variant="default" pad="none" className="overflow-hidden">
-      <Link href={data.href} className="flex flex-col group">
-        <div className="relative aspect-[16/9] bg-panel">
+    <Card variant="default" pad="none" className="overflow-hidden group">
+      <Link href={data.href} className="flex flex-col h-full">
+        <div className="relative aspect-[16/10] bg-surface-sunk overflow-hidden">
           <Image
             src={data.cover}
             alt=""
             fill
             sizes="(min-width: 1024px) 600px, 100vw"
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </div>
-        <div className="p-5 flex flex-col gap-2">
-          <h3 className="text-[18px] leading-snug font-medium group-hover:underline underline-offset-4 decoration-ink/30">
+        <div className="p-4 flex flex-col gap-1.5 flex-1">
+          <h3 className="font-display text-[22px] leading-[1.15] group-hover:underline underline-offset-4 decoration-ink/30">
             {data.title}
           </h3>
-          <p className="text-[15px] text-muted line-clamp-2">
+          <p className="text-[14px] text-muted line-clamp-2">
             {data.excerpt}
           </p>
-          <p className="text-[13px] text-muted">{data.readMinutes} min read</p>
+          <p className="text-[12px] text-muted mt-auto pt-2">{data.readMinutes} min read</p>
         </div>
       </Link>
     </Card>

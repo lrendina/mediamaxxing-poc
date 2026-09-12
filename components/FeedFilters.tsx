@@ -14,7 +14,7 @@ export function FeedFilters() {
       className="
         sticky top-0 z-30
         bg-canvas/90 backdrop-blur
-        border-b border-ink/10
+        border-b border-border
       "
     >
       <ul className="flex gap-2 overflow-x-auto px-4 md:px-6 py-2">

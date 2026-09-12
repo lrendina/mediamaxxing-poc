@@ -24,13 +24,21 @@ export const metadata: Metadata = {
     "Design tokens and every primitive with every state — the design-system review surface.",
 };
 
+/* Hex values are documentation only — every component reads the CSS
+   variable. Keep this list in sync with app/globals.css. */
 const swatches = [
-  { name: "canvas",  hex: "#FFFFFF",   role: "page background",                    text: "ink"    },
-  { name: "panel",   hex: "#EDF1EC",   role: "card surface, sidebar rail",         text: "ink"    },
-  { name: "ink",     hex: "#0E1A12",   role: "primary text",                       text: "canvas" },
-  { name: "muted",   hex: "#5F6F63",   role: "secondary text, metadata",           text: "canvas" },
-  { name: "payout",  hex: "#04773A",   role: "money, counters, primary CTA only",  text: "canvas" },
-  { name: "live",    hex: "#7A3AE0",   role: "scarcity and status only",           text: "canvas" },
+  { name: "canvas",       hex: "#F4F2EC", role: "page — warm paper",                 text: "ink"         },
+  { name: "surface",      hex: "#FFFFFF", role: "cards, panels",                     text: "ink"         },
+  { name: "surface-sunk", hex: "#EBE8DF", role: "inset rows, tracks, chips, tiles",  text: "ink"         },
+  { name: "surface-dark", hex: "#0F1411", role: "dark bands, featured cards",        text: "ink-inverse" },
+  { name: "ink",          hex: "#14130F", role: "primary text, primary button",      text: "ink-inverse" },
+  { name: "muted",        hex: "#6B675C", role: "secondary text, metadata",          text: "ink-inverse" },
+  { name: "action",       hex: "#2A4BD7", role: "something to press (app)",          text: "ink-inverse" },
+  { name: "money",        hex: "#0E9F5E", role: "dollars, payouts, acceptance",      text: "ink-inverse" },
+  { name: "streak",       hex: "#EF6420", role: "progress, XP, momentum, urgency",   text: "ink-inverse" },
+  { name: "warn",         hex: "#96690F", role: "attention, scarcity, bounty",       text: "ink-inverse" },
+  { name: "status",       hex: "#5B3FC9", role: "marketing tier badges only",        text: "ink-inverse" },
+  { name: "discord",      hex: "#5865F2", role: "Join Discord only",                 text: "ink-inverse" },
 ] as const;
 
 const typeScale = [
@@ -56,7 +64,7 @@ export default function Styleguide() {
   return (
     <div className="mx-auto max-w-[900px] px-6 py-16">
       <header className="mb-16 flex flex-col gap-3">
-        <h1 className="text-[40px] leading-[1.05] font-medium">Styleguide</h1>
+        <h1 className="font-display text-[56px] leading-[1.0]">Styleguide</h1>
         <p className="text-muted max-w-[60ch]">
           Every primitive, every state — the design-system review surface. Any
           change to the palette, typeface, or type scale after this page is
@@ -65,17 +73,17 @@ export default function Styleguide() {
       </header>
 
       {/* ── Palette ────────────────────────────────────────────────────── */}
-      <Section title="Palette" note="Two chromatic colors, each with one job. Everything else is neutral.">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <Section title="Palette" note="Paper and signal. Warm neutrals carry the page; one saturated colour per semantic role, never used outside its meaning.">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {swatches.map((s) => (
-            <div key={s.name} className="rounded-2xl overflow-hidden border border-ink/10">
+            <div key={s.name} className="rounded-[var(--radius-card)] overflow-hidden border border-border">
               <div
-                className="h-24 flex items-end px-4 py-3"
-                style={{ backgroundColor: s.hex, color: `var(--${s.text})` }}
+                className="h-20 flex items-end px-4 py-3"
+                style={{ backgroundColor: `var(--${s.name})`, color: `var(--${s.text})` }}
               >
-                <span className="font-mono text-[13px]">{s.hex}</span>
+                <span className="font-mono text-[12px]">{s.hex}</span>
               </div>
-              <div className="bg-canvas px-4 py-3 flex flex-col gap-1">
+              <div className="bg-surface px-4 py-3 flex flex-col gap-1">
                 <code className="text-[13px]">--{s.name}</code>
                 <p className="text-[13px] text-muted">{s.role}</p>
               </div>
@@ -85,13 +93,16 @@ export default function Styleguide() {
       </Section>
 
       {/* ── Type scale ─────────────────────────────────────────────────── */}
-      <Section title="Type scale" note="Archivo, one family. Scale is 13 / 15 / 18 / 24 / 40 / 64. Body 15/1.6.">
-        <div className="flex flex-col divide-y divide-ink/10">
+      <Section title="Type scale" note="Archivo for UI and body, Instrument Serif for display headings (24 and up), Archivo Expanded for every number. Body 15/1.6.">
+        <div className="flex flex-col divide-y divide-border">
           {typeScale.map((t) => (
             <div key={t.label} className="grid grid-cols-[80px_1fr] gap-4 py-4 items-baseline">
               <div className="text-[13px] text-muted font-mono">{t.label} · {t.px}</div>
               <div className="flex flex-col gap-1 min-w-0">
-                <div style={{ fontSize: `${t.px}px`, lineHeight: 1.2 }} className="truncate">
+                <div
+                  style={{ fontSize: `${t.px}px`, lineHeight: 1.1 }}
+                  className={`truncate ${t.px >= 24 ? "font-display" : ""}`}
+                >
                   The order is the product.
                 </div>
                 <div className="text-[13px] text-muted">{t.use}</div>
@@ -106,7 +117,7 @@ export default function Styleguide() {
         title="Numerals"
         note="Archivo's expanded width, reserved for dollar figures and counters. Tabular figures on every number so counters do not jitter."
       >
-        <div className="rounded-2xl bg-panel px-6 py-8 flex flex-col gap-4">
+        <div className="rounded-[var(--radius-card)] bg-surface border border-border px-6 py-8 flex flex-col gap-4">
           <NumeralRow label="default">
             <span className="text-[40px] leading-none">$100,227</span>
           </NumeralRow>
@@ -114,7 +125,7 @@ export default function Styleguide() {
             <span className="text-[40px] leading-none font-expanded">$100,227</span>
           </NumeralRow>
           <NumeralRow label="expanded lg">
-            <span className="text-[64px] leading-none font-expanded text-payout">$45,402</span>
+            <span className="text-[64px] leading-none font-expanded text-money">$45,402</span>
           </NumeralRow>
           <NumeralRow label="counter">
             <span className="text-[24px] leading-none font-expanded">1,204,908</span>
@@ -135,11 +146,11 @@ export default function Styleguide() {
       {/* ── Button ────────────────────────────────────────────────────── */}
       <Section
         title="Button"
-        note="Three variants. Primary is only ever payout-green — if the action is not about earning, use secondary or ghost."
+        note="Three variants. Primary is ink. Secondary is money-green and is reserved for the one CTA per page that is literally about getting paid. Ghost is a hairline."
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(["primary", "secondary", "ghost"] as const).map((variant) => (
-            <div key={variant} className="rounded-2xl border border-ink/10 p-5 flex flex-col gap-5">
+            <div key={variant} className="rounded-[var(--radius-card)] border border-border p-5 flex flex-col gap-5">
               <div className="text-[13px] text-muted">{variant}</div>
               <StateRow label="default">
                 <Button variant={variant}>Get started</Button>
@@ -161,7 +172,7 @@ export default function Styleguide() {
       {/* ── Badge ─────────────────────────────────────────────────────── */}
       <Section
         title="Badge"
-        note="Tier badges use --live so they read as status, not decoration. Neutral for everything non-urgent."
+        note="Tier badges use --status so they read as status, not decoration. Payout badges use --money. Neutral for everything non-urgent."
       >
         <div className="flex flex-col gap-6">
           <StateRow label="tier">
@@ -224,7 +235,7 @@ export default function Styleguide() {
       >
         <Card variant="panel" className="flex items-baseline gap-3">
           <span className="text-[13px] text-muted w-24">Paid this month</span>
-          <Counter value={1204908} prefix="$" className="text-[40px] leading-none font-expanded text-payout" />
+          <Counter value={1204908} prefix="$" className="text-[40px] leading-none font-expanded text-money" />
         </Card>
       </Section>
 
@@ -296,10 +307,10 @@ export default function Styleguide() {
         title="Layout"
         note="Left rail 240 · feed 600 max · right rail 300. Right rail drops below 1280, sidebar collapses to icons below 1024, becomes a bottom tab bar below 768."
       >
-        <div className="hidden md:grid rounded-2xl border border-ink/10 overflow-hidden [grid-template-columns:240px_1fr_300px]">
-          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">sidebar · 240</div>
-          <div className="bg-canvas h-40 flex items-center justify-center text-[13px] text-muted border-x border-ink/10">feed · max 600</div>
-          <div className="bg-panel h-40 flex items-center justify-center text-[13px] text-muted">right rail · 300</div>
+        <div className="hidden md:grid rounded-[var(--radius-card)] border border-border overflow-hidden [grid-template-columns:240px_1fr_300px]">
+          <div className="bg-surface-sunk h-40 flex items-center justify-center text-[13px] text-muted">sidebar · 240</div>
+          <div className="bg-canvas h-40 flex items-center justify-center text-[13px] text-muted border-x border-border">feed · max 600</div>
+          <div className="bg-surface-sunk h-40 flex items-center justify-center text-[13px] text-muted">right rail · 300</div>
         </div>
         <p className="mt-3 text-[13px] text-muted md:hidden">
           (Diagram is a desktop preview — you&rsquo;re currently on a narrower viewport.)

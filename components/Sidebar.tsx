@@ -20,10 +20,10 @@ export function Sidebar() {
     <aside
       aria-label="Primary"
       className="
-        hidden md:flex sticky top-0 h-screen flex-col bg-panel
+        hidden md:flex sticky top-0 h-screen flex-col bg-canvas
         w-[72px] lg:w-[240px]
-        px-3 lg:px-4 py-5
-        border-r border-ink/5
+        px-2.5 lg:px-4 py-5
+        border-r border-border
       "
     >
       {/* No aria-label — LogoLockup itself supplies "MediaMaxxing" as the

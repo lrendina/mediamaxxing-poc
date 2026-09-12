@@ -24,14 +24,14 @@ export function SurfaceSwitch({
       href={target.href}
       title={`${SURFACE_SWITCH.note}: ${target.label}`}
       className={`
-        flex items-center gap-2 min-h-11 px-3 py-2
+        flex items-center gap-2 min-h-10 px-3 py-1.5
         rounded-[var(--radius-control)]
-        border border-dashed border-ink/25 text-[13px] text-muted
-        hover:border-ink/50 hover:text-ink transition
-        ${collapsed ? "justify-center" : ""}
+        border border-dashed border-border-strong text-[12px] text-muted
+        hover:border-ink hover:text-ink transition
+        ${collapsed ? "justify-center px-0" : ""}
       `}
     >
-      <SwapIcon aria-hidden width={18} height={18} className="shrink-0" />
+      <SwapIcon aria-hidden width={16} height={16} className="shrink-0" />
       <span className={collapsed ? "sr-only" : "truncate"}>
         {target.label}
       </span>

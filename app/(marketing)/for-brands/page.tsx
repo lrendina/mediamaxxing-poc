@@ -43,18 +43,18 @@ export default function ForBrands() {
           <PageIntro>
             <h1
               id="hero-heading"
-              className="text-[40px] sm:text-[48px] leading-[1.05] font-medium max-w-[18ch]"
+              className="font-display text-[48px] sm:text-[64px] leading-[0.98] max-w-[14ch]"
             >
               {BRANDS_HERO.headlineVerbatim}
             </h1>
-            <p className="text-[18px] text-muted max-w-[52ch] mt-4">
+            <p className="text-[17px] sm:text-[18px] text-muted max-w-[46ch] mt-5 leading-[1.5]">
               {BRANDS_HERO.subhead}
             </p>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <Button href={BRANDS_HERO.primaryCta.href} variant="primary">
+            <div className="flex flex-wrap gap-3 mt-7">
+              <Button href={BRANDS_HERO.primaryCta.href} variant="primary" size="lg">
                 {BRANDS_HERO.primaryCta.label}
               </Button>
-              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost">
+              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost" size="lg">
                 {BRANDS_HERO.secondaryCta.label}
               </Button>
             </div>
@@ -69,7 +69,7 @@ export default function ForBrands() {
         >
           <h2
             id="how-heading"
-            className="text-[24px] leading-tight font-medium max-w-[36ch]"
+            className="font-display text-[32px] md:text-[36px] leading-[1.05] max-w-[30ch]"
           >
             {BRANDS_STEPS_HEADLINE_VERBATIM}
           </h2>
@@ -97,7 +97,7 @@ export default function ForBrands() {
         >
           <h2
             id="features-heading"
-            className="text-[24px] leading-tight font-medium"
+            className="font-display text-[32px] md:text-[36px] leading-[1.05]"
           >
             {BRANDS_FEATURES_HEADING}
           </h2>
@@ -109,10 +109,10 @@ export default function ForBrands() {
                 pad="lg"
                 className="flex flex-col gap-2"
               >
-                <h3 className="text-[18px] font-medium leading-tight">
+                <h3 className="text-[19px] font-medium leading-tight tracking-[-0.01em]">
                   {f.title}
                 </h3>
-                <p className="text-[15px] text-muted">{f.body}</p>
+                <p className="text-[15px] text-muted leading-[1.55]">{f.body}</p>
               </Card>
             ))}
           </div>
@@ -124,26 +124,24 @@ export default function ForBrands() {
           aria-label="Brand results"
           className="scroll-mt-24"
         >
-          <div className="grid grid-cols-2 gap-2 sm:gap-4">
+          <Card variant="default" pad="none" className="grid grid-cols-2 divide-x divide-border">
             {BRANDS_COUNTERS.map((c, i) => (
-              <Card
+              <div
                 key={c.label}
-                variant={i === 0 ? "spotlight" : "default"}
-                pad="md"
-                className="flex flex-col gap-1 min-w-0"
+                className="flex flex-col gap-1.5 min-w-0 px-5 sm:px-7 py-6"
               >
                 <Counter
                   value={c.value}
                   prefix={c.prefix}
                   suffix={c.suffix}
-                  className={`text-[32px] sm:text-[40px] leading-none font-expanded truncate ${
-                    i === 0 ? "text-payout" : "text-ink"
+                  className={`text-[32px] sm:text-[44px] leading-none font-expanded truncate ${
+                    i === 0 ? "text-money" : "text-ink"
                   }`}
                 />
                 <p className="text-[13px] text-muted truncate">{c.label}</p>
-              </Card>
+              </div>
             ))}
-          </div>
+          </Card>
         </section>
 
         {/* ── Footer CTA ───────────────────────────────────────────── */}
