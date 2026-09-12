@@ -10,10 +10,6 @@ The real app is **already** a left sidebar, a centered content column, and a rig
 redesign is not imposing an app shell onto a marketing site. It is extending the shell the
 product already uses to the marketing site that currently ignores it.
 
-That means Phase 9 is **not a redesign of the dashboard**. It is a faithful rebuild of the
-dashboard in our token system, so that the marketing feed and the creator app are visibly one
-product. Do not restructure their app. Do not "improve" their information architecture.
-Reskin it and let the continuity make the argument.
 
 The app is also densely gamified — XP, ranks, streaks, daily missions, bounties, XP
 multipliers, leaderboards, progressive unlocks — and the marketing site contains none of that
@@ -243,9 +239,3 @@ Build a `?state=populated` variant alongside the observed empty states so the pr
 demonstrates both — and so the contrast is legible in a single screenshot pair. The empty
 states are cheap to build and accurate; the populated ones are what make the prototype look
 finished.
-
-## Out of scope
-
-No auth, no persistence, no submission flow, no real charts backed by real data, no dark mode
-unless time allows. Fixtures only. Every button that would mutate state is inert and labelled
-as a prototype control.
