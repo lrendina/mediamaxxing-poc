@@ -196,6 +196,36 @@ export const WHITE_LABEL_PAGE = {
   apply: "Apply",
 };
 
+/* The "Get started" button's destination (see content/nav.ts): a modal
+   over /creator/campaigns rather than its own page (?welcome=1 opens it —
+   see WelcomeModal.tsx and CampaignsScreen.tsx), not observed, built per
+   explicit request. Plays the 0 -> signup-bonus XP animation once, then
+   points to the three onboarding actions. "Join OpenArt" and "Link an
+   account" both land on the OpenArt campaign detail page — that's where
+   CampaignSidebar's own onboarding checklist ("Link an account", "Make
+   your first post") already lives, so this doesn't invent a second,
+   unobserved account-settings page. */
+export const WELCOME_MODAL = {
+  title: "You're in.",
+  subtitle: "New accounts start with a small XP bonus. Here's how to start earning.",
+  xpEyebrow: "Signup bonus",
+  stepsHeading: "Get started",
+  steps: [
+    {
+      title: "Join OpenArt",
+      body: "We matched you to a campaign that's live right now.",
+      href: "/creator/campaigns/openart/director-advanced",
+    },
+    {
+      title: "Link an account",
+      body: "Connect the account you'll post from — it's the first step in OpenArt's onboarding checklist.",
+      href: "/creator/campaigns/openart/director-advanced",
+    },
+  ],
+  close: "Close",
+  skip: "I'll look around first",
+};
+
 export const STATE_SWITCH = {
   label: "Fixture state",
   new: "New creator",

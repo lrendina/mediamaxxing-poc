@@ -30,6 +30,7 @@ energy. That gap is the strongest observation available and it should drive the 
 | `/creator/retainers` | 5 | Locked state observed |
 | `/creator/courses` | 6 | One course, 0% progress |
 | `/creator/white-label` | 7 | Marketing page living inside the app shell |
+| `/creator/welcome` | — | **Not observed.** Added per explicit request as the destination of the marketing top nav's "Get started" button, since this prototype has no real session to gate a first-run screen behind. |
 
 ## Global shell
 
@@ -75,6 +76,18 @@ Two things in this modal are **not** from the screenshot, flagged rather than hi
 Also per explicit request: account creation now grants a **25 XP signup bonus**, so `newCreator`
 is Unranked at 25 XP rather than the previously-observed 0 XP. See the note on `newCreator` in
 `content/creator/profiles.ts`.
+
+**`WelcomeScreen`** (`/creator/welcome`) — **entirely not observed**, added per explicit
+request as the first thing a brand-new account sees. The marketing top nav's "Get started"
+button now points here instead of straight to `/creator/campaigns`; since this prototype has no
+real session, every click plays the same brand-new-account moment rather than only a true
+first visit. Plays the `newCreator` XP bar filling from 0 to 25 once on mount (`useCountUp`,
+`lib/useCountUp.ts` — mirrors `Counter.tsx`'s easing and its `prefers-reduced-motion` handling,
+but fires on mount instead of on-scroll-into-view), then lists three onboarding actions as
+linked rows: Browse campaigns, Join OpenArt, Link an account. "Join OpenArt" and "Link an
+account" both route to the OpenArt Director Advanced campaign detail page — that page's
+`CampaignSidebar` onboarding checklist is where "Link an account" already lives in this build,
+so this doesn't invent a second, unobserved account-settings page.
 
 **`PageHeader`** — h1 plus one-line subtitle. Optional right-aligned action slot (Withdraw,
 Auto Submit).

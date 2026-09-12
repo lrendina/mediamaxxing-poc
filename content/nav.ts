@@ -24,6 +24,15 @@ export const SURFACE_SWITCH = {
   note: "Prototype switch",
 };
 
+/* TopNav's right-hand pair. "Get started" lands on Campaigns with the
+   welcome modal open (?welcome=1) rather than a bare Campaigns view —
+   there's no real session in this prototype, so every click plays the
+   same brand-new-account moment (see components/creator/WelcomeModal.tsx). */
+export const TOP_NAV_CTA = {
+  signIn: { label: "Sign in", href: "/auth" },
+  getStarted: { label: "Get started", href: "/creator/campaigns?welcome=1" },
+};
+
 /* Footer nav mirrors the live site's two-group layout. */
 export type FooterGroup = {
   heading: string;

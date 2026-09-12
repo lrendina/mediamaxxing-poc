@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CAMPAIGNS_PAGE } from "@/content/creator/ui";
 import { BrandCard } from "./BrandCard";
 import { useCreator } from "./CreatorStateProvider";
@@ -7,13 +9,34 @@ import { FeaturedCampaignCard } from "./FeaturedCampaignCard";
 import { MissionCard } from "./MissionCard";
 import { PageHeader } from "./PageHeader";
 import { SectionDisclosure } from "./SectionDisclosure";
+import { WelcomeModal } from "./WelcomeModal";
 
 /* /creator/campaigns — observed order: header, mission cards, "My Brands"
    disclosure (featured card for the accepted campaign, then joined brand
-   cards), "Brands" disclosure (the grid). */
+   cards), "Brands" disclosure (the grid).
+
+   ?welcome=1 (the "Get started" button's destination, see content/nav.ts)
+   opens WelcomeModal over this page instead of routing to a separate
+   /creator/welcome page — dismissing it just drops the query param. */
 export function CampaignsScreen() {
   const { fixtures } = useCreator();
   const { brands, campaigns, missions } = fixtures;
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const showWelcome = searchParams.get("welcome") === "1";
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const closeWelcome = () => {
+    dialogRef.current?.close();
+    const params = new URLSearchParams(searchParams);
+    params.delete("welcome");
+    const query = params.toString();
+    router.replace(`/creator/campaigns${query ? `?${query}` : ""}`);
+  };
+
+  useEffect(() => {
+    if (showWelcome) dialogRef.current?.showModal();
+  }, [showWelcome]);
 
   const mine = brands.filter((b) => b.joined);
   const others = brands.filter((b) => !b.joined);
@@ -66,6 +89,8 @@ export function CampaignsScreen() {
           ))}
         </div>
       </SectionDisclosure>
+
+      <WelcomeModal dialogRef={dialogRef} profile={fixtures.profile} onClose={closeWelcome} />
     </div>
   );
 }

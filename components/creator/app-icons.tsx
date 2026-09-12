@@ -194,6 +194,13 @@ export const MedalIcon = (p: SvgProps) => (
   </svg>
 );
 
+export const LinkIcon = (p: SvgProps) => (
+  <svg {...base} {...p}>
+    <path d="M10 14a4 4 0 0 0 5.66 0l2.83-2.83a4 4 0 1 0-5.66-5.66l-1.42 1.41" />
+    <path d="M14 10a4 4 0 0 0-5.66 0L5.5 12.83a4 4 0 1 0 5.66 5.66l1.42-1.41" />
+  </svg>
+);
+
 export const SparkleIcon = (p: SvgProps) => (
   <svg {...base} {...p} fill="currentColor" stroke="none">
     <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z" />

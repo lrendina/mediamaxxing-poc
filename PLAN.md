@@ -326,6 +326,9 @@ information architecture, rename their nav, or improve their flows. Reskin and r
   screenshot) plus a milestone-missions checklist, and a 25 XP signup bonus on `newCreator`.
   Added after the rest of Phase 9, per explicit request. See CREATOR-APP.md/DATA-MODEL.md for
   what's observed vs. assumed here.
+- [AGENT] `/creator/welcome` — a first-run screen (not observed) that the marketing top nav's
+  "Get started" button now opens instead of `/creator/campaigns` directly: XP bar fills 0 -> 25
+  once, then links out to Browse campaigns / Join OpenArt / Link an account. See CREATOR-APP.md.
 
 ### Rules
 

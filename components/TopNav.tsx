@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SIDEBAR_NAV } from "@/content/nav";
+import { SIDEBAR_NAV, TOP_NAV_CTA } from "@/content/nav";
 import { LogoLockup } from "./LogoLockup";
 import { Button } from "./Button";
 import { SurfaceSwitch } from "./SurfaceSwitch";
@@ -50,11 +50,11 @@ export function TopNav() {
           <span className="hidden lg:block">
             <SurfaceSwitch direction="toCreator" />
           </span>
-          <Button href="/auth" variant="ghost" size="sm" className="hidden sm:inline-flex !border-ink-inverse/30 !text-ink-inverse hover:!border-ink-inverse">
-            Sign in
+          <Button href={TOP_NAV_CTA.signIn.href} variant="ghost" size="sm" className="hidden sm:inline-flex !border-ink-inverse/30 !text-ink-inverse hover:!border-ink-inverse">
+            {TOP_NAV_CTA.signIn.label}
           </Button>
-          <Button href="/#get-started" variant="lime" size="sm">
-            Get started
+          <Button href={TOP_NAV_CTA.getStarted.href} variant="lime" size="sm">
+            {TOP_NAV_CTA.getStarted.label}
           </Button>
         </div>
       </div>
