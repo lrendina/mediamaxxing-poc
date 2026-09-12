@@ -85,29 +85,40 @@ function HeroContent() {
 
 /* Section wrapper. Section itself carries NO bg — the body's --page-bg
    handles that, driven by BackdropController based on which section is
-   visible. `dark` here just declares the target colour via data attribute
-   for the observer to read. Text colours stay canonical (ink/muted). */
+   visible.
+
+   `bg` values:
+     "canvas"     — default, light bg via observer
+     "dark"       — canvas-alt bg via observer
+     "manual"     — no observer attribute, another driver (DeviceIntro)
+                    sets --page-bg directly for this section's scroll range */
 function FeedSection({
   id,
   ariaLabelledBy,
   ariaLabel,
-  dark = false,
+  bg = "canvas",
   className = "",
   children,
 }: {
   id?: string;
   ariaLabelledBy?: string;
   ariaLabel?: string;
-  dark?: boolean;
+  bg?: "canvas" | "dark" | "manual";
   className?: string;
   children: React.ReactNode;
 }) {
+  const dataAttr =
+    bg === "manual"
+      ? undefined
+      : bg === "dark"
+      ? "canvas-alt"
+      : "canvas";
   return (
     <section
       id={id}
       aria-labelledby={ariaLabelledBy}
       aria-label={ariaLabel}
-      data-section-bg={dark ? "canvas-alt" : "canvas"}
+      data-section-bg={dataAttr}
       className={`scroll-mt-24 py-10 md:py-14 px-4 md:px-6 ${className}`}
     >
       <div className="mx-auto w-full max-w-[608px] md:max-w-[832px]">
@@ -122,32 +133,27 @@ export default function Home() {
     <div id="top" className="w-full">
       <BackdropController />
 
-      {/* ── Hero — DARK so the iPhone screen (canvas) stands out ─────── */}
+      {/* ── Hero — DeviceIntro drives --page-bg directly across p 0.75→1
+          so the dark bg fades to canvas as the phone-screen expansion
+          reaches feed width. `bg="manual"` tells BackdropController to
+          ignore this section (no data-section-bg attribute). */}
       {INTRO_ENABLED ? (
-        <FeedSection ariaLabelledBy="hero-heading" dark>
+        <FeedSection ariaLabelledBy="hero-heading" bg="manual">
           <DeviceIntro>
             <HeroContent />
           </DeviceIntro>
         </FeedSection>
       ) : (
-        <FeedSection ariaLabelledBy="hero-heading" dark className="flex flex-col gap-5">
+        <FeedSection
+          ariaLabelledBy="hero-heading"
+          bg="dark"
+          className="flex flex-col gap-5"
+        >
           <PageIntro>
             <HeroContent />
           </PageIntro>
         </FeedSection>
       )}
-
-      {/* Transition zone: canvas-bg spacer between hero (dark) and proof.
-          As the hero release-scrolls out, this element scrolls in — the
-          BackdropController's IntersectionObserver sees a canvas section
-          taking over and the body bg fades dark → canvas, so the phone-
-          screen white "expands to the sides" and lands on the proof
-          section already at canvas. */}
-      <div
-        aria-hidden
-        data-section-bg="canvas"
-        className="h-[35vh]"
-      />
 
       {/* ── Proof — canvas, the feed's center of gravity ────────────── */}
       <FeedSection id="proof" ariaLabelledBy="proof-heading">
@@ -164,7 +170,7 @@ export default function Home() {
       </FeedSection>
 
       {/* ── How it works — DARK ─────────────────────────────────────── */}
-      <FeedSection id="how-it-works" ariaLabelledBy="how-heading" dark>
+      <FeedSection id="how-it-works" ariaLabelledBy="how-heading" bg="dark">
         <h2 id="how-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {STEPS_HEADLINE_VERBATIM}
         </h2>
@@ -181,12 +187,12 @@ export default function Home() {
       </FeedSection>
 
       {/* ── Counters — DARK ─────────────────────────────────────────── */}
-      <FeedSection id="counters" ariaLabel={COUNTERS_A11Y_LABEL} dark>
+      <FeedSection id="counters" ariaLabel={COUNTERS_A11Y_LABEL} bg="dark">
         <CountersRow />
       </FeedSection>
 
       {/* ── FAQ — DARK ──────────────────────────────────────────────── */}
-      <FeedSection id="questions" ariaLabelledBy="faq-heading" dark>
+      <FeedSection id="questions" ariaLabelledBy="faq-heading" bg="dark">
         <h2 id="faq-heading" className="section-heading text-[24px] leading-tight font-medium mb-4">
           {FAQ_HEADING}
         </h2>
