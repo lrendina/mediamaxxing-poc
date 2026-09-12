@@ -94,7 +94,10 @@ body {
 
 body {
   background: var(--page-bg, var(--canvas));
-  transition: background 500ms ease;
+  /* Short transition so JS-driven per-frame updates from DeviceIntro
+     stay responsive, while BackdropController's discrete section jumps
+     still get a soft edge instead of a snap. */
+  transition: background 200ms ease;
 }
 
 /* Intro page starts on the dark background AND dark theme so first paint
