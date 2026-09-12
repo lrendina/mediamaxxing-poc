@@ -10,13 +10,16 @@ import { SurfaceSwitch } from "@/components/SurfaceSwitch";
 import { appIconByName, BellIcon } from "./app-icons";
 import { Avatar } from "./Avatar";
 import { useCreator } from "./CreatorStateProvider";
+import { RankBar } from "./RankBar";
 import { StateSwitch } from "./StateSwitch";
 
 /* The creator app's primary nav. Same SidebarNavItem, same LogoLockup as
    the marketing Sidebar — the point of Phase 9 is that these two asides
    are visibly one component family. Observed: ~248px, white, hairline
    right border, active = gray pill + left accent bar, Submissions dot,
-   White Label promoted, avatar + name + bell pinned to the bottom. */
+   White Label promoted, avatar + name + bell pinned to the bottom.
+   RankBar sits above the profile row — a deliberate deviation from the
+   observed full-width placement, see CREATOR-APP.md. */
 export function AppSidebar({ collapsed }: { collapsed: boolean }) {
   const pathname = usePathname();
   const { fixtures, href } = useCreator();
@@ -57,6 +60,7 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
       <div className="mt-4 flex flex-col gap-2">
         <StateSwitch collapsed={collapsed} />
         <SurfaceSwitch direction="toMarketing" collapsed={collapsed} />
+        <RankBar collapsed={collapsed} />
 
         <div
           className={`flex items-center gap-3 rounded-[var(--radius-control)] min-h-12 border-t border-border pt-4 mt-1 ${collapsed ? "justify-center px-0" : "px-1"}`}

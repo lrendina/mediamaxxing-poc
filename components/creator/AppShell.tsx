@@ -7,12 +7,12 @@ import { AppSidebar } from "./AppSidebar";
 import { AppTabBar } from "./AppTabBar";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { DiscordBanner } from "./DiscordBanner";
-import { RankBar } from "./RankBar";
 import { TopBar } from "./TopBar";
 import { useCreator } from "./CreatorStateProvider";
 
-/* Composes the global shell: sidebar · top bar · banner · rank bar · page.
-   The campaign detail route collapses the sidebar to the icon rail
+/* Composes the global shell: sidebar · top bar · banner · page. RankBar
+   lives in AppSidebar now (see CREATOR-APP.md). The campaign detail route
+   collapses the sidebar to the icon rail
    (observed) to make room for the campaign's own sidebar; the top bar
    toggle can override that until the next navigation. */
 function isDetailRoute(pathname: string) {
@@ -58,7 +58,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             "
           >
             {!fixtures.profile.discordConnected ? <DiscordBanner /> : null}
-            <RankBar />
             <div className="w-full">{children}</div>
           </main>
         </div>
