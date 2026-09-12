@@ -52,19 +52,12 @@ dashboard screenshot. So the money is the design, and everything else gets out o
 
 ### Color
 
-Bright, as briefed. Not cream, not near-black, not a neon-on-dark scheme.
+**Superseded — see DESIGN-TOKENS.md.** The original proposal here made green the primary
+accent. Screenshots of the live creator app then showed that the product already uses blue
+for actions and green for money, and that split carries meaning we cannot break. The token
+file reconciles the two: the app's semantic roles, our values.
 
-```
---canvas   #FFFFFF   page
---panel    #EDF1EC   card surface, sidebar rail
---ink      #0E1A12   primary text (deep forest-black, ties to the accent)
---muted    #5F6F63   secondary text
---payout   #16C95C   the accent — money, counters, primary CTA only
---live     #FF4A2B   scarcity and status only (tier badges, "limited spots")
-```
-
-Two chromatic colors, each with one job. `--payout` is not decoration: if an element isn't
-about earning, it doesn't get the green.
+Read DESIGN-TOKENS.md before writing a single line of CSS.
 
 ### Type
 
@@ -294,3 +287,61 @@ gimmick. If it feels like a gimmick, cut it. The flag is there for exactly that.
 time-to-content cost first. "I added this knowing it delays time-to-content, and here is why
 I think it earns the delay on this specific site" is a far stronger position than being
 asked about it. Then redeploy.
+
+---
+
+## Phase 9 — Creator app prototype
+
+Full spec in **CREATOR-APP.md**. Fixture shapes in **DATA-MODEL.md**. Read both before
+starting; this phase has more observed detail than the rest of the plan combined, and
+inventing structure that contradicts a screenshot is the main way it goes wrong.
+
+### Why this phase exists
+
+The live creator dashboard already uses a left sidebar, a content column, and a right rail.
+So the marketing redesign is not an invention — it is the app's own shell applied to the one
+surface that ignores it. Building both proves that in a way no amount of writeup can.
+
+This phase is **a faithful rebuild in our tokens, not a redesign**. Do not restructure their
+information architecture, rename their nav, or improve their flows. Reskin and reproduce.
+
+### Order
+
+- [AGENT] Shell first: `AppSidebar` (expanded + collapsed), `TopBar`, `DiscordBanner`,
+  `RankBar`, `PageHeader`, `DarkModeToggle`. Confirm it composes with the marketing shell from
+  Phase 2 rather than duplicating it.
+- [AGENT] `content/creator/` fixtures per DATA-MODEL.md, both `newCreator` and `activeCreator`
+- [AGENT] `/creator/campaigns` — missions, disclosures, featured card with live countdown,
+  brand grid
+- [AGENT] `/creator/campaigns/[brand]/[campaign]` — the three-pane detail view. Largest single
+  screen in the project.
+- [AGENT] `/creator/earnings` — both the locked zero state and the populated state
+- [AGENT] `/creator/submissions`, `/creator/retainers`, `/creator/courses` — observed states
+  are empty or locked, so these are cheap and accurate. Build populated variants too.
+- [AGENT] `/creator/white-label`
+- [AGENT] `?state=populated` query param switching the fixture set globally
+- [AGENT] A dev-only toggle in the sidebar switching between the marketing surface and the
+  creator app. No auth, no login screen.
+
+### Rules
+
+- Every mutating control is inert and visibly labelled a prototype control.
+- Brand artwork is deterministic CSS gradients keyed off brand id. No stock photography, no
+  generated images.
+- The leaderboard uses the real handles and figures from the screenshots.
+- Countdowns compute from ISO timestamps at render, so `23h 38m` actually ticks.
+- Anything marked `(assumed)` in CREATOR-APP.md stays flagged in a code comment.
+
+**[HUMAN] Confirm the cropped labels.** The three stats atop the campaign detail view
+($3.5/1K, 990, $3,500) had their labels cut off in the screenshot. Check the live app and
+tell the agent what they say before it ships a guess.
+
+**[HUMAN] Decide how far the empty states go.** The observed account is brand new, so seven
+of eight surfaces are empty or locked. That is either an accident of the screenshot or the
+most interesting finding in the project. You have to look at the live app with an older
+account to know which.
+
+**[HUMAN] Cut scope.** Nine phases is more than a take-home usually justifies. A tight build
+covering the marketing feed, the campaigns index, and the campaign detail view beats a
+sprawling one that runs out of runway at Phase 7. Decide what you are willing to drop before
+the agent starts, not after.

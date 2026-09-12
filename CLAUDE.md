@@ -23,6 +23,25 @@ is a fixed argument in a fixed order. We keep the persuasion sequence intact (ho
 mechanism → objections → CTA) and change only the container. **Never reorder or drop a
 section to make the feed metaphor cleaner.** The order is the product.
 
+## Documents
+
+- `PLAN.md` — phased build plan, agent/human split. Work through it in order.
+- `DESIGN-TOKENS.md` — the token system. Supersedes the palette sketched in PLAN.md Phase 1.
+  Read before writing any CSS.
+- `CREATOR-APP.md` — spec for the creator dashboard (Phase 9), derived from screenshots.
+- `DATA-MODEL.md` — typed fixture shapes for the creator app.
+
+## Two surfaces, one system
+
+This build covers a **marketing surface** (the redesigned public site) and a **creator app
+surface** (a prototype of their real logged-in dashboard). They share the sidebar, the token
+system, the card geometry, and the pill primitives. That shared shell is the entire argument
+of the project.
+
+The creator app is a faithful rebuild in our tokens, **not a redesign**. Do not restructure
+their nav, rename their sections, or improve their flows. Where a screenshot and your instinct
+disagree, the screenshot wins — say so and move on.
+
 ## Stack
 
 - Next.js (App Router), TypeScript, Tailwind
@@ -61,7 +80,8 @@ part of the redesign, so do not reintroduce them:
 - **Middle-dot stat strings** ("17 accounts · 5,900 posts · 50/day"). Use a small stat grid
   with labeled values.
 - Fade-and-slide-up entrance animations on every section. One orchestrated moment on the
-  homepage, nothing else.
+  homepage, nothing else. The Phase 8 scroll intro is that moment once it exists, and it is
+  the only sanctioned exception to this rule — it does not license motion anywhere else.
 - Identical border-radius and identical soft gray shadow on every card regardless of
   hierarchy.
 
