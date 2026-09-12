@@ -5,7 +5,7 @@ export const HERO = {
   headlineVerbatim: "Create Content & Get Paid Per View",
   subhead:
     "Join campaigns, use proven viral templates, and earn based on your content's performance.",
-  primaryCta:   { label: "Start creating", href: "/#get-started" },
+  primaryCta:   { label: "Start creating", href: "/creator/campaigns" },
   secondaryCta: { label: "For brands",     href: "/for-brands"   },
 };
 
@@ -18,5 +18,5 @@ export const FOOTER_CTA = {
   headline: "Turn your feed into a paycheck.",
   body:     "Free to join. Weekly payouts. No résumé, no follower count.",
   ctaLabel: "Start creating",
-  ctaHref:  "/#get-started",
+  ctaHref:  "/creator/campaigns",
 };
