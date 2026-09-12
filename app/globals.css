@@ -59,7 +59,7 @@ body {
   font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--ink);
-  background: var(--canvas);
+  /* Background is set in the alternating-bg block below (--page-bg). */
   /* Tabular numbers everywhere so counters and figures do not jitter. */
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
