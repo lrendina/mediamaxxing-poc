@@ -15,14 +15,14 @@ export function LeaderboardPanel({ board }: { board: Leaderboard }) {
   return (
     <section
       aria-labelledby="top-earners-heading"
-      className="rounded-[var(--radius-card)] bg-surface border border-border p-4 flex flex-col gap-3"
+      className="rounded-[var(--radius-card)] bg-surface border-2 border-border p-5 flex flex-col gap-4"
     >
       <div className="flex flex-wrap items-center gap-2">
         <TrophyIcon aria-hidden width={18} height={18} className="text-warn" />
-        <h2 id="top-earners-heading" className="text-[15px] font-medium">
+        <h2 id="top-earners-heading" className="font-display-sm text-[24px]">
           {EARNINGS_PAGE.leaderboard.title}
         </h2>
-        <span className="text-[13px] text-muted">{EARNINGS_PAGE.leaderboard.scope}</span>
+        <span className="text-[11px] uppercase tracking-[0.1em] font-bold text-muted">{EARNINGS_PAGE.leaderboard.scope}</span>
         <span className="ml-auto">
           <MetricToggle
             label={EARNINGS_PAGE.leaderboard.title}

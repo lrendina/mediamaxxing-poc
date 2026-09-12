@@ -23,14 +23,14 @@ export function CreatorsPanel({
   return (
     <section
       aria-labelledby="creators-heading"
-      className="rounded-[var(--radius-card)] bg-surface border border-border p-4 flex flex-col gap-3"
+      className="rounded-[var(--radius-card)] bg-surface border-2 border-border p-5 flex flex-col gap-4"
     >
       <div className="flex items-center gap-2">
         <PeopleIcon aria-hidden width={18} height={18} className="text-muted" />
-        <h2 id="creators-heading" className="text-[15px] font-medium">
+        <h2 id="creators-heading" className="font-display-sm text-[24px]">
           {CAMPAIGN_DETAIL.creators.title}
         </h2>
-        <span className="text-[13px] text-muted">{formatCount(creatorCount)}</span>
+        <span className="font-display-sm text-[24px] text-lime">{formatCount(creatorCount)}</span>
         <span className="ml-auto">
           <MetricToggle
             label={CAMPAIGN_DETAIL.creators.title}
@@ -46,8 +46,8 @@ export function CreatorsPanel({
 
       <p
         role="note"
-        className="relative self-start rounded-[var(--radius-control)] bg-action text-ink-inverse text-[13px] px-3 py-2
-          after:absolute after:-bottom-1.5 after:left-4 after:h-3 after:w-3 after:rotate-45 after:bg-action"
+        className="relative self-start rounded-[6px] bg-lime text-surface-dark text-[13px] font-semibold px-3 py-2
+          after:absolute after:-bottom-1.5 after:left-4 after:h-3 after:w-3 after:rotate-45 after:bg-lime"
       >
         {CAMPAIGN_DETAIL.creators.tooltip}
       </p>

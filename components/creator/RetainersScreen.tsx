@@ -16,10 +16,10 @@ export function RetainersScreen() {
   const { retainer } = fixtures;
 
   return (
-    <div className="flex flex-col gap-5 max-w-[720px]">
+    <div className="flex flex-col gap-5 max-w-[880px]">
       <PageHeader title={RETAINERS_PAGE.title} subtitle={RETAINERS_PAGE.subtitle} />
 
-      <div className="rounded-[var(--radius-card)] bg-surface border border-border">
+      <div className="rounded-[var(--radius-card)] bg-surface border-2 border-border">
         {retainer.unlocked ? (
           <EmptyState
             icon={<CheckIcon width={24} height={24} />}
@@ -44,7 +44,7 @@ export function RetainersScreen() {
 
       <StreakMeter streakDays={retainer.streakDays} requiredDays={retainer.requiredDays} />
 
-      <p className="rounded-[var(--radius-card)] bg-surface-sunk px-4 py-3 text-[13px] text-muted">
+      <p className="rounded-[8px] bg-surface-sunk px-4 py-3 text-[14px] text-muted">
         {RETAINERS_PAGE.note}
       </p>
     </div>

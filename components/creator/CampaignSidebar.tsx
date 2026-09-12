@@ -30,14 +30,14 @@ export function CampaignSidebar({
   const currentStep = Math.min(stepsDone + 1, campaign.onboarding.length);
 
   const tabClass = (active: boolean) =>
-    `flex items-center gap-2 min-h-11 px-3 rounded-[var(--radius-control)] text-[15px] ${
-      active ? "bg-surface-sunk font-medium" : "text-ink/80 hover:bg-ink/[0.04]"
+    `flex items-center gap-2 min-h-11 px-3 rounded-full text-[15px] font-semibold ${
+      active ? "bg-lime text-surface-dark" : "text-ink/80 hover:bg-ink/[0.06]"
     }`;
 
   return (
     <aside
       aria-label="Campaign"
-      className="flex flex-col gap-4 rounded-[var(--radius-card)] bg-surface border border-border p-3 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto"
+      className="flex flex-col gap-4 rounded-[var(--radius-card)] bg-surface border-2 border-border p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto"
     >
       <Link
         href={href("/creator/campaigns")}
@@ -57,8 +57,8 @@ export function CampaignSidebar({
       <div className="flex items-center gap-3">
         <BrandLogo brandId={brand.id} name={brand.name} size={36} />
         <div className="flex flex-col leading-tight min-w-0">
-          <span className="text-[15px] font-medium truncate">{campaign.name}</span>
-          <span className="text-[13px] text-muted truncate">{brand.name}</span>
+          <span className="font-display-sm text-[22px] truncate">{campaign.name}</span>
+          <span className="text-[12px] uppercase tracking-[0.08em] font-bold text-muted truncate">{brand.name}</span>
         </div>
       </div>
 
@@ -90,7 +90,7 @@ export function CampaignSidebar({
       </nav>
 
       <div className="flex flex-col gap-0.5">
-        <p className="px-3 pb-1 text-[11px] font-medium tracking-wider text-muted">
+        <p className="px-3 pb-1 text-[11px] font-bold tracking-[0.12em] text-muted">
           {CAMPAIGN_DETAIL.campaignsHeading}
         </p>
         {siblings.map((c) => {
@@ -106,7 +106,7 @@ export function CampaignSidebar({
               {c.listBadge ? (
                 <BadgePill badge={c.listBadge} />
               ) : (
-                <span className="text-[13px] font-expanded text-muted">
+                <span className={`text-[13px] font-expanded ${active ? "" : "text-lime"}`}>
                   {formatRate(c.headlineRateCentsPerThousand)}
                 </span>
               )}
@@ -115,9 +115,9 @@ export function CampaignSidebar({
         })}
       </div>
 
-      <div className="flex flex-col gap-2 rounded-[var(--radius-control)] bg-surface-sunk p-3">
+      <div className="flex flex-col gap-2 rounded-[8px] bg-surface-sunk p-4">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="text-[15px] font-medium">{CAMPAIGN_DETAIL.onboarding.title}</span>
+          <span className="font-display-sm text-[18px]">{CAMPAIGN_DETAIL.onboarding.title}</span>
           <span className="text-[13px] text-muted whitespace-nowrap">
             {CAMPAIGN_DETAIL.onboarding.step(currentStep, campaign.onboarding.length)}
           </span>
@@ -150,7 +150,7 @@ export function CampaignSidebar({
         </ol>
       </div>
 
-      <PrototypeButton tone="action" className="w-full">
+      <PrototypeButton tone="action" className="w-full !min-h-12 !text-[16px]">
         {CAMPAIGN_DETAIL.submit}
       </PrototypeButton>
     </aside>

@@ -4,8 +4,8 @@ export type ProgressTone = "streak" | "action" | "money" | "neutral";
 
 const fillClass: Record<ProgressTone, string> = {
   streak: "bg-streak",
-  action: "bg-action",
-  money: "bg-money",
+  action: "bg-lime",
+  money: "bg-lime",
   neutral: "bg-ink/40",
 };
 

@@ -22,14 +22,14 @@ export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
   return (
     <section
       aria-labelledby="revenue-heading"
-      className="rounded-[var(--radius-card)] bg-surface border border-border p-5 md:p-6 flex flex-col gap-4"
+      className="rounded-[var(--radius-card)] bg-surface border-2 border-border p-5 md:p-7 flex flex-col gap-5"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1.5">
-          <h2 id="revenue-heading" className="text-[12px] font-medium tracking-[0.08em] text-muted">
+          <h2 id="revenue-heading" className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">
             {EARNINGS_PAGE.revenue}
           </h2>
-          <p className={`text-[44px] md:text-[52px] leading-none font-expanded ${locked ? "text-ink" : "text-money"}`}>
+          <p className={`font-display text-[clamp(56px,8vw,120px)] ${locked ? "text-ink" : "text-lime"}`}>
             {formatUsd(earnings.totalCents, { cents: true })}
           </p>
         </div>
@@ -58,11 +58,11 @@ export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
             <IconTile tone="action" size="md">
               <LockIcon width={18} height={18} />
             </IconTile>
-            <p className="font-display text-[26px] leading-tight">{EARNINGS_PAGE.locked.title}</p>
+            <p className="font-display text-[clamp(28px,4vw,48px)] max-w-[14ch]">{EARNINGS_PAGE.locked.title}</p>
             <p className="text-[13px] text-muted max-w-[40ch]">{EARNINGS_PAGE.locked.body}</p>
             <Link
               href={href("/creator/campaigns")}
-              className="mt-2 inline-flex items-center gap-2 min-h-11 px-5 rounded-full bg-action text-ink-inverse text-[15px] font-medium hover:brightness-95"
+              className="mt-2 inline-flex items-center gap-2 min-h-12 px-6 rounded-full bg-lime text-surface-dark text-[16px] font-semibold hover:brightness-95"
             >
               {EARNINGS_PAGE.locked.cta}
               <ArrowRightIcon aria-hidden width={16} height={16} />
@@ -152,7 +152,7 @@ function LineChart({
         {!muted ? (
           <span
             aria-hidden
-            className="absolute -translate-x-full -translate-y-[calc(100%+10px)] rounded-full bg-ink text-ink-inverse text-[11px] font-expanded px-2 py-0.5 whitespace-nowrap"
+            className="absolute -translate-x-full -translate-y-[calc(100%+10px)] rounded-[4px] bg-lime text-surface-dark text-[12px] font-bold px-2 py-0.5 whitespace-nowrap"
             style={{ left: `${(last[0] / w) * 100}%`, top: `${(last[1] / h) * 100}%` }}
           >
             {formatUsd(lastValue, { cents: true })}

@@ -17,14 +17,14 @@ const toneClasses: Record<
     idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
   },
   app: {
-    base: "rounded-[var(--radius-control)]",
-    active: "bg-surface text-ink border border-border shadow-[0_1px_2px_rgba(20,19,15,0.04)]",
-    idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
+    base: "rounded-full",
+    active: "bg-lime text-surface-dark",
+    idle: "text-ink/70 hover:text-ink hover:bg-ink/[0.08]",
   },
   promoted: {
-    base: "rounded-[var(--radius-control)] bg-gradient-to-r from-action-sunk to-money-sunk border",
-    active: "text-ink border-action/30",
-    idle: "text-ink border-transparent hover:brightness-[0.98]",
+    base: "rounded-full border-2 border-dashed border-lime/60",
+    active: "bg-lime text-surface-dark border-lime",
+    idle: "text-lime hover:bg-lime/10",
   },
 };
 
@@ -58,7 +58,7 @@ export function SidebarNavItem({
       title={collapsed ? label : undefined}
       className={`
         flex items-center gap-3 min-h-11 px-3 py-2
-        text-[15px] font-medium tracking-[-0.005em] transition
+        text-[15px] font-semibold tracking-[-0.01em] transition
         ${collapsed ? "justify-center" : "justify-start"}
         ${t.base} ${active ? t.active : t.idle}
       `}

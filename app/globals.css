@@ -87,8 +87,8 @@
   --ink:           #f5f5ee;
   --muted:         #9c9b91;
   --ink-inverse:   #0b0b0b;
-  --action:        #8b78ff;
-  --action-sunk:   #26204a;
+  --action:        #d4ff3a;   /* the press colour is the brand */
+  --action-sunk:   #26330d;
   --money:         #d4ff3a;
   --money-ink:     #d4ff3a;
   --money-sunk:    #26330d;

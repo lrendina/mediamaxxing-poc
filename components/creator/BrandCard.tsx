@@ -5,14 +5,11 @@ import type { Brand } from "@/content/creator/types";
 import { CAMPAIGNS_PAGE } from "@/content/creator/ui";
 import { BadgePill } from "./BadgePill";
 import { BrandArtwork } from "./BrandArtwork";
-import { BrandLogo } from "./BrandLogo";
 import { useCreator } from "./CreatorStateProvider";
 import { RatePill } from "./RatePill";
 
-/* Observed grid unit: 16:9 art, footer row with small logo, name,
-   "N campaigns", right-aligned blue rate pill. Bounty pill top-left of the
-   art, XP multiplier top-right. Only OpenArt has a built detail view;
-   other brands link to it too so the grid is fully navigable. */
+/* Grid unit. Art on top, then the brand name at display size with the
+   rate pill hard against it. Hover lifts with a lime offset shadow. */
 export function BrandCard({
   brand,
   detailHref,
@@ -31,32 +28,23 @@ export function BrandCard({
       aria-label={`${brand.name}, ${CAMPAIGNS_PAGE.campaignsCount(brand.campaignCount)}`}
       className="
         group block rounded-[var(--radius-card)] overflow-hidden
-        bg-surface border border-border
-        hover:shadow-lift hover:-translate-y-0.5 transition
+        bg-surface border-2 border-border
+        transition hover:border-lime hover:shadow-[6px_6px_0_var(--lime)] hover:-translate-x-0.5 hover:-translate-y-0.5
       "
     >
-      <BrandArtwork brandId={brand.id} wordmark={brand.wordmark}>
+      <BrandArtwork brandId={brand.id} wordmark={brand.wordmark} wordmarkClass="font-display text-[32px]">
         {bounty ? (
-          <span className="absolute top-2 left-2">
-            <BadgePill badge={{ kind: "bounty" }} />
-          </span>
+          <span className="absolute top-2 left-2"><BadgePill badge={{ kind: "bounty" }} /></span>
         ) : live ? (
-          <span className="absolute top-2 left-2">
-            <BadgePill badge={live} />
-          </span>
+          <span className="absolute top-2 left-2"><BadgePill badge={live} /></span>
         ) : null}
-        {xp ? (
-          <span className="absolute top-2 right-2">
-            <BadgePill badge={xp} className="!bg-surface-dark/70 !text-streak" />
-          </span>
-        ) : null}
+        {xp ? <span className="absolute top-2 right-2"><BadgePill badge={xp} /></span> : null}
       </BrandArtwork>
 
-      <div className="flex items-center gap-3 px-3 py-3">
-        <BrandLogo brandId={brand.id} name={brand.name} size={32} />
-        <span className="flex-1 min-w-0 flex flex-col leading-tight">
-          <span className="text-[15px] font-medium truncate">{brand.name}</span>
-          <span className="text-[13px] text-muted">
+      <div className="flex items-end gap-3 px-4 py-4">
+        <span className="flex-1 min-w-0 flex flex-col gap-1">
+          <span className="font-display-sm text-[22px] truncate">{brand.name}</span>
+          <span className="text-[11px] uppercase tracking-[0.08em] font-bold text-muted">
             {CAMPAIGNS_PAGE.campaignsCount(brand.campaignCount)}
           </span>
         </span>

@@ -7,10 +7,10 @@ import { CheckIcon, LightningIcon, TrophyIcon } from "./app-icons";
    kinds, each mapped to its token role: accepted → money, bounty → warn,
    xp multiplier → streak, live → money (a live thing is an open door). */
 const kindClasses: Record<Badge["kind"], string> = {
-  accepted: "bg-money text-ink-inverse",
-  bounty: "bg-warn-sunk text-warn",
-  xpMultiplier: "bg-streak-sunk text-streak",
-  live: "bg-money-sunk text-money",
+  accepted: "bg-lime text-surface-dark",
+  bounty: "bg-warn text-surface-dark",
+  xpMultiplier: "bg-streak text-ink-inverse",
+  live: "bg-status text-ink-inverse",
 };
 
 export function BadgePill({
@@ -43,8 +43,8 @@ export function BadgePill({
   return (
     <span
       className={`
-        inline-flex items-center gap-1 rounded-full px-2 py-1
-        text-[11px] font-medium leading-none tracking-wide uppercase
+        inline-flex items-center gap-1 rounded-[6px] px-2 py-1
+        text-[11px] font-bold leading-none tracking-[0.06em] uppercase
         whitespace-nowrap
         ${kindClasses[badge.kind]} ${className}
       `}

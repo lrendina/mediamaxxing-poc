@@ -39,7 +39,7 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
         <LogoLockup size="md" showWordmark={!collapsed} />
       </Link>
 
-      <nav className="flex-1 flex flex-col gap-1">
+      <nav className="flex-1 flex flex-col gap-1.5">
         {APP_NAV.map((item) => (
           <SidebarNavItem
             key={item.href}
