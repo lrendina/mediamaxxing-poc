@@ -183,6 +183,15 @@ html:has(.intro-section):not([data-page-theme]) {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Creator app surface — flat app canvas from DESIGN-TOKENS.md. The
+   marketing body bg transition is irrelevant here; the surface paints its
+   own ground so the two surfaces can sit on different canvases while
+   sharing every other token. */
+.creator-surface {
+  background: var(--surface-sunk);
+  background: color-mix(in srgb, var(--surface-sunk) 55%, var(--surface));
+}
+
 /* Reduced motion — collapse transitions and animations for users who opt out. */
 @media (prefers-reduced-motion: reduce) {
   *,
