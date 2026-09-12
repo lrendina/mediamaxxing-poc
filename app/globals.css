@@ -76,33 +76,52 @@
   --text-2xl: 64px;
 }
 
-/* The creator app on black. Same roles, inverted surfaces, lime stays lime. */
+/* The creator app keeps the "paper and signal" direction (the first
+   redesign after Phase 9): warm paper, white cards on hairline borders,
+   one saturated colour per role, Instrument Serif for display headings.
+   Scoped here so the marketing surface can be black-and-lime on top of
+   the same role names. */
 .creator-surface {
-  --canvas:        #0b0b0b;
-  --surface:       #151515;
-  --surface-sunk:  #212120;
-  --surface-dark:  #d4ff3a;   /* the one "dark object" becomes the one lime object */
-  --border:        #2a2a28;
-  --border-strong: #3d3d3a;
-  --ink:           #f5f5ee;
-  --muted:         #9c9b91;
-  --ink-inverse:   #0b0b0b;
-  --action:        #8b78ff;
-  --action-sunk:   #26204a;
-  --money:         #d4ff3a;
-  --money-ink:     #d4ff3a;
-  --money-sunk:    #26330d;
-  --streak:        #ff6a2f;
-  --streak-sunk:   #3d1f12;
-  --warn:          #ffc53d;
-  --warn-sunk:     #3a2f0f;
-  --status:        #ff5cbf;
-  --status-sunk:   #3d1630;
-  --shadow-lift: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -20px rgba(0, 0, 0, 0.8);
-  --shadow-pop:  0 2px 4px rgba(0, 0, 0, 0.5), 0 32px 64px -24px rgba(0, 0, 0, 0.9);
+  --canvas:        #f4f2ec;
+  --surface:       #ffffff;
+  --surface-sunk:  #ebe8df;
+  --surface-dark:  #0f1411;
+  --border:        #e1ddd2;
+  --border-strong: #c9c4b6;
+  --ink:           #14130f;
+  --muted:         #6b675c;
+  --ink-inverse:   #f7f6f1;
+  --action:        #2a4bd7;
+  --action-sunk:   #e3e8fb;
+  --money:         #0e9f5e;
+  --money-ink:     #0e9f5e;
+  --money-sunk:    #dcf3e6;
+  --streak:        #ef6420;
+  --streak-sunk:   #fde6d9;
+  --warn:          #96690f;
+  --warn-sunk:     #f8eed7;
+  --status:        #5b3fc9;
+  --status-sunk:   #ebe5fa;
+  --radius-card:    20px;
+  --radius-control: 12px;
+  --radius-tile:    12px;
+  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
+  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
   background: var(--canvas);
   color: var(--ink);
-  color-scheme: dark;
+}
+.creator-surface .font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-variation-settings: normal;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
+}
+.creator-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--action);
 }
 
 /* Tailwind v4 theme — exposes tokens as utilities. */
