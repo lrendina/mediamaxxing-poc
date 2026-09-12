@@ -322,6 +322,10 @@ information architecture, rename their nav, or improve their flows. Reskin and r
 - [AGENT] `?state=populated` query param switching the fixture set globally
 - [AGENT] A dev-only toggle in the sidebar switching between the marketing surface and the
   creator app. No auth, no login screen.
+- [AGENT] `RankLadderModal`, opened from `RankBar` — the rank ladder (real thresholds, per a
+  screenshot) plus a milestone-missions checklist, and a 25 XP signup bonus on `newCreator`.
+  Added after the rest of Phase 9, per explicit request. See CREATOR-APP.md/DATA-MODEL.md for
+  what's observed vs. assumed here.
 
 ### Rules
 

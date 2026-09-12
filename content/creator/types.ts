@@ -108,6 +108,27 @@ export interface Mission {
   expiresAt?: string;           // ISO — drives "14d left"
 }
 
+// ---------- rank ladder milestones ----------
+// Distinct from `Mission` above (the campaign-index bonus/daily cards).
+// These back the checklist in the Missions tab of the Rank Ladder modal —
+// one-time XP awards for lifetime milestones, not renewing daily tasks.
+
+export type MilestoneCategory =
+  | "account"
+  | "posts"
+  | "views"
+  | "campaign"
+  | "earnings"
+  | "bounty";
+
+export interface Milestone {
+  id: string;
+  category: MilestoneCategory;
+  title: string;
+  rewardXp: number;
+  progress: { current: number; total: number }; // current >= total => complete
+}
+
 // ---------- submissions ----------
 
 export type SubmissionStatus = "pending" | "approved" | "rejected" | "paid";
@@ -184,6 +205,7 @@ export interface CreatorFixtures {
   brands: Brand[];
   campaigns: Campaign[];
   missions: Mission[];
+  milestones: Milestone[];
   submissions: Submission[];
   earnings: EarningsSummary;
   topEarners: Leaderboard;

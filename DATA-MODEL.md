@@ -10,18 +10,24 @@ keep them flagged.
 // ---------- creator ----------
 
 export type Rank =
-  | 'unranked' | 'copper' | 'bronze' | 'silver' | 'gold' | 'platinum' // assumed beyond copper
+  | 'unranked' | 'copper' | 'bronze' | 'silver' | 'gold' | 'platinum'
 
 export interface CreatorProfile {
   handle: string
   displayName: string
   avatarUrl: string
   rank: Rank
-  xp: number
-  xpToNextRank: number          // observed: 500 to Copper
+  xp: number                    // newCreator starts at 25 — signup bonus, see below
+  xpToNextRank: number          // observed: 475 to Copper (was 500, before the signup bonus)
   nextRank: Rank
   streakDays: number            // observed: 1
   discordConnected: boolean     // observed: false
+}
+
+// Cumulative total XP required to unlock each rank — observed from a screenshot of the
+// live Rank Ladder modal (Sept 2026). Not per-tier deltas.
+export const RANK_THRESHOLDS: Record<Rank, number> = {
+  unranked: 0, copper: 500, bronze: 1000, silver: 5000, gold: 25000, platinum: 50000,
 }
 
 // ---------- brands & campaigns ----------
@@ -96,6 +102,24 @@ export interface Mission {
   expiresAt?: string            // ISO — drives "14d left"
 }
 
+// ---------- rank ladder milestones ----------
+// Backs the "Missions" tab of the Rank Ladder modal. Distinct from Mission
+// above (the renewing campaign-index bonus/daily cards) — these are
+// one-time lifetime achievements. List, order, and titles are per explicit
+// product spec; rewardXp values are assumed (not specified), scaled by
+// difficulty. See content/creator/milestones.ts.
+
+export type MilestoneCategory =
+  | 'account' | 'posts' | 'views' | 'campaign' | 'earnings' | 'bounty'
+
+export interface Milestone {
+  id: string
+  category: MilestoneCategory
+  title: string
+  rewardXp: number
+  progress: { current: number; total: number }  // current >= total => complete
+}
+
 // ---------- submissions ----------
 
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected' | 'paid'
@@ -167,9 +191,14 @@ export interface RetainerStatus {
 
 ## Fixture requirements
 
-- **Two profiles.** `newCreator` reproduces the observed state exactly: unranked, 0 XP,
-  1-day streak, Discord disconnected, no submissions, $0 earnings. `activeCreator` is the
-  populated counterpart for `?state=populated`.
+- **Two profiles.** `newCreator` is unranked, 1-day streak, Discord disconnected, no
+  submissions, $0 earnings — and, per an explicit signup-bonus feature request, 25 XP rather
+  than the originally-observed 0 XP. `activeCreator` is the populated counterpart for
+  `?state=populated`.
+- **Milestones.** Two fixtures (`MILESTONES_NEW`, `MILESTONES_ACTIVE`) sharing one ordered
+  list of 17 milestones; only `progress` differs between them. `newCreator`'s are all
+  incomplete; `activeCreator`'s reconcile in spirit (not derived programmatically) with its
+  submissions/earnings fixtures.
 - **Leaderboard.** Use the observed handles and figures from the Earnings screenshot. They are
   public in the app and they make the prototype feel real. Three entries have no avatar and
   render as initials — keep that, it's a state the component has to handle.

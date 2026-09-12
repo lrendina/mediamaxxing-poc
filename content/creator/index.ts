@@ -3,6 +3,7 @@ import { newCreator, activeCreator } from "./profiles";
 import { BRANDS } from "./brands";
 import { OPENART_CAMPAIGNS, OPENART_CAMPAIGNS_ACTIVE } from "./campaigns";
 import { MISSIONS_NEW, MISSIONS_ACTIVE } from "./missions";
+import { MILESTONES_NEW, MILESTONES_ACTIVE } from "./milestones";
 import { SUBMISSIONS_NEW, SUBMISSIONS_ACTIVE } from "./submissions";
 import { EARNINGS_NEW, EARNINGS_ACTIVE } from "./earnings";
 import { TOP_EARNERS } from "./leaderboard";
@@ -17,6 +18,7 @@ export const NEW_CREATOR: CreatorFixtures = {
   brands: BRANDS,
   campaigns: OPENART_CAMPAIGNS,
   missions: MISSIONS_NEW,
+  milestones: MILESTONES_NEW,
   submissions: SUBMISSIONS_NEW,
   earnings: EARNINGS_NEW,
   topEarners: TOP_EARNERS,
@@ -33,6 +35,7 @@ export const ACTIVE_CREATOR: CreatorFixtures = {
   ),
   campaigns: OPENART_CAMPAIGNS_ACTIVE,
   missions: MISSIONS_ACTIVE,
+  milestones: MILESTONES_ACTIVE,
   submissions: SUBMISSIONS_ACTIVE,
   earnings: EARNINGS_ACTIVE,
   topEarners: TOP_EARNERS,

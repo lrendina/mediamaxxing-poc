@@ -22,6 +22,30 @@ export const SHELL = {
   },
 };
 
+/* Rank Ladder modal, opened from RankBar. Title, perks-soon banner, and
+   "FOUNDATION / Every creator begins the climb" are observed verbatim from
+   a screenshot. The Ladder/Missions tab split is not observed — this is a
+   deviation to fit both the ladder and the milestone checklist behind one
+   entry point, per the same request that added the checklist. Flagged,
+   not hidden. */
+export const RANK_LADDER = {
+  title: "Rank Ladder",
+  subtitle: "Earn XP through campaigns, submissions, and retainers",
+  perksSoon: "Rank perks launching soon. Climb now, lock in your tier.",
+  close: "Close",
+  tabs: { ladder: "Ladder", missions: "Missions" }, // assumed structure
+  foundationEyebrow: "FOUNDATION",
+  foundationSubtitle: "Every creator begins the climb",
+  current: "Current",
+  xpProgress: (current: number, total: number) =>
+    `${current.toLocaleString("en-US")} / ${total.toLocaleString("en-US")} XP`,
+  toNext: (n: number, rank: string) => `${n.toLocaleString("en-US")} XP until ${rank}`,
+  unlockAt: (xp: number) => `Unlock at ${xp.toLocaleString("en-US")} XP`,
+  reached: "Reached", // assumed — no screenshot of a rank already passed
+  missionsSubtitle: "Complete missions to climb faster.", // assumed
+  missionReward: (xp: number) => `+${xp} XP`,
+};
+
 export const CAMPAIGNS_PAGE = {
   title: "Campaigns",
   subtitle: "Browse brands, join campaigns, and get paid per view.", // assumed
@@ -38,6 +62,9 @@ export const CAMPAIGNS_PAGE = {
     bounty: "Bounty available",
     xp: (m: number) => `${m}x XP`,
     live: "LIVE",
+    /* Reviewer-requested urgency badge — the count is randomized on the
+       client, not sourced from a fixture. See CREATOR-APP.md. */
+    earningNow: (n: number) => `${n} creators earning right now!`,
   },
 };
 

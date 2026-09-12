@@ -102,6 +102,21 @@
   --warn-sunk:     #f8eed7;
   --status:        #5b3fc9;
   --status-sunk:   #ebe5fa;
+
+  /* Rank ladder medallions — Copper/Bronze/Silver/Gold/Platinum. Creator
+     app only; the marketing surface has no rank concept. Values are ours,
+     chosen to read distinctly at a glance rather than matched to a photo. */
+  --rank-copper:      #b5622e;
+  --rank-copper-sunk: #f4e2d4;
+  --rank-bronze:      #93713f;
+  --rank-bronze-sunk: #efe7d6;
+  --rank-silver:      #7c848c;
+  --rank-silver-sunk: #e9ebed;
+  --rank-gold:        #b9932a;
+  --rank-gold-sunk:   #f8eece;
+  --rank-platinum:    #6f8f89;
+  --rank-platinum-sunk: #e4edeb;
+
   --radius-card:    20px;
   --radius-control: 12px;
   --radius-tile:    12px;
@@ -155,6 +170,17 @@
   --color-discord:      var(--discord);
   --color-status:       var(--status);
   --color-status-sunk:  var(--status-sunk);
+
+  --color-rank-copper:        var(--rank-copper);
+  --color-rank-copper-sunk:   var(--rank-copper-sunk);
+  --color-rank-bronze:        var(--rank-bronze);
+  --color-rank-bronze-sunk:   var(--rank-bronze-sunk);
+  --color-rank-silver:        var(--rank-silver);
+  --color-rank-silver-sunk:   var(--rank-silver-sunk);
+  --color-rank-gold:          var(--rank-gold);
+  --color-rank-gold-sunk:     var(--rank-gold-sunk);
+  --color-rank-platinum:      var(--rank-platinum);
+  --color-rank-platinum-sunk: var(--rank-platinum-sunk);
 
   --radius-card:    var(--radius-card);
   --radius-control: var(--radius-control);

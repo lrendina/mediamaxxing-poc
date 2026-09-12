@@ -48,9 +48,33 @@ creator avatar, display name, notification bell.
 **`DiscordBanner`** — full-width amber callout with a warning triangle and an underlined link:
 connect Discord to access private campaigns. Appears on every route. Dismissible **(assumed)**.
 
-**`RankBar`** — full-width pill card directly under the banner. Circular rank avatar,
-rank name ("Unranked"), a long progress track, "500 to Copper", "0 XP", a small rank medallion,
-chevron. Ranks beyond Copper are **(assumed)** — use copper/bronze/silver/gold/platinum.
+**`RankBar`** — **(deviation, not observed)** originally spec'd as a full-width pill card
+directly under the banner. Moved into `AppSidebar`, directly above the profile row, per
+explicit reviewer request — the app screenshots do not place it there. Circular rank avatar,
+rank name ("Unranked"), a progress track, "500 to Copper", "0 XP", a small rank medallion,
+chevron; collapses to an icon-only button on the icon rail. Clicking it opens `RankLadderModal`.
+
+**`RankLadderModal`** — added per explicit product request, backed by a screenshot of the live
+modal (Sept 2026). This also supersedes the "ranks beyond Copper are (assumed)" note above:
+the thresholds are now observed —  500 / 1,000 / 5,000 / 25,000 / 50,000 XP for
+Copper/Bronze/Silver/Gold/Platinum, cumulative total XP, not per-tier deltas. Header (trophy,
+title, subtitle, XP pill), the "Rank perks launching soon. Climb now, lock in your tier."
+banner, and the "FOUNDATION / Every creator begins the climb" ladder section are reproduced
+verbatim from the screenshot. Per-rank medallion colors are a **pre-approved palette addition**
+(`--rank-copper` etc. in `app/globals.css`, scoped to `.creator-surface`) rather than sampled
+from a photo.
+
+Two things in this modal are **not** from the screenshot, flagged rather than hidden:
+- The **Ladder / Missions tab split** — the screenshot only showed the ladder. Missions needed
+  a home behind the same entry point, so a second tab was added (assumed structure).
+- The **Missions checklist copy and reward amounts** — the milestone list and order (link an
+  account → first post → 5/10/100 posts → 1K/2K/10K/20K views → 5/10/20/50 posts on a single
+  campaign → first $100/$500/$1,000 → claim a bounty) is per explicit spec. The XP reward for
+  each one is **assumed** (not specified) and scaled by difficulty; see `content/creator/milestones.ts`.
+
+Also per explicit request: account creation now grants a **25 XP signup bonus**, so `newCreator`
+is Unranked at 25 XP rather than the previously-observed 0 XP. See the note on `newCreator` in
+`content/creator/profiles.ts`.
 
 **`PageHeader`** — h1 plus one-line subtitle. Optional right-aligned action slot (Withdraw,
 Auto Submit).
