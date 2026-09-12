@@ -116,6 +116,14 @@ icon-only rail to make room for the campaign's own sidebar. Same component, `col
   **Three-column grid on desktop (deviation, not observed)** — the source screenshots show
   two columns; widened to three per explicit request to fit more campaigns above the fold.
   Two columns at `sm`, one below that.
+  **Locked variant (deviation, not observed)** — every brand in the "Brands" section is
+  locked: a lock icon beside "N campaigns locked", no link into the detail view, and a
+  full-width "Apply to join" button. Applying marks the brand joined in client state
+  (`CreatorStateProvider`, per session, resets on reload) and moves it into "My Brands" as
+  a normal linked card. The new-creator fixture now starts with no joined brands and no
+  accepted campaign, so the `FeaturedCampaignCard` only appears in `?state=populated`.
+  Added per explicit request. The detail route itself is not gated, and the welcome
+  modal's "Join OpenArt" step still links straight to it.
 - **`RatePill`**, **`BadgePill`** — small shared primitives. Badge kinds: accepted, bounty,
   xp-multiplier, live.
 - **`EarningNowBadge`** — **(deviation, not observed, not fixture-backed)** "N creators

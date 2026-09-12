@@ -57,6 +57,15 @@ export const CAMPAIGNS_PAGE = {
     instruction: "Post before the deadline to keep your spot.", // assumed
     cta: "View campaign",
   },
+  /* Not observed — locked brand cards, added per explicit request. A brand
+     the creator hasn't joined shows a lock and an "Apply to join" button;
+     applying moves it into My Brands. */
+  locked: {
+    apply: "Apply to join",
+    campaigns: (n: number) => (n === 1 ? "1 campaign locked" : `${n} campaigns locked`),
+    emptyMine: "Brands you apply to join show up here.",
+    moved: (name: string) => `${name} moved to My Brands.`,
+  },
   badges: {
     accepted: "ACCEPTED",
     bounty: "Bounty available",

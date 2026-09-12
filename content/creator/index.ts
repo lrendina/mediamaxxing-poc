@@ -12,11 +12,18 @@ import { RETAINER_NEW, RETAINER_ACTIVE } from "./retainers";
 
 export type CreatorState = "new" | "populated";
 
-/* The observed account, reproduced exactly. */
+/* The observed account, with one deviation: the screenshots show this
+   account already in OpenArt with Director Advanced accepted. Per explicit
+   request, a new creator now starts outside every brand — every card is
+   locked behind "Apply to join" and nothing is accepted yet. */
 export const NEW_CREATOR: CreatorFixtures = {
   profile: newCreator,
-  brands: BRANDS,
-  campaigns: OPENART_CAMPAIGNS,
+  brands: BRANDS.map((b) => ({ ...b, joined: false })),
+  campaigns: OPENART_CAMPAIGNS.map((c) => ({
+    ...c,
+    status: c.status === "accepted" ? "available" : c.status,
+    acceptedDeadline: undefined,
+  })),
   missions: MISSIONS_NEW,
   milestones: MILESTONES_NEW,
   submissions: SUBMISSIONS_NEW,
