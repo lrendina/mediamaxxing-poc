@@ -11,153 +11,115 @@ import {
 } from "@/content/for-brands";
 
 import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
 import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
-import { PageIntro } from "@/components/PageIntro";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StepCard } from "@/components/StepCard";
-import {
-  BrandsIcon,
-  AgenciesIcon,
-  BlogIcon,
-  HomeIcon,
-} from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "For brands — MediaMaxxing",
   description: BRANDS_HERO.subhead,
 };
 
-const STEP_ICONS = [BrandsIcon, AgenciesIcon, BlogIcon, HomeIcon];
+function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`mx-auto w-full max-w-[var(--content-max)] px-4 md:px-8 ${className}`}>
+      {children}
+    </div>
+  );
+}
 
+/* Same sections as the live page, same order. Brands get the black hero;
+   creators get the lime one. */
 export default function ForBrands() {
   return (
-    <div id="top" className="mx-auto w-full max-w-[640px] md:max-w-[880px]">
-      <div className="flex flex-col gap-10 px-4 md:px-6 pt-6 pb-16">
-        {/* ── Hero ─────────────────────────────────────────────────── */}
-        <section
-          aria-labelledby="hero-heading"
-          className="scroll-mt-24 flex flex-col gap-5"
-        >
-          <PageIntro>
-            <h1
-              id="hero-heading"
-              className="font-display text-[48px] sm:text-[64px] leading-[0.98] max-w-[14ch]"
-            >
-              {BRANDS_HERO.headlineVerbatim}
-            </h1>
-            <p className="text-[17px] sm:text-[18px] text-muted max-w-[46ch] mt-5 leading-[1.5]">
+    <div id="top" className="w-full">
+      <section aria-labelledby="hero-heading" className="bg-surface-dark text-ink-inverse">
+        <Container className="pt-16 md:pt-24 pb-12 md:pb-16 flex flex-col gap-10">
+          <h1 id="hero-heading" className="font-display text-[clamp(56px,11vw,160px)] max-w-[10ch]">
+            {BRANDS_HERO.headlineVerbatim}
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-end gap-8">
+            <p className="text-[20px] md:text-[24px] font-medium leading-[1.3] max-w-[30ch] text-ink-inverse/80">
               {BRANDS_HERO.subhead}
             </p>
-            <div className="flex flex-wrap gap-3 mt-7">
-              <Button href={BRANDS_HERO.primaryCta.href} variant="primary" size="lg">
+            <div className="flex flex-wrap gap-3">
+              <Button href={BRANDS_HERO.primaryCta.href} variant="lime" size="xl">
                 {BRANDS_HERO.primaryCta.label}
               </Button>
-              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost" size="lg">
+              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost" size="xl" className="!border-ink-inverse/40 !text-ink-inverse hover:!border-ink-inverse">
                 {BRANDS_HERO.secondaryCta.label}
               </Button>
             </div>
-          </PageIntro>
-        </section>
+          </div>
+        </Container>
+      </section>
 
-        {/* ── How it works ─────────────────────────────────────────── */}
-        <section
-          id="how-it-works"
-          aria-labelledby="how-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="how-heading"
-            className="font-display text-[32px] md:text-[36px] leading-[1.05] max-w-[30ch]"
-          >
+      <section id="how-it-works" aria-labelledby="how-heading" className="bg-surface-dark text-ink-inverse border-t border-ink-inverse/15 scroll-mt-16">
+        <Container className="py-16 md:py-24 flex flex-col gap-12">
+          <h2 id="how-heading" className="font-display text-[clamp(40px,7vw,96px)] max-w-[12ch]">
             {BRANDS_STEPS_HEADLINE_VERBATIM}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {BRANDS_STEPS.map((step, i) => {
-              const Icon = STEP_ICONS[i] ?? HomeIcon;
-              return (
-                <StepCard
-                  key={step.title}
-                  icon={<Icon width={20} height={20} />}
-                  title={step.title}
-                >
-                  {step.description}
-                </StepCard>
-              );
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-6">
+            {BRANDS_STEPS.map((step, i) => (
+              <StepCard key={step.title} title={step.title} index={i}>
+                {step.description}
+              </StepCard>
+            ))}
           </div>
-        </section>
+        </Container>
+      </section>
 
-        {/* ── Features ─────────────────────────────────────────────── */}
-        <section
-          id="features"
-          aria-labelledby="features-heading"
-          className="scroll-mt-24 flex flex-col gap-4"
-        >
-          <h2
-            id="features-heading"
-            className="font-display text-[32px] md:text-[36px] leading-[1.05]"
-          >
+      <section id="features" aria-labelledby="features-heading" className="bg-canvas scroll-mt-16">
+        <Container className="py-16 md:py-24 flex flex-col gap-10">
+          <h2 id="features-heading" className="font-display text-[clamp(40px,7vw,96px)] max-w-[12ch]">
             {BRANDS_FEATURES_HEADING}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {BRANDS_FEATURES.map((f) => (
-              <Card
-                key={f.title}
-                variant="default"
-                pad="lg"
-                className="flex flex-col gap-2"
-              >
-                <h3 className="text-[19px] font-medium leading-tight tracking-[-0.01em]">
-                  {f.title}
-                </h3>
-                <p className="text-[15px] text-muted leading-[1.55]">{f.body}</p>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Counters ─────────────────────────────────────────────── */}
-        <section
-          id="counters"
-          aria-label="Brand results"
-          className="scroll-mt-24"
-        >
-          <Card variant="default" pad="none" className="grid grid-cols-2 divide-x divide-border">
-            {BRANDS_COUNTERS.map((c, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {BRANDS_FEATURES.map((f, i) => (
               <div
-                key={c.label}
-                className="flex flex-col gap-1.5 min-w-0 px-5 sm:px-7 py-6"
+                key={f.title}
+                className={`flex flex-col gap-3 rounded-[var(--radius-card)] p-7 md:p-9 border-2 border-ink ${
+                  i === 0 ? "bg-lime text-surface-dark" : "bg-surface"
+                }`}
               >
-                <Counter
-                  value={c.value}
-                  prefix={c.prefix}
-                  suffix={c.suffix}
-                  className={`text-[32px] sm:text-[44px] leading-none font-expanded truncate ${
-                    i === 0 ? "text-money" : "text-ink"
-                  }`}
-                />
-                <p className="text-[13px] text-muted truncate">{c.label}</p>
+                <h3 className="font-display-sm text-[28px] md:text-[34px]">{f.title}</h3>
+                <p className={`text-[16px] leading-[1.5] max-w-[44ch] ${i === 0 ? "text-surface-dark/75" : "text-muted"}`}>
+                  {f.body}
+                </p>
               </div>
             ))}
-          </Card>
-        </section>
+          </div>
+        </Container>
+      </section>
 
-        {/* ── Footer CTA ───────────────────────────────────────────── */}
-        <section id="waitlist" className="scroll-mt-24">
-          <CTABand
-            eyebrow={BRANDS_FOOTER_CTA.eyebrowVerbatim}
-            headline={BRANDS_FOOTER_CTA.headlineVerbatim}
-            ctaLabel={BRANDS_FOOTER_CTA.ctaLabel}
-            ctaHref={BRANDS_FOOTER_CTA.ctaHref}
-          >
-            {BRANDS_FOOTER_CTA.body}
-          </CTABand>
-        </section>
+      <section id="counters" aria-label="Brand results" className="bg-canvas border-t-2 border-ink">
+        <Container className="py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
+          {BRANDS_COUNTERS.map((c) => (
+            <div key={c.label} className="flex flex-col gap-3 min-w-0">
+              <Counter
+                value={c.value}
+                prefix={c.prefix}
+                suffix={c.suffix}
+                className="font-display text-[clamp(64px,10vw,160px)] truncate"
+              />
+              <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-muted">{c.label}</p>
+            </div>
+          ))}
+        </Container>
+      </section>
 
-        <SiteFooter />
+      <div id="waitlist" className="scroll-mt-16">
+        <CTABand
+          eyebrow={BRANDS_FOOTER_CTA.eyebrowVerbatim}
+          headline={BRANDS_FOOTER_CTA.headlineVerbatim}
+          ctaLabel={BRANDS_FOOTER_CTA.ctaLabel}
+          ctaHref={BRANDS_FOOTER_CTA.ctaHref}
+        >
+          {BRANDS_FOOTER_CTA.body}
+        </CTABand>
       </div>
+      <SiteFooter />
     </div>
   );
 }

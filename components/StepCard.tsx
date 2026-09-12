@@ -1,37 +1,30 @@
 import type { ReactNode } from "react";
-import { Card } from "./Card";
 
+/* Giant numeral, then the words. On the dark band it reads like a poster. */
 export function StepCard({
   icon,
   title,
   children,
-  /* MCP flow is the only place ordered markers are allowed. Off by default. */
   marker,
+  index,
 }: {
   icon?: ReactNode;
   title: string;
   children: ReactNode;
   marker?: string;
+  index?: number;
 }) {
+  void icon;
+  const numeral = marker ?? (index !== undefined ? String(index + 1).padStart(2, "0") : undefined);
   return (
-    <Card variant="default" pad="lg" className="flex gap-4">
-      {icon ? (
-        <span
-          aria-hidden
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-tile)] bg-money-sunk text-money"
-        >
-          {icon}
+    <div className="flex flex-col gap-5 border-t-2 border-ink-inverse/20 pt-5">
+      {numeral ? (
+        <span className="font-display text-[88px] md:text-[120px] leading-[0.8] text-lime">
+          {numeral}
         </span>
       ) : null}
-      <div className="flex flex-col gap-1.5 min-w-0">
-        <div className="flex items-baseline gap-2">
-          {marker ? (
-            <span className="text-[12px] text-muted font-mono">{marker}</span>
-          ) : null}
-          <h3 className="text-[19px] leading-tight font-medium tracking-[-0.01em]">{title}</h3>
-        </div>
-        <div className="text-[15px] text-muted leading-[1.55]">{children}</div>
-      </div>
-    </Card>
+      <h3 className="font-display-sm text-[26px] md:text-[30px] text-ink-inverse">{title}</h3>
+      <div className="text-[16px] text-ink-inverse/70 leading-[1.5] max-w-[36ch]">{children}</div>
+    </div>
   );
 }

@@ -41,17 +41,17 @@ export function FeaturedCampaignCard({
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <span
             id={`featured-${campaign.id}`}
-            className="text-[11px] font-medium tracking-wider uppercase text-ink-inverse/80"
+            className="text-[11px] font-medium tracking-wider uppercase text-on-art/80"
           >
             {brand.name} · {campaign.name}
           </span>
           {campaign.acceptedDeadline ? (
             <Countdown
               deadline={campaign.acceptedDeadline}
-              className="mt-1 text-[40px] sm:text-[48px] leading-none font-expanded"
+              className="mt-1 text-[48px] sm:text-[64px] leading-none font-expanded text-on-art"
             />
           ) : null}
-          <span className="mt-2 text-[13px] text-ink-inverse/75">
+          <span className="mt-2 text-[13px] text-on-art/75">
             {CAMPAIGNS_PAGE.featured.instruction}
           </span>
         </div>

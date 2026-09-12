@@ -10,20 +10,17 @@ export function Stub({
   eyebrow?: string;
   title: string;
   children: ReactNode;
-  /* Optional slot below the body — /blog uses it for the real BlogCard grid. */
   extra?: ReactNode;
 }) {
   return (
-    <div className="mx-auto w-full max-w-[640px] md:max-w-[880px]">
-      <div className="flex flex-col gap-10 px-4 md:px-6 pt-12 pb-16">
-        <section className="flex flex-col gap-5 max-w-[640px]">
+    <div className="mx-auto w-full max-w-[var(--content-max)] px-4 md:px-8">
+      <div className="flex flex-col gap-12 pt-16 pb-24">
+        <section className="flex flex-col gap-6 max-w-[900px]">
           {eyebrow ? (
-            <p className="text-[13px] text-muted">{eyebrow}</p>
+            <p className="text-[12px] uppercase tracking-[0.12em] font-bold text-muted">{eyebrow}</p>
           ) : null}
-          <h1 className="font-display text-[48px] sm:text-[56px] leading-[1.0] max-w-[16ch]">
-            {title}
-          </h1>
-          <div className="text-[17px] text-muted flex flex-col gap-4 max-w-[58ch] leading-[1.55]">
+          <h1 className="font-display text-[clamp(48px,9vw,120px)]">{title}</h1>
+          <div className="text-[18px] text-muted flex flex-col gap-4 max-w-[56ch] leading-[1.5]">
             {children}
           </div>
           <div className="mt-2">
@@ -32,7 +29,6 @@ export function Stub({
             </Button>
           </div>
         </section>
-
         {extra}
       </div>
     </div>

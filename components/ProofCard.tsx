@@ -2,64 +2,54 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { Card } from "./Card";
 import { Badge } from "./Badge";
 import { StatGrid } from "./StatGrid";
 import type { Creator } from "@/content/creators";
 
-/* The feed's center of gravity. Layout leads with the number: earnings at
-   display size, then the evidence (dashboard + phone), then the small
-   table of what it took, then the creator's own words. */
+/* A receipt. White card with a hard black border and offset shadow, the
+   number at poster size in the corner, the evidence below. */
 export function ProofCard({
   data,
   priority = false,
 }: {
   data: Creator;
-  /* Set true on the first card in a feed so its dashboard image loads
-     eagerly and Next.js emits a preload hint — matters for LCP. */
   priority?: boolean;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-
   const open = () => dialogRef.current?.showModal();
   const close = () => dialogRef.current?.close();
-
   const onDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    /* Click on the backdrop (the dialog element itself, outside its inner
-       content) closes. Native <dialog> gives us ESC-to-close automatically. */
     if (e.target === dialogRef.current) close();
   };
 
   return (
     <>
-      <Card
-        as="article"
-        variant="spotlight"
-        pad="none"
-        className="flex flex-col overflow-hidden"
+      <article
+        className="
+          flex flex-col rounded-[var(--radius-card)] overflow-hidden
+          bg-surface text-ink border-2 border-ink
+          shadow-[8px_8px_0_var(--lime)]
+        "
       >
         <header className="flex items-center gap-3 px-5 pt-5">
           <span
             aria-hidden
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-sunk text-[13px] font-medium"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-ink-inverse text-[13px] font-bold"
           >
             {data.name[0]}
           </span>
           <div className="flex flex-col leading-tight min-w-0">
-            <p className="text-[15px] font-medium truncate">{data.name}</p>
+            <p className="text-[15px] font-semibold truncate">{data.name}</p>
             <p className="text-[13px] text-muted truncate">@{data.handle}</p>
           </div>
-          <Badge
-            tone={data.tier === "Advanced" ? "live" : "neutral"}
-            className="ml-auto"
-          >
+          <Badge tone={data.tier === "Advanced" ? "live" : "neutral"} className="ml-auto">
             {data.tier}
           </Badge>
         </header>
 
-        <div className="flex flex-col px-5 pt-5 pb-4">
-          <p className="text-[12px] text-muted">Total earned</p>
-          <p className="text-[44px] leading-none font-expanded text-money mt-1">
+        <div className="px-5 pt-6 pb-4">
+          <p className="text-[11px] uppercase tracking-[0.12em] font-bold text-muted">Total earned</p>
+          <p className="font-display text-[56px] md:text-[64px] leading-[0.85] mt-2">
             {data.earnings}
           </p>
         </div>
@@ -70,15 +60,7 @@ export function ProofCard({
           aria-label={`Open ${data.name}'s dashboard`}
           className="group relative block w-full text-left px-5"
         >
-          {/* Dashboard — card matches the graph's native 2:1 so the whole
-              chart is visible, never cropped. */}
-          <div
-            className="
-              relative aspect-[2/1] rounded-[14px] overflow-hidden
-              bg-surface-sunk ring-1 ring-border
-              transition group-hover:brightness-[0.98]
-            "
-          >
+          <div className="relative aspect-[2/1] rounded-[8px] overflow-hidden bg-surface-sunk border-2 border-ink transition group-hover:brightness-[0.97]">
             <Image
               src={data.dashboardSrc}
               alt=""
@@ -88,27 +70,14 @@ export function ProofCard({
               priority={priority}
             />
           </div>
-
-          {/* Phone — hovers over the dashboard, lifted by shadow.
-              Positioned as a sibling of the clipped dashboard so the shadow
-              is not clipped by overflow-hidden. */}
           <div
             className="
-              absolute bottom-3 right-8
-              h-[88%] aspect-[900/1955]
-              rounded-[18px] overflow-hidden
-              bg-surface-sunk ring-1 ring-ink/10
-              shadow-pop
-              transition-transform group-hover:-translate-y-1
+              absolute bottom-3 right-8 h-[88%] aspect-[900/1955]
+              rounded-[14px] overflow-hidden bg-surface-sunk border-2 border-ink
+              shadow-pop transition-transform group-hover:-translate-y-1
             "
           >
-            <Image
-              src={data.phoneSrc}
-              alt=""
-              fill
-              sizes="140px"
-              className="object-cover"
-            />
+            <Image src={data.phoneSrc} alt="" fill sizes="140px" className="object-cover" />
           </div>
         </button>
 
@@ -116,42 +85,38 @@ export function ProofCard({
           <StatGrid stats={data.stats} />
         </div>
 
-        <blockquote className="mx-5 my-5 rounded-[var(--radius-control)] bg-surface-sunk/60 px-4 py-3 text-[14px] leading-[1.55] text-ink/85">
+        <blockquote className="mx-5 my-5 text-[15px] leading-[1.5] font-medium">
           &ldquo;{data.blurb}&rdquo;
         </blockquote>
-      </Card>
+      </article>
 
       <dialog
         ref={dialogRef}
         onClick={onDialogClick}
         className="
           m-auto w-[min(920px,92vw)] max-h-[92vh]
-          rounded-[var(--radius-card)] p-0 bg-surface text-ink
-          shadow-pop backdrop:bg-surface-dark/70 backdrop:backdrop-blur-sm
+          rounded-[var(--radius-card)] p-0 bg-surface text-ink border-2 border-ink
+          shadow-pop backdrop:bg-surface-dark/80
         "
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-ink">
           <div className="flex flex-col leading-tight">
-            <p className="text-[18px] font-medium">{data.name}</p>
+            <p className="text-[18px] font-semibold">{data.name}</p>
             <p className="text-[13px] text-muted">
-              @{data.handle} · <span className="font-expanded text-money">{data.earnings}</span> earned
+              @{data.handle} · <span className="font-expanded text-ink">{data.earnings}</span> earned
             </p>
           </div>
           <button
             type="button"
             onClick={close}
-            className="
-              inline-flex h-11 w-11 items-center justify-center rounded-full
-              bg-surface-sunk text-ink hover:bg-ink/[0.08] transition
-              text-[20px] leading-none
-            "
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-ink text-ink-inverse hover:bg-ink/85 transition text-[20px] leading-none"
             aria-label="Close"
           >
             ×
           </button>
         </div>
         <div className="grid gap-4 p-6 md:grid-cols-[2fr_1fr] overflow-auto max-h-[calc(92vh-73px)] bg-canvas">
-          <div className="relative rounded-[14px] overflow-hidden bg-surface aspect-[16/9] ring-1 ring-border">
+          <div className="relative rounded-[8px] overflow-hidden bg-surface aspect-[16/9] border-2 border-ink">
             <Image
               src={data.dashboardSrc}
               alt={`${data.name}'s earnings dashboard`}
@@ -160,7 +125,7 @@ export function ProofCard({
               className="object-contain"
             />
           </div>
-          <div className="relative rounded-[14px] overflow-hidden bg-surface aspect-[9/16] md:aspect-auto md:min-h-[400px] ring-1 ring-border">
+          <div className="relative rounded-[8px] overflow-hidden bg-surface aspect-[9/16] md:aspect-auto md:min-h-[400px] border-2 border-ink">
             <Image
               src={data.phoneSrc}
               alt={`${data.name}'s content on mobile`}

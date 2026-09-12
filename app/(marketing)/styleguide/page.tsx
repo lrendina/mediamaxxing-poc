@@ -12,7 +12,6 @@ import { LogoLockup } from "@/components/LogoLockup";
 import { ProofCard } from "@/components/ProofCard";
 import { StatGrid } from "@/components/StatGrid";
 import { StepCard } from "@/components/StepCard";
-import { HomeIcon, BrandsIcon, AgenciesIcon } from "@/components/icons";
 import { CREATORS } from "@/content/creators";
 import { STEPS } from "@/content/steps";
 import { FAQ } from "@/content/faq";
@@ -27,17 +26,17 @@ export const metadata: Metadata = {
 /* Hex values are documentation only — every component reads the CSS
    variable. Keep this list in sync with app/globals.css. */
 const swatches = [
-  { name: "canvas",       hex: "#F4F2EC", role: "page — warm paper",                 text: "ink"         },
-  { name: "surface",      hex: "#FFFFFF", role: "cards, panels",                     text: "ink"         },
-  { name: "surface-sunk", hex: "#EBE8DF", role: "inset rows, tracks, chips, tiles",  text: "ink"         },
-  { name: "surface-dark", hex: "#0F1411", role: "dark bands, featured cards",        text: "ink-inverse" },
-  { name: "ink",          hex: "#14130F", role: "primary text, primary button",      text: "ink-inverse" },
-  { name: "muted",        hex: "#6B675C", role: "secondary text, metadata",          text: "ink-inverse" },
-  { name: "action",       hex: "#2A4BD7", role: "something to press (app)",          text: "ink-inverse" },
-  { name: "money",        hex: "#0E9F5E", role: "dollars, payouts, acceptance",      text: "ink-inverse" },
-  { name: "streak",       hex: "#EF6420", role: "progress, XP, momentum, urgency",   text: "ink-inverse" },
-  { name: "warn",         hex: "#96690F", role: "attention, scarcity, bounty",       text: "ink-inverse" },
-  { name: "status",       hex: "#5B3FC9", role: "marketing tier badges only",        text: "ink-inverse" },
+  { name: "lime",         hex: "#D4FF3A", role: "the brand. Money, hero, CTA band",  text: "ink"         },
+  { name: "surface-dark", hex: "#0A0A0A", role: "black bands, top bar, footer",     text: "ink-inverse" },
+  { name: "canvas",       hex: "#F2F1EA", role: "paper — reading sections",          text: "ink"         },
+  { name: "surface",      hex: "#FFFFFF", role: "cards",                             text: "ink"         },
+  { name: "surface-sunk", hex: "#E6E5DC", role: "inset rows, chips, tiles",          text: "ink"         },
+  { name: "ink",          hex: "#0A0A0A", role: "text, primary button",              text: "ink-inverse" },
+  { name: "muted",        hex: "#5C5B54", role: "secondary text",                    text: "ink-inverse" },
+  { name: "money-ink",    hex: "#3F6B00", role: "lime as text on light surfaces",    text: "ink-inverse" },
+  { name: "streak",       hex: "#FF5A1F", role: "progress, XP, urgency, focus ring", text: "ink-inverse" },
+  { name: "warn",         hex: "#B57F00", role: "attention, scarcity, bounty",       text: "ink-inverse" },
+  { name: "status",       hex: "#FF3DAE", role: "tier badges",                       text: "ink-inverse" },
   { name: "discord",      hex: "#5865F2", role: "Join Discord only",                 text: "ink-inverse" },
 ] as const;
 
@@ -64,7 +63,7 @@ export default function Styleguide() {
   return (
     <div className="mx-auto max-w-[900px] px-6 py-16">
       <header className="mb-16 flex flex-col gap-3">
-        <h1 className="font-display text-[56px] leading-[1.0]">Styleguide</h1>
+        <h1 className="font-display text-[clamp(48px,9vw,120px)]">Styleguide</h1>
         <p className="text-muted max-w-[60ch]">
           Every primitive, every state — the design-system review surface. Any
           change to the palette, typeface, or type scale after this page is
@@ -73,7 +72,7 @@ export default function Styleguide() {
       </header>
 
       {/* ── Palette ────────────────────────────────────────────────────── */}
-      <Section title="Palette" note="Paper and signal. Warm neutrals carry the page; one saturated colour per semantic role, never used outside its meaning.">
+      <Section title="Palette" note="Black and acid lime. Lime is the brand and is allowed to fill a section. The creator app inverts the same roles onto black.">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {swatches.map((s) => (
             <div key={s.name} className="rounded-[var(--radius-card)] overflow-hidden border border-border">
@@ -93,7 +92,7 @@ export default function Styleguide() {
       </Section>
 
       {/* ── Type scale ─────────────────────────────────────────────────── */}
-      <Section title="Type scale" note="Archivo for UI and body, Instrument Serif for display headings (24 and up), Archivo Expanded for every number. Body 15/1.6.">
+      <Section title="Type scale" note="One family. Archivo Expanded 800 uppercase is the poster voice (24 and up); Archivo 400–500 is UI and body; Archivo Expanded 500 is every number.">
         <div className="flex flex-col divide-y divide-border">
           {typeScale.map((t) => (
             <div key={t.label} className="grid grid-cols-[80px_1fr] gap-4 py-4 items-baseline">
@@ -146,10 +145,10 @@ export default function Styleguide() {
       {/* ── Button ────────────────────────────────────────────────────── */}
       <Section
         title="Button"
-        note="Three variants. Primary is ink. Secondary is money-green and is reserved for the one CTA per page that is literally about getting paid. Ghost is a hairline."
+        note="Primary is ink. Lime is the brand pill, one per viewport. Ghost is a hairline. Inverse is paper on black."
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(["primary", "secondary", "ghost"] as const).map((variant) => (
+          {(["primary", "lime", "ghost"] as const).map((variant) => (
             <div key={variant} className="rounded-[var(--radius-card)] border border-border p-5 flex flex-col gap-5">
               <div className="text-[13px] text-muted">{variant}</div>
               <StateRow label="default">
@@ -241,15 +240,12 @@ export default function Styleguide() {
 
       {/* ── StepCard ──────────────────────────────────────────────────── */}
       <Section title="StepCard" note="Icon + title + body. No numeric markers, except in the MCP flow.">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {STEPS.map((step, i) => {
-            const Icon = [HomeIcon, BrandsIcon, AgenciesIcon][i] ?? HomeIcon;
-            return (
-              <StepCard key={step.title} icon={<Icon width={20} height={20} />} title={step.title}>
-                {step.description}
-              </StepCard>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 rounded-[var(--radius-card)] bg-surface-dark p-6">
+          {STEPS.map((step, i) => (
+            <StepCard key={step.title} title={step.title} index={i}>
+              {step.description}
+            </StepCard>
+          ))}
         </div>
       </Section>
 
@@ -283,7 +279,7 @@ export default function Styleguide() {
       </Section>
 
       {/* ── CTABand ───────────────────────────────────────────────────── */}
-      <Section title="CTABand" note="Ink-toned band that ends a section or a page. Inverted button reads as CTA even in the dark box.">
+      <Section title="CTABand" note="Full-bleed lime band that ends a page. Headline at viewport scale, ink button.">
         <CTABand
           eyebrow="For creators"
           headline="Turn your feed into a paycheck."
@@ -305,7 +301,7 @@ export default function Styleguide() {
       {/* ── Layout ────────────────────────────────────────────────────── */}
       <Section
         title="Layout"
-        note="Left rail 240 · feed 600 max · right rail 300. Right rail drops below 1280, sidebar collapses to icons below 1024, becomes a bottom tab bar below 768."
+        note="Marketing: sticky black top bar, full-bleed colour sections, 1440 content max. Creator app: 248px sidebar (56 collapsed), content 1160 max, 380 right rail below 1280 stacks."
       >
         <div className="hidden md:grid rounded-[var(--radius-card)] border border-border overflow-hidden [grid-template-columns:240px_1fr_300px]">
           <div className="bg-surface-sunk h-40 flex items-center justify-center text-[13px] text-muted">sidebar · 240</div>

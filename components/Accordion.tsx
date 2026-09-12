@@ -5,8 +5,7 @@ export type AccordionItem = {
   answer: ReactNode;
 };
 
-/* Native <details>/<summary> — keyboard nav, ARIA, and open state come free.
-   No JS required, no useState, no animation library. */
+/* Native <details>/<summary>. Questions at display size. */
 export function Accordion({
   items,
   className = "",
@@ -15,17 +14,14 @@ export function Accordion({
   className?: string;
 }) {
   return (
-    <div className={`divide-y divide-border ${className}`}>
+    <div className={`divide-y-2 divide-ink border-y-2 border-ink ${className}`}>
       {items.map((item, i) => (
-        <details
-          key={i}
-          className="group"
-        >
+        <details key={i} className="group">
           <summary
             className="
-              flex items-center justify-between gap-4 py-4
+              flex items-center justify-between gap-6 py-6
               cursor-pointer list-none min-h-11
-              text-[17px] leading-snug font-medium tracking-[-0.005em]
+              font-display-sm text-[22px] md:text-[30px]
               [&::-webkit-details-marker]:hidden
             "
           >
@@ -33,15 +29,15 @@ export function Accordion({
             <span
               aria-hidden
               className="
-                shrink-0 h-7 w-7 rounded-full border border-border
-                flex items-center justify-center text-[18px] leading-none text-muted
-                transition group-open:rotate-45 group-open:bg-ink group-open:text-ink-inverse group-open:border-ink
+                shrink-0 h-10 w-10 rounded-full border-2 border-ink
+                flex items-center justify-center text-[24px] leading-none
+                transition group-open:rotate-45 group-open:bg-lime
               "
             >
               +
             </span>
           </summary>
-          <div className="pb-5 pr-10 text-[15px] text-muted leading-[1.6]">{item.answer}</div>
+          <div className="pb-7 pr-16 text-[17px] text-muted leading-[1.55] max-w-[64ch]">{item.answer}</div>
         </details>
       ))}
     </div>

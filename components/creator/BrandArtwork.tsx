@@ -28,7 +28,7 @@ export function BrandArtwork({
     >
       <span
         aria-hidden
-        className={`absolute inset-0 flex items-center justify-center font-medium tracking-tight text-ink-inverse/90 ${wordmarkClass}`}
+        className={`absolute inset-0 flex items-center justify-center font-medium tracking-tight text-on-art/90 ${wordmarkClass}`}
       >
         {wordmark}
       </span>

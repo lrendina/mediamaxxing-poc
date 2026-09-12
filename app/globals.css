@@ -1,53 +1,57 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------------- */
-/* Design tokens — "paper and signal"                                        */
+/* Design tokens — black and acid lime                                       */
 /*                                                                           */
-/* One system, two surfaces. A warm paper canvas, white cards on hairline    */
-/* borders, warm near-black ink, and one saturated colour per semantic role. */
-/* Roles come from the live creator app (DESIGN-TOKENS.md) and are not up    */
-/* for renegotiation; the values are ours.                                   */
+/* Loud on purpose. Off-white paper for reading, pure black for weight, one  */
+/* acid lime that means money and is allowed to fill a whole section. The   */
+/* creator app inverts the same roles onto black (see .creator-surface).    */
 /* ------------------------------------------------------------------------- */
 
 :root {
   /* surfaces */
-  --canvas:        #f4f2ec;   /* page — warm paper */
-  --surface:       #ffffff;   /* cards, panels */
-  --surface-sunk:  #ebe8df;   /* inset rows, tracks, chips, tiles */
-  --surface-dark:  #0f1411;   /* dark bands, featured cards — green-black, ties to money */
-  --border:        #e1ddd2;   /* hairline */
-  --border-strong: #c9c4b6;
+  --canvas:        #f2f1ea;
+  --surface:       #ffffff;
+  --surface-sunk:  #e6e5dc;
+  --surface-dark:  #0a0a0a;
+  --border:        #d9d7cc;
+  --border-strong: #b8b6aa;
 
   /* text */
-  --ink:           #14130f;
-  --muted:         #6b675c;
-  --ink-inverse:   #f7f6f1;
+  --ink:           #0a0a0a;
+  --muted:         #5c5b54;
+  --ink-inverse:   #f5f5ee;
+  --on-pastel:     #0a0a0a;   /* text on avatar pastels, both surfaces */
+  --on-art:        #ffffff;   /* text over brand artwork, both surfaces */
 
-  /* roles — never use a role outside its meaning */
-  --action:        #2a4bd7;   /* something to press */
-  --action-sunk:   #e3e8fb;
-  --money:         #0e9f5e;   /* dollars, payouts, acceptance */
-  --money-sunk:    #dcf3e6;
-  --streak:        #ef6420;   /* progress, XP, momentum, urgency */
-  --streak-sunk:   #fde6d9;
-  --warn:          #96690f;   /* attention, scarcity, bounty */
-  --warn-sunk:     #f8eed7;
-  --discord:       #5865f2;   /* brand-locked: Join Discord only */
-  --status:        #5b3fc9;   /* marketing tier badges only */
-  --status-sunk:   #ebe5fa;
+  /* roles */
+  --lime:          #d4ff3a;
+  --action:        #0a0a0a;   /* marketing: the press colour is ink */
+  --action-sunk:   #e6e5dc;
+  --money:         #d4ff3a;   /* the brand colour. Money is the brand. */
+  --money-ink:     #3f6b00;   /* lime as text on light surfaces */
+  --money-sunk:    #eeffb8;
+  --streak:        #ff5a1f;
+  --streak-sunk:   #ffe0d2;
+  --warn:          #b57f00;
+  --warn-sunk:     #fff1c2;
+  --discord:       #5865f2;
+  --status:        #ff3dae;
+  --status-sunk:   #ffd9ee;
 
-  /* Aliases kept for the marketing surface's existing utilities. They now
-     resolve to the shared roles so both surfaces are literally one palette. */
+  /* Legacy aliases */
   --panel:      var(--surface-sunk);
   --canvas-alt: var(--surface-dark);
-  --payout:     var(--money);
+  --payout:     var(--money-ink);
   --live:       var(--status);
 
-  /* Layout shell */
+  /* Layout */
+  --topnav:       64px;
+  --mobile-tabs:  56px;
+  --content-max:  1440px;
   --rail-left:    240px;
   --rail-right:   300px;
   --feed-max:     600px;
-  --mobile-tabs:  56px;
 
   /* Creator app shell */
   --app-sidebar:            248px;
@@ -55,23 +59,50 @@
   --app-rail:               380px;
   --app-content-max:        1160px;
 
-  /* Geometry */
-  --radius-card:    20px;
-  --radius-control: 12px;
-  --radius-tile:    12px;
+  /* Geometry — sharper than before. Loud things have corners. */
+  --radius-card:    12px;
+  --radius-control: 8px;
+  --radius-tile:    8px;
   --radius-pill:    999px;
 
-  /* Elevation — used only on objects that genuinely float */
-  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
-  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
+  --shadow-lift: 0 1px 2px rgba(10, 10, 10, 0.06), 0 16px 40px -20px rgba(10, 10, 10, 0.35);
+  --shadow-pop:  0 2px 4px rgba(10, 10, 10, 0.1), 0 32px 64px -24px rgba(10, 10, 10, 0.6);
 
-  /* Type scale (px) — 13/15/18/24/32/40/48/64 */
   --text-xs:  13px;
   --text-sm:  15px;
   --text-md:  18px;
   --text-lg:  24px;
   --text-xl:  40px;
   --text-2xl: 64px;
+}
+
+/* The creator app on black. Same roles, inverted surfaces, lime stays lime. */
+.creator-surface {
+  --canvas:        #0b0b0b;
+  --surface:       #151515;
+  --surface-sunk:  #212120;
+  --surface-dark:  #d4ff3a;   /* the one "dark object" becomes the one lime object */
+  --border:        #2a2a28;
+  --border-strong: #3d3d3a;
+  --ink:           #f5f5ee;
+  --muted:         #9c9b91;
+  --ink-inverse:   #0b0b0b;
+  --action:        #8b78ff;
+  --action-sunk:   #26204a;
+  --money:         #d4ff3a;
+  --money-ink:     #d4ff3a;
+  --money-sunk:    #26330d;
+  --streak:        #ff6a2f;
+  --streak-sunk:   #3d1f12;
+  --warn:          #ffc53d;
+  --warn-sunk:     #3a2f0f;
+  --status:        #ff5cbf;
+  --status-sunk:   #3d1630;
+  --shadow-lift: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -20px rgba(0, 0, 0, 0.8);
+  --shadow-pop:  0 2px 4px rgba(0, 0, 0, 0.5), 0 32px 64px -24px rgba(0, 0, 0, 0.9);
+  background: var(--canvas);
+  color: var(--ink);
+  color-scheme: dark;
 }
 
 /* Tailwind v4 theme — exposes tokens as utilities. */
@@ -90,9 +121,13 @@
   --color-border:       var(--border);
   --color-border-strong: var(--border-strong);
   --color-ink-inverse:  var(--ink-inverse);
+  --color-on-pastel:    var(--on-pastel);
+  --color-on-art:       var(--on-art);
+  --color-lime:         var(--lime);
   --color-action:       var(--action);
   --color-action-sunk:  var(--action-sunk);
   --color-money:        var(--money);
+  --color-money-ink:    var(--money-ink);
   --color-money-sunk:   var(--money-sunk);
   --color-streak:       var(--streak);
   --color-streak-sunk:  var(--streak-sunk);
@@ -109,8 +144,7 @@
   --shadow-lift: var(--shadow-lift);
   --shadow-pop:  var(--shadow-pop);
 
-  --font-sans:    var(--font-archivo);
-  --font-display: var(--font-display);
+  --font-sans: var(--font-archivo);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -134,24 +168,49 @@ body {
   font-feature-settings: "tnum" 1;
 }
 
-/* Archivo's "expanded" width — reserved for dollar figures and counters. */
+/* Archivo's "expanded" width — every number. */
 .font-expanded {
   font-variation-settings: "wdth" 125;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
-/* Display headings. Serif, tight, slightly negative tracking. */
+/* The poster voice. Expanded, heavy, uppercase, tight. Headlines only. */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  font-variant-numeric: normal;
-  font-feature-settings: normal;
+  font-variation-settings: "wdth" 125;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+
+/* A slightly quieter display — same voice, indoor volume. Card titles. */
+.font-display-sm {
+  font-variation-settings: "wdth" 118;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Marquee — the earnings ticker. Duplicated content, translate by half.
+   Paused on hover and collapsed to a static row under reduced motion. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
 }
 
 /* Visible keyboard focus on every interactive element. */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--action);
+  outline: 3px solid var(--streak);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -196,12 +255,6 @@ html:has(.intro-section) {
 }
 [data-page-theme="dark"] .on-page-bg-border {
   border-color: rgba(247, 246, 241, 0.12);
-}
-
-/* Creator app surface — same paper as the marketing canvas. The marketing
-   body bg transition never runs here (no data-section-bg elements). */
-.creator-surface {
-  background: var(--canvas);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */

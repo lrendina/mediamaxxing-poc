@@ -1,12 +1,9 @@
 export type Stat = {
   label: string;
   value: string;
-  /* When true, the value gets the expanded numeral treatment. */
   expanded?: boolean;
 };
 
-/* Labeled values separated by hairlines — a small table, not a caption
-   string. Value above label so the number leads. */
 export function StatGrid({
   stats,
   className = "",
@@ -15,19 +12,16 @@ export function StatGrid({
   className?: string;
 }) {
   return (
-    <dl
-      className={`grid ${gridColsFor(stats.length)} divide-x divide-border ${className}`}
-    >
+    <dl className={`grid ${gridColsFor(stats.length)} gap-2 ${className}`}>
       {stats.map((s) => (
-        <div key={s.label} className="flex flex-col gap-1 min-w-0 px-4 first:pl-0 last:pr-0">
-          <dd
-            className={`text-[20px] leading-none truncate ${
-              s.expanded ? "font-expanded" : "font-medium"
-            }`}
-          >
-            {s.value}
-          </dd>
-          <dt className="text-[12px] text-muted truncate">{s.label}</dt>
+        <div
+          key={s.label}
+          className="flex flex-col gap-1 min-w-0 rounded-[var(--radius-control)] bg-surface-sunk px-3 py-2.5"
+        >
+          <dd className="text-[22px] leading-none truncate font-expanded">{s.value}</dd>
+          <dt className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted truncate">
+            {s.label}
+          </dt>
         </div>
       ))}
     </dl>

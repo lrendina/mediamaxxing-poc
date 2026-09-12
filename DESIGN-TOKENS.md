@@ -25,7 +25,28 @@ retuned brighter and cleaner. Fidelity of meaning, freedom of appearance.
 Never use a role outside its meaning. A neutral button does not get `money` because it looks
 good, and a deadline does not get `warn` because it feels urgent — deadlines are `streak`.
 
-## Values — "paper and signal" (redesign, September 2026)
+## Values — "black and acid lime" (loud redesign, September 2026)
+
+Supersedes everything below. Lime `#D4FF3A` is the brand and means money; it is allowed to
+fill a whole section. Black `#0A0A0A` carries weight: top bar, how-it-works band, footer.
+Paper `#F2F1EA` is for reading. The creator app inverts the same roles onto black
+(`.creator-surface` in `app/globals.css`): surfaces go dark, lime stays lime, the featured
+campaign card becomes the one lime object on the page, `action` becomes violet.
+
+**Type.** One family. Archivo at wdth 125 / weight 800 / uppercase is the poster voice for
+every headline, at `clamp()` sizes that scale with the viewport. Archivo 400–500 is UI and
+body. Archivo Expanded 500 is every number. No serif.
+
+**Layout.** The marketing surface drops the three-column feed for a sticky black top bar
+and full-bleed colour blocks: lime hero, black ticker, paper proof wall (3-up at xl), black
+how-it-works with 120px numerals, black counters at viewport scale, paper FAQ, paper blog,
+lime CTA band, black footer with the wordmark at 13vw. The Phase 8 device intro is off
+(`INTRO_ENABLED = false`); it flew into a feed column that no longer exists.
+
+**Geometry.** Sharper: card 12, control 8. Proof and blog cards carry 2px black borders and
+hard offset shadows (lime under proof, black under blog on hover). Buttons stay pills.
+
+## Values — "paper and signal" (superseded)
 
 Supersedes the first draft below. Warm paper canvas, white cards on hairline borders,
 warm near-black ink, one saturated colour per role. `app/globals.css` is the source of

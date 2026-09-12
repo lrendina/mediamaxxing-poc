@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { Button } from "./Button";
 
-/* The dark object that closes a page. Money-green CTA on green-black —
-   the one place the two greens meet on purpose. */
+/* Full-bleed lime. The headline runs edge to edge at viewport scale. */
 export function CTABand({
   eyebrow,
   headline,
@@ -17,29 +16,22 @@ export function CTABand({
   children?: ReactNode;
 }) {
   return (
-    <section
-      className="
-        relative overflow-hidden rounded-[var(--radius-card)]
-        bg-surface-dark text-ink-inverse p-7 md:p-10 flex flex-col gap-4
-      "
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-money/25 blur-3xl"
-      />
-      {eyebrow ? (
-        <p className="text-[13px] text-ink-inverse/60">{eyebrow}</p>
-      ) : null}
-      <h2 className="font-display text-[44px] md:text-[56px] leading-[1.0] max-w-[16ch]">
-        {headline}
-      </h2>
-      {children ? (
-        <p className="text-[16px] text-ink-inverse/75 max-w-[48ch]">{children}</p>
-      ) : null}
-      <div className="mt-3">
-        <Button href={ctaHref} variant="secondary" size="lg">
-          {ctaLabel}
-        </Button>
+    <section className="bg-lime text-surface-dark">
+      <div className="mx-auto max-w-[var(--content-max)] px-4 md:px-8 py-16 md:py-24 flex flex-col gap-8">
+        {eyebrow ? (
+          <p className="text-[13px] uppercase tracking-[0.12em] font-bold">{eyebrow}</p>
+        ) : null}
+        <h2 className="font-display text-[clamp(48px,9vw,140px)]">
+          {headline}
+        </h2>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          {children ? (
+            <p className="text-[18px] md:text-[20px] font-medium max-w-[36ch] leading-[1.35]">{children}</p>
+          ) : <span />}
+          <Button href={ctaHref} variant="primary" size="xl">
+            {ctaLabel}
+          </Button>
+        </div>
       </div>
     </section>
   );

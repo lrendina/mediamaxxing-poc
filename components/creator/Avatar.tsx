@@ -20,7 +20,7 @@ export function Avatar({
       <span
         role="img"
         aria-label={`@${handle}`}
-        className={`inline-flex shrink-0 items-center justify-center rounded-full font-medium text-ink ${className}`}
+        className={`inline-flex shrink-0 items-center justify-center rounded-full font-medium text-on-pastel ${className}`}
         style={{ ...style, background: avatarColor(handle) }}
       >
         {initials(handle)}
