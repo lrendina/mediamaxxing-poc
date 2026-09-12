@@ -2,6 +2,8 @@ export type NavIconName = "home" | "brands" | "agencies" | "mcp" | "blog";
 
 export type NavItem = {
   label: string;
+  /* Shorter label for the mobile tab bar when the full one won't fit. */
+  shortLabel?: string;
   href: string;
   icon: NavIconName;
 };
@@ -13,6 +15,14 @@ export const SIDEBAR_NAV: NavItem[] = [
   { label: "MCP",          href: "/mcp",          icon: "mcp" },
   { label: "Blog",         href: "/blog",         icon: "blog" },
 ];
+
+/* Dev-only switch between the two surfaces. Lives in content so the
+   label is not inlined in JSX. */
+export const SURFACE_SWITCH = {
+  toCreator: { label: "Creator app", href: "/creator/campaigns" },
+  toMarketing: { label: "Marketing site", href: "/" },
+  note: "Prototype switch",
+};
 
 /* Footer nav mirrors the live site's two-group layout. */
 export type FooterGroup = {

@@ -2,14 +2,32 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SIDEBAR_NAV } from "@/content/nav";
-import { iconByName } from "./icons";
+import type { ComponentType, SVGProps } from "react";
+
+export type TabBarItem = {
+  label: string;
+  /* Shorter label for the tab bar when the full one won't fit at 375px. */
+  shortLabel?: string;
+  href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+};
 
 function isActive(href: string, pathname: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-export function MobileTabBar() {
+/* Bottom tab bar below 768px. Shared by both surfaces — the marketing site
+   passes SIDEBAR_NAV, the creator app passes its own nav — so the mobile
+   chrome is literally the same component on both. Callers resolve icon
+   names to components before passing items in (see MarketingTabBar). */
+export function MobileTabBar({
+  items,
+  hrefFor = (href) => href,
+}: {
+  items: TabBarItem[];
+  /* Lets the creator app preserve its ?state= query on every link. */
+  hrefFor?: (href: string) => string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -23,23 +41,24 @@ export function MobileTabBar() {
       "
     >
       <ul className="flex items-stretch justify-between px-2 py-1">
-        {SIDEBAR_NAV.map((item) => {
-          const Icon = iconByName[item.icon];
+        {items.map((item) => {
+          const Icon = item.icon;
           const active = isActive(item.href, pathname);
           return (
-            <li key={item.href} className="flex-1">
+            <li key={item.href} className="flex-1 min-w-0">
               <Link
-                href={item.href}
+                href={hrefFor(item.href)}
                 aria-current={active ? "page" : undefined}
+                aria-label={item.shortLabel ? item.label : undefined}
                 className={`
                   flex flex-col items-center justify-center gap-1
                   min-h-11 py-1.5 rounded-lg
-                  text-[11px] leading-none
+                  text-[11px] leading-none whitespace-nowrap
                   ${active ? "text-ink" : "text-muted"}
                 `}
               >
                 <Icon aria-hidden className="shrink-0" width={22} height={22} />
-                {item.label}
+                {item.shortLabel ?? item.label}
               </Link>
             </li>
           );

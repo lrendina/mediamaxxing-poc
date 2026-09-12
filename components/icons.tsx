@@ -1,7 +1,7 @@
 import type { ComponentType, SVGProps } from "react";
 import type { NavIconName } from "@/content/nav";
 
-type SvgProps = SVGProps<SVGSVGElement>;
+export type SvgProps = SVGProps<SVGSVGElement>;
 
 const base = {
   width: 24,
@@ -60,6 +60,34 @@ export const ArrowRightIcon = (p: SvgProps) => (
   </svg>
 );
 
+export const ArrowLeftIcon = (p: SvgProps) => (
+  <svg {...base} {...p}>
+    <path d="M20 12H4" />
+    <path d="M10 6l-6 6 6 6" />
+  </svg>
+);
+
+export const ChevronDownIcon = (p: SvgProps) => (
+  <svg {...base} {...p}>
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
+
+export const ChevronRightIcon = (p: SvgProps) => (
+  <svg {...base} {...p}>
+    <path d="M9 6l6 6-6 6" />
+  </svg>
+);
+
+export const SwapIcon = (p: SvgProps) => (
+  <svg {...base} {...p}>
+    <path d="M4 7h13l-3-3" />
+    <path d="M20 17H7l3 3" />
+  </svg>
+);
+
+/* Content modules reference icons by name (a string survives the
+   server → client boundary; a component function does not). */
 export const iconByName: Record<NavIconName, ComponentType<SvgProps>> = {
   home: HomeIcon,
   brands: BrandsIcon,
