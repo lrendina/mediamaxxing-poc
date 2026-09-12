@@ -94,16 +94,19 @@ export default function ForBrands() {
       </section>
 
       <section id="counters" aria-label="Brand results" className="bg-canvas border-t-2 border-ink">
-        <Container className="py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <Container className="py-8 md:py-12 flex flex-col divide-y-2 divide-ink">
           {BRANDS_COUNTERS.map((c) => (
-            <div key={c.label} className="flex flex-col gap-3 min-w-0">
+            <div
+              key={c.label}
+              className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-8 py-6 md:py-8 min-w-0"
+            >
+              <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-muted shrink-0">{c.label}</p>
               <Counter
                 value={c.value}
                 prefix={c.prefix}
                 suffix={c.suffix}
-                className="font-display text-[clamp(64px,10vw,160px)] truncate"
+                className="font-display text-[clamp(56px,9vw,144px)] whitespace-nowrap"
               />
-              <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-muted">{c.label}</p>
             </div>
           ))}
         </Container>

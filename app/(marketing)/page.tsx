@@ -109,16 +109,24 @@ export default function Home() {
 
       {/* ── Counters — black, numbers at viewport scale ────────────── */}
       <section id="counters" aria-label={COUNTERS_A11Y_LABEL} className="bg-surface-dark text-ink-inverse border-t border-ink-inverse/15">
-        <Container className="py-12 md:py-20 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
+        {/* Full-width rows, label left, number right. Rows instead of
+            columns so the numbers can run at viewport scale without
+            being clipped by a third of the container. */}
+        <Container className="py-8 md:py-12 flex flex-col divide-y divide-ink-inverse/15">
           {HERO_COUNTERS.map((c, i) => (
-            <div key={c.label} className="flex flex-col gap-3 min-w-0">
+            <div
+              key={c.label}
+              className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-8 py-6 md:py-8 min-w-0"
+            >
+              <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-ink-inverse/55 shrink-0">
+                {c.label}
+              </p>
               <Counter
                 value={c.value}
                 prefix={c.prefix}
                 suffix={c.suffix}
-                className={`font-display text-[clamp(56px,7.5vw,112px)] truncate ${i === 1 ? "text-lime" : "text-ink-inverse"}`}
+                className={`font-display text-[clamp(56px,9vw,144px)] whitespace-nowrap ${i === 1 ? "text-lime" : "text-ink-inverse"}`}
               />
-              <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-ink-inverse/55">{c.label}</p>
             </div>
           ))}
         </Container>
@@ -126,8 +134,9 @@ export default function Home() {
 
       {/* ── FAQ — paper ─────────────────────────────────────────────── */}
       <section id="questions" aria-labelledby="faq-heading" className="bg-canvas scroll-mt-16">
-        <Container className="py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10">
-          <h2 id="faq-heading" className="font-display text-[clamp(40px,6vw,80px)] max-w-[8ch]">
+        <Container className="py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10">
+          {/* Sized to its column, wraps on words, never clips. */}
+          <h2 id="faq-heading" className="font-display text-[clamp(36px,4.2vw,64px)] break-words min-w-0">
             {FAQ_HEADING}
           </h2>
           <Accordion items={FAQ} />
