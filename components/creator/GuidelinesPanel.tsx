@@ -28,7 +28,7 @@ export function GuidelinesPanel({
           href={notionUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 min-h-9 px-3 rounded-[var(--radius-control)] bg-surface border border-border text-[13px] font-medium hover:border-ink/40"
+          className="inline-flex items-center gap-1.5 min-h-9 px-3.5 rounded-full bg-surface border border-border text-[13px] font-medium hover:border-ink"
         >
           {CAMPAIGN_DETAIL.guidelines.openNotion}
           <ExternalLinkIcon aria-hidden width={14} height={14} />

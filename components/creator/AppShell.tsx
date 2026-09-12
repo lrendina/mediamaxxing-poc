@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             tabIndex={-1}
             className="
               min-w-0 flex-1 flex flex-col gap-4
-              px-4 md:px-6 py-4
+              px-4 md:px-6 py-5
               pb-[calc(var(--mobile-tabs)+env(safe-area-inset-bottom)+1rem)] md:pb-6
             "
           >

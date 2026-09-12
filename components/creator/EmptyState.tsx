@@ -21,7 +21,7 @@ export function EmptyState({
       <IconTile tone={tone} size="lg">
         {icon}
       </IconTile>
-      <p className="text-[18px] font-medium leading-tight">{title}</p>
+      <p className="font-display text-[26px] leading-tight">{title}</p>
       <p className="text-[15px] text-muted max-w-[44ch]">{body}</p>
       {children}
     </div>

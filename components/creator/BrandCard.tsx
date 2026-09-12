@@ -32,7 +32,7 @@ export function BrandCard({
       className="
         group block rounded-[var(--radius-card)] overflow-hidden
         bg-surface border border-border
-        hover:border-ink/30 transition
+        hover:shadow-lift hover:-translate-y-0.5 transition
       "
     >
       <BrandArtwork brandId={brand.id} wordmark={brand.wordmark}>

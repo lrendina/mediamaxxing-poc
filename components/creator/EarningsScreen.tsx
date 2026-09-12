@@ -18,7 +18,12 @@ import { StatStrip } from "./StatStrip";
 export function EarningsScreen() {
   const { fixtures } = useCreator();
   const { earnings, topEarners } = fixtures;
-  const money = earnings.totalCents > 0 ? "money" : "ink";
+  const populated = earnings.totalCents > 0;
+  const money = populated ? "money" : "ink";
+  const amounts = earnings.series.map((s) => s.amountCents);
+  /* Cumulative shape for the totals, per-point shape for views. */
+  const cumulative = amounts.reduce<number[]>((acc, v) => [...acc, (acc[acc.length - 1] ?? 0) + v], []);
+  const trend = populated ? cumulative : undefined;
 
   return (
     <div className="flex flex-col gap-5 max-w-[var(--app-content-max)]">
@@ -26,7 +31,7 @@ export function EarningsScreen() {
         title={EARNINGS_PAGE.title}
         subtitle={EARNINGS_PAGE.subtitle}
         action={
-          <PrototypeButton tone="action" size="sm">
+          <PrototypeButton tone="dark" size="sm">
             <WalletIcon aria-hidden width={16} height={16} />
             {EARNINGS_PAGE.withdraw}
             <ArrowRightIcon aria-hidden width={14} height={14} />
@@ -41,10 +46,10 @@ export function EarningsScreen() {
           <RevenueCard earnings={earnings} />
           <StatStrip
             stats={[
-              { label: EARNINGS_PAGE.stats.confirmed, value: formatUsd(earnings.confirmedCents, { cents: true }), icon: <CheckIcon width={14} height={14} />, tone: money },
-              { label: EARNINGS_PAGE.stats.estimated, value: formatUsd(earnings.estimatedCents, { cents: true }), icon: <ClockIcon width={14} height={14} /> },
-              { label: EARNINGS_PAGE.stats.total,     value: formatUsd(earnings.totalCents, { cents: true }),     icon: <EarningsIcon width={14} height={14} />, tone: money },
-              { label: EARNINGS_PAGE.stats.views,     value: formatCount(earnings.totalViews),                    icon: <VideoIcon width={14} height={14} /> },
+              { label: EARNINGS_PAGE.stats.confirmed, value: formatUsd(earnings.confirmedCents, { cents: true }), icon: <CheckIcon width={14} height={14} />, tone: money, series: trend },
+              { label: EARNINGS_PAGE.stats.estimated, value: formatUsd(earnings.estimatedCents, { cents: true }), icon: <ClockIcon width={14} height={14} />, series: populated ? amounts : undefined },
+              { label: EARNINGS_PAGE.stats.total,     value: formatUsd(earnings.totalCents, { cents: true }),     icon: <EarningsIcon width={14} height={14} />, tone: money, series: trend },
+              { label: EARNINGS_PAGE.stats.views,     value: formatCount(earnings.totalViews),                    icon: <VideoIcon width={14} height={14} />, series: populated ? amounts : undefined },
             ]}
           />
         </div>

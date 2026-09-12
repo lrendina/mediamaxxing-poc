@@ -27,14 +27,14 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
       aria-label="Primary"
       className={`
         hidden md:flex sticky top-0 h-screen flex-col
-        bg-surface border-r border-border
-        py-4 transition-[width]
-        ${collapsed ? "w-[var(--app-sidebar-collapsed)] px-1.5" : "w-[var(--app-sidebar)] px-3"}
+        bg-canvas border-r border-border
+        py-5 transition-[width]
+        ${collapsed ? "w-[var(--app-sidebar-collapsed)] px-1.5" : "w-[var(--app-sidebar)] px-4"}
       `}
     >
       <Link
         href={href("/creator/campaigns")}
-        className={`mb-6 rounded-lg py-2 min-h-11 flex items-center ${collapsed ? "justify-center px-0" : "px-2"}`}
+        className={`mb-8 rounded-lg py-2 min-h-11 flex items-center ${collapsed ? "justify-center px-0" : "px-2"}`}
       >
         <LogoLockup size="md" showWordmark={!collapsed} />
       </Link>
@@ -59,12 +59,13 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
         <SurfaceSwitch direction="toMarketing" collapsed={collapsed} />
 
         <div
-          className={`flex items-center gap-3 rounded-[var(--radius-control)] min-h-12 ${collapsed ? "justify-center px-0 py-2" : "px-2 py-2"}`}
+          className={`flex items-center gap-3 rounded-[var(--radius-control)] min-h-12 border-t border-border pt-4 mt-1 ${collapsed ? "justify-center px-0" : "px-1"}`}
         >
           <Avatar handle={profile.handle} avatarUrl={profile.avatarUrl} size={32} />
           {!collapsed ? (
-            <span className="flex-1 min-w-0 text-[15px] font-medium truncate">
-              {profile.displayName}
+            <span className="flex-1 min-w-0 flex flex-col leading-tight">
+              <span className="text-[14px] font-medium truncate">{profile.displayName}</span>
+              <span className="text-[12px] text-muted truncate">@{profile.handle}</span>
             </span>
           ) : null}
           {!collapsed ? (
@@ -72,9 +73,9 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
               type="button"
               aria-label={SHELL.notifications}
               title={SHELL.prototypeControl}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-muted hover:bg-ink/[0.05] hover:text-ink"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted hover:bg-ink/[0.05] hover:text-ink"
             >
-              <BellIcon aria-hidden width={20} height={20} />
+              <BellIcon aria-hidden width={18} height={18} />
             </button>
           ) : null}
         </div>

@@ -41,7 +41,7 @@ export function CampaignSidebar({
     >
       <Link
         href={href("/creator/campaigns")}
-        className="inline-flex items-center gap-1.5 self-start min-h-9 pl-2 pr-3 rounded-full bg-surface-sunk text-[13px] font-medium hover:bg-ink/[0.08]"
+        className="inline-flex items-center gap-1.5 self-start min-h-9 pl-2.5 pr-3.5 rounded-full border border-border text-[13px] font-medium hover:border-ink"
       >
         <ArrowLeftIcon aria-hidden width={16} height={16} />
         {CAMPAIGN_DETAIL.back}

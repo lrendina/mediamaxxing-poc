@@ -14,10 +14,10 @@ export function FilterChipBar({ chips }: { chips: string[] }) {
           title={SHELL.prototypeControl}
           aria-haspopup="listbox"
           className="
-            inline-flex shrink-0 items-center gap-1.5 min-h-11 px-3.5
+            inline-flex shrink-0 items-center gap-1.5 min-h-10 px-3.5
             rounded-full bg-surface border border-border
             text-[13px] font-medium text-ink whitespace-nowrap
-            hover:border-ink/40 transition
+            hover:border-ink transition
           "
         >
           <FilterIcon aria-hidden width={14} height={14} className="text-muted" />

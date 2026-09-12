@@ -26,7 +26,7 @@ export function FeaturedCampaignCard({
   return (
     <article
       aria-labelledby={`featured-${campaign.id}`}
-      className="rounded-[var(--radius-card)] overflow-hidden bg-surface-dark text-ink-inverse"
+      className="rounded-[var(--radius-card)] overflow-hidden bg-surface-dark text-ink-inverse shadow-lift"
     >
       <BrandArtwork
         brandId={brand.id}
@@ -61,8 +61,8 @@ export function FeaturedCampaignCard({
         <Link
           href={href(`/creator/campaigns/${brand.slug}/${campaign.slug}`)}
           className="
-            flex items-center justify-center gap-2 w-full min-h-11
-            rounded-[var(--radius-control)] bg-money text-ink-inverse
+            flex items-center justify-center gap-2 w-full min-h-12
+            rounded-full bg-money text-ink-inverse
             text-[15px] font-medium hover:brightness-95 transition
           "
         >

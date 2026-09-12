@@ -23,8 +23,8 @@ export function WhiteLabelScreen() {
       </span>
 
       <div className="flex flex-col items-center text-center gap-3 max-w-[620px]">
-        <h1 className="text-[40px] leading-[1.05] font-medium">{WHITE_LABEL_PAGE.headline}</h1>
-        <p className="text-[18px] text-muted">{WHITE_LABEL_PAGE.lede}</p>
+        <h1 className="font-display text-[48px] sm:text-[56px] leading-[0.98]">{WHITE_LABEL_PAGE.headline}</h1>
+        <p className="text-[17px] text-muted leading-[1.5]">{WHITE_LABEL_PAGE.lede}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-[760px]">

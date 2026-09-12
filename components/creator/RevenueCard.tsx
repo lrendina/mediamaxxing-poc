@@ -10,9 +10,10 @@ import { useCreator } from "./CreatorStateProvider";
 import { IconTile } from "./IconTile";
 import { MetricToggle } from "./MetricToggle";
 
-/* "REVENUE" eyebrow, $0.00 at display size, chart, two view toggles.
+/* "REVENUE" eyebrow, the figure at display size, chart, two view toggles.
    Zero state: chart blurred under a lock prompt with an Explore CTA.
-   The chart is a hand-rolled SVG line — no charting dependency. */
+   The chart is a hand-rolled SVG — gridlines, gradient area, endpoint
+   marker with the last value — no charting dependency. */
 export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
   const { href } = useCreator();
   const [view, setView] = useState<"line" | "calendar">("line");
@@ -21,14 +22,14 @@ export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
   return (
     <section
       aria-labelledby="revenue-heading"
-      className="rounded-[var(--radius-card)] bg-surface border border-border p-4 md:p-5 flex flex-col gap-3"
+      className="rounded-[var(--radius-card)] bg-surface border border-border p-5 md:p-6 flex flex-col gap-4"
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <h2 id="revenue-heading" className="text-[11px] font-medium tracking-wider text-muted">
+        <div className="flex flex-col gap-1.5">
+          <h2 id="revenue-heading" className="text-[12px] font-medium tracking-[0.08em] text-muted">
             {EARNINGS_PAGE.revenue}
           </h2>
-          <p className={`text-[40px] leading-none font-expanded ${locked ? "text-ink" : "text-money"}`}>
+          <p className={`text-[44px] md:text-[52px] leading-none font-expanded ${locked ? "text-ink" : "text-money"}`}>
             {formatUsd(earnings.totalCents, { cents: true })}
           </p>
         </div>
@@ -44,7 +45,7 @@ export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
       </div>
 
       <div className="relative">
-        <div className={locked ? "blur-[6px] select-none pointer-events-none" : ""} aria-hidden={locked}>
+        <div className={locked ? "blur-[6px] select-none pointer-events-none opacity-70" : ""} aria-hidden={locked}>
           {view === "line" ? (
             <LineChart series={locked ? PLACEHOLDER_SERIES : earnings.series} muted={locked} />
           ) : (
@@ -57,11 +58,11 @@ export function RevenueCard({ earnings }: { earnings: EarningsSummary }) {
             <IconTile tone="action" size="md">
               <LockIcon width={18} height={18} />
             </IconTile>
-            <p className="text-[18px] font-medium leading-tight">{EARNINGS_PAGE.locked.title}</p>
+            <p className="font-display text-[26px] leading-tight">{EARNINGS_PAGE.locked.title}</p>
             <p className="text-[13px] text-muted max-w-[40ch]">{EARNINGS_PAGE.locked.body}</p>
             <Link
               href={href("/creator/campaigns")}
-              className="mt-1 inline-flex items-center gap-2 min-h-11 px-4 rounded-[var(--radius-control)] bg-action text-ink-inverse text-[15px] font-medium hover:brightness-95"
+              className="mt-2 inline-flex items-center gap-2 min-h-11 px-5 rounded-full bg-action text-ink-inverse text-[15px] font-medium hover:brightness-95"
             >
               {EARNINGS_PAGE.locked.cta}
               <ArrowRightIcon aria-hidden width={16} height={16} />
@@ -87,36 +88,96 @@ function LineChart({
   muted: boolean;
 }) {
   const w = 600;
-  const h = 180;
-  const pad = 8;
+  const h = 200;
+  const padX = 4;
+  const padTop = 16;
+  const padBottom = 8;
   const max = Math.max(1, ...series.map((s) => s.amountCents));
-  const step = series.length > 1 ? (w - pad * 2) / (series.length - 1) : 0;
-  const pts = series.map((s, i) => [pad + i * step, h - pad - (s.amountCents / max) * (h - pad * 2)] as const);
-  const d = pts.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const area = `${d} L${pts[pts.length - 1][0].toFixed(1)},${h - pad} L${pad},${h - pad} Z`;
-  const first = series[0]?.date;
-  const last = series[series.length - 1]?.date;
+  const niceMax = niceCeil(max);
+  const step = series.length > 1 ? (w - padX * 2) / (series.length - 1) : 0;
+  const y = (v: number) => h - padBottom - (v / niceMax) * (h - padTop - padBottom);
+  const pts = series.map((s, i) => [padX + i * step, y(s.amountCents)] as const);
+  const d = pts.map(([x, yy], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${yy.toFixed(1)}`).join(" ");
+  const area = `${d} L${pts[pts.length - 1][0].toFixed(1)},${h - padBottom} L${padX},${h - padBottom} Z`;
+  const last = pts[pts.length - 1];
+  const lastValue = series[series.length - 1]?.amountCents ?? 0;
+  const gridlines = [0.25, 0.5, 0.75, 1];
 
   return (
     <figure className="flex flex-col gap-2">
-      <svg
-        viewBox={`0 0 ${w} ${h}`}
-        role="img"
-        aria-label={`Revenue over the last ${series.length} data points`}
-        className={`w-full h-auto ${muted ? "text-ink/30" : "text-money"}`}
-        preserveAspectRatio="none"
-      >
-        <path d={area} fill="currentColor" opacity="0.12" />
-        <path d={d} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-      </svg>
-      {first && last ? (
-        <figcaption className="flex justify-between text-[13px] text-muted">
-          <span>{formatDate(first)}</span>
-          <span>{formatDate(last)}</span>
+      <div className="relative">
+        <svg
+          viewBox={`0 0 ${w} ${h}`}
+          role="img"
+          aria-label={`Revenue over the last ${series.length} data points`}
+          className={`w-full h-auto ${muted ? "text-ink/30" : "text-money"}`}
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="rev-fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="currentColor" stopOpacity="0.22" />
+              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {gridlines.map((g) => (
+            <line
+              key={g}
+              x1={padX}
+              x2={w - padX}
+              y1={y(niceMax * g)}
+              y2={y(niceMax * g)}
+              stroke="var(--border)"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+              strokeDasharray={g === 1 ? undefined : "2 4"}
+            />
+          ))}
+          <path d={area} fill="url(#rev-fill)" />
+          <path
+            d={d}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+        {/* Endpoint marker in HTML so it stays round under preserveAspectRatio="none". */}
+        <span
+          aria-hidden
+          className={`absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-surface ${muted ? "bg-ink/30" : "bg-money"}`}
+          style={{ left: `${(last[0] / w) * 100}%`, top: `${(last[1] / h) * 100}%` }}
+        />
+        {!muted ? (
+          <span
+            aria-hidden
+            className="absolute -translate-x-full -translate-y-[calc(100%+10px)] rounded-full bg-ink text-ink-inverse text-[11px] font-expanded px-2 py-0.5 whitespace-nowrap"
+            style={{ left: `${(last[0] / w) * 100}%`, top: `${(last[1] / h) * 100}%` }}
+          >
+            {formatUsd(lastValue, { cents: true })}
+          </span>
+        ) : null}
+        <span className="absolute left-0 top-0 text-[11px] text-muted font-expanded">
+          {formatUsd(niceMax)}
+        </span>
+      </div>
+      {series.length ? (
+        <figcaption className="flex justify-between text-[12px] text-muted">
+          <span>{formatDate(series[0].date)}</span>
+          <span>{formatDate(series[series.length - 1].date)}</span>
         </figcaption>
       ) : null}
     </figure>
   );
+}
+
+function niceCeil(cents: number) {
+  const dollars = cents / 100;
+  const mag = Math.pow(10, Math.floor(Math.log10(Math.max(1, dollars))));
+  const n = Math.ceil(dollars / mag);
+  const nice = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+  return nice * mag * 100;
 }
 
 function CalendarGrid({
@@ -133,8 +194,8 @@ function CalendarGrid({
         <li
           key={s.date}
           title={`${formatDate(s.date)}: ${formatUsd(s.amountCents, { cents: true })}`}
-          className={`aspect-square rounded-[6px] ${muted ? "bg-ink/20" : "bg-money"}`}
-          style={{ opacity: 0.15 + (s.amountCents / max) * 0.85 }}
+          className={`aspect-square rounded-[8px] ${muted ? "bg-ink/20" : "bg-money"}`}
+          style={{ opacity: 0.12 + (s.amountCents / max) * 0.88 }}
         >
           <span className="sr-only">
             {formatDate(s.date)}: {formatUsd(s.amountCents, { cents: true })}

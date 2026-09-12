@@ -15,7 +15,7 @@ export function DiscordBanner() {
   return (
     <div
       role="status"
-      className="flex items-center gap-3 rounded-[var(--radius-card)] bg-warn-sunk text-warn px-4 py-3 text-[15px]"
+      className="flex items-center gap-3 rounded-[var(--radius-control)] bg-warn-sunk text-warn px-4 py-2.5 text-[14px]"
     >
       <WarningIcon aria-hidden width={20} height={20} className="shrink-0" />
       <p className="flex-1 min-w-0">
