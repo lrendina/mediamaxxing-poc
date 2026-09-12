@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Agentation } from "agentation";
 import { archivo } from "./fonts";
 import { Sidebar } from "@/components/Sidebar";
 import { RightRail } from "@/components/RightRail";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </div>
 
         <MobileTabBar />
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   );
