@@ -7,6 +7,7 @@ import { BadgePill } from "./BadgePill";
 import { BrandArtwork } from "./BrandArtwork";
 import { BrandLogo } from "./BrandLogo";
 import { useCreator } from "./CreatorStateProvider";
+import { EarningNowBadge } from "./EarningNowBadge";
 import { RatePill } from "./RatePill";
 
 /* Observed grid unit: 16:9 art, footer row with small logo, name,
@@ -50,6 +51,9 @@ export function BrandCard({
             <BadgePill badge={xp} className="!bg-surface-dark/70 !text-streak" />
           </span>
         ) : null}
+        <span className="absolute bottom-2 left-2">
+          <EarningNowBadge />
+        </span>
       </BrandArtwork>
 
       <div className="flex items-center gap-3 px-3 py-3">

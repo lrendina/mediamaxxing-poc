@@ -8,6 +8,7 @@ import { BadgePill } from "./BadgePill";
 import { BrandArtwork } from "./BrandArtwork";
 import { Countdown } from "./Countdown";
 import { useCreator } from "./CreatorStateProvider";
+import { EarningNowBadge } from "./EarningNowBadge";
 
 /* Observed: the one dark object on the page. Status pills top-left, brand
    art behind a large centred countdown, campaign name as eyebrow above,
@@ -34,9 +35,10 @@ export function FeaturedCampaignCard({
         aspect="aspect-[16/7] sm:aspect-[16/5]"
         wordmarkClass="text-[64px] opacity-20"
       >
-        <div className="absolute top-3 left-3 flex gap-2">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-2 max-w-[calc(100%-1.5rem)]">
           <BadgePill badge={{ kind: "accepted" }} />
           {bounty ? <BadgePill badge={bounty} /> : null}
+          <EarningNowBadge />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <span

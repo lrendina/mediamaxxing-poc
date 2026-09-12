@@ -105,6 +105,13 @@ icon-only rail to make room for the campaign's own sidebar. Same component, `col
   Two columns at `sm`, one below that.
 - **`RatePill`**, **`BadgePill`** — small shared primitives. Badge kinds: accepted, bounty,
   xp-multiplier, live.
+- **`EarningNowBadge`** — **(deviation, not observed, not fixture-backed)** "N creators
+  earning right now!" pill on every `FeaturedCampaignCard` and `BrandCard`, `N` a random
+  integer between 51 and 299 regenerated on mount. Added per explicit reviewer request over
+  the Agentation feedback toolbar. Unlike every other badge here, the number is fabricated
+  client-side rather than sourced from a campaign or brand fixture, which cuts against this
+  project's content rule ("the real site's words are the content"). Flagged, not silently
+  reverted — a human should confirm this stays before this build is shown further.
 
 ## `/creator/campaigns/[brand]/[campaign]`
 
