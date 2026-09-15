@@ -1,162 +1,122 @@
 # MediaMaxxing reskin — POC
 
-An unaffiliated proof-of-concept reskin of [mediamaxxing.com](https://mediamaxxing.com),
-built for a design interview. **Not a product, not a fork, not connected to any real
-backend.** The point is to make a structural argument about the marketing site: rebuild it
-as a three-column app-shell with a card feed so it reads like the platform it's selling
-rather than a brochure about it.
+An **unaffiliated** proof-of-concept reskin of [mediamaxxing.com](https://mediamaxxing.com),
+built for a design interview. It is not a product, not a fork of their code, and not
+connected to any real backend. Nothing here is a working sign-up, form, or account.
 
-The persuasion sequence is preserved intact (hero → proof → how it works → counters → FAQ
-→ blog → CTA) — only the container changes.
+## The argument
+
+A conversion-first landing page for a product whose real advantage is that the hard parts are
+already done: no brand outreach, no audience requirement, no creative block, no invoicing.
+The structure is conventional on purpose — hero, solution, proof, trust, FAQ, final CTA — with
+one CTA label everywhere. The marketing page and the creator app share one token system.
+
+An earlier concept rebuilt the site as a card feed with a sidebar, plus a scroll-driven phone
+intro. Both were cut; their code is in `_archive/`.
 
 ## Run it
 
 ```bash
 npm install
-npm run dev         # http://localhost:3000
-npm run build       # must pass clean before handoff
+npm run dev            # http://localhost:3000
+npm run build          # must pass clean before handoff
 npm run lint
+npm run check:tokens   # colour, radius, shadow and 8px spacing rules
 ```
 
-Node 20+ recommended. No env vars, no secrets, no external services.
+Don't run `npm run build` while `npm run dev` is running — the build rewrites `.next` under the
+dev server and leaves it unreachable. Node 20+. No env vars or external services are required.
 
 ## Routes
 
-| Route            | State  | Notes                                                            |
-| ---------------- | ------ | ---------------------------------------------------------------- |
-| `/`              | Built  | The homepage feed — hero, 8 proof cards, steps, counters, FAQ, blog, CTA |
-| `/for-brands`    | Built  | Same primitives, brands-focused content — proves the template generalizes |
-| `/styleguide`    | Built  | Design system review surface — every token, every primitive, every state |
-| `/for-agencies`  | Stub   | Honest placeholder — scope decision                              |
-| `/mcp`           | Stub   | Honest placeholder — deliberately deferred (see stub copy)       |
-| `/blog`          | Stub   | Renders real BlogCards; article routes not built                 |
-| `/auth`          | Stub   | Honest placeholder — auth out of scope                           |
+| Route | State | Notes |
+| --- | --- | --- |
+| `/` | Built | The conversion landing page (`LANDING-PAGE.md`) |
+| `/styleguide` | Built | Tokens, type scale, and every primitive and variant |
+| `/for-brands` | Pre-rebuild | Earlier direction's page on the new tokens; Phase 6 rebuild not done |
+| `/for-agencies`, `/mcp`, `/auth` | Stub | Placeholder pages; copy still predates the rebuild (Phase 6) |
+| `/blog` | Stub | Real titles, excerpts and covers; article routes are not built |
+| `/creator/*` | Prototype | Creator app shell on its own scoped tokens (`CREATOR-APP.md`) |
+
+Footer links to `/careers` and `/legal/*` are out of scope and lead to the 404 page.
 
 ## Stack
 
 - Next.js 16 (App Router, Turbopack), React 19, TypeScript
-- Tailwind CSS v4 (CSS-first `@theme` config in `app/globals.css`)
-- `next/font` loading Archivo (with the `wdth` variable axis for money-only expanded numerals)
-- No other dependencies. No client-side data fetching. Content lives in `content/*.ts`.
+- Tailwind CSS v4, configured CSS-first in `app/globals.css` (no `tailwind.config.ts`)
+- `next/font` loading Archivo with its `wdth` axis; money renders at `wdth 125`
+- Dependencies: `next`, `react`, `react-dom`, `agentation` (dev-only feedback toolbar)
 
-## Architecture
+## Layout of the repo
 
 ```
-app/
-  layout.tsx            three-column app shell — sidebar / feed / right rail
-  page.tsx              homepage feed assembly
-  for-brands/page.tsx   brands page assembly
-  styleguide/page.tsx   design-system review page
-  {for-agencies,mcp,blog,auth}/page.tsx    stubs
-
-components/             12 primitives + 4 shell parts, one per file
-  Accordion.tsx  Badge.tsx  BlogCard.tsx  Button.tsx  Card.tsx
-  Counter.tsx    CTABand.tsx  FeatureStatCard.tsx  LogoLockup.tsx
-  ProofCard.tsx  StatGrid.tsx  StepCard.tsx
-  ── shell: Sidebar.tsx  RightRail.tsx  MobileTabBar.tsx  SkipToContent.tsx
-  ── extras: PageIntro.tsx  FeedFilters.tsx  SiteFooter.tsx  Stub.tsx  icons.tsx
-
-content/                typed content modules — every string in the app lives here
-  creators.ts  steps.ts  faq.ts  blog.ts  hero.ts
-  counters.ts  nav.ts    for-brands.ts
-
-public/proof/           real assets pulled from mediamaxxing.com (creators + blog + logo)
+app/(marketing)/      landing page, styleguide, /for-brands and stubs, marketing shell
+app/creator/          creator app prototype
+components/           one component per file; creator app components in components/creator/
+content/              every string on the site, as typed modules
+content/source/       copy extracted from the previous build, tagged by provenance
+public/proof/         real creator screenshots, blog covers, logo
+_archive/             removed code, never hard-deleted
+docs/                 phase notes
 ```
 
-**Content rule.** Copy never lives in JSX. Adding a string means adding it to `content/`.
-Constants suffixed `_VERBATIM` are unedited from the live site and flagged for a
-future copy pass (the site's original headlines lean on italicized single-word emphasis
-that the kill list drops).
+Planning documents: `PLAN.md` (phases), `LANDING-PAGE.md` (page spec), `DESIGN-TOKENS.md`
+(tokens), `MIGRATION.md` and `INVENTORY.md` (the rebuild from the old build),
+`CREATOR-APP.md` and `DATA-MODEL.md` (creator app).
 
-**Design token rule.** No hex codes in components. All colors sit in `app/globals.css` as
-CSS custom properties, exposed to Tailwind via `@theme inline`. Change a token, the
-whole app follows.
+## Rules the code keeps
 
-## Design system
+- **Copy lives in `content/`**, never inline in JSX. The live site's words are the content.
+- **No hex values in components.** Colours are CSS custom properties in `app/globals.css`,
+  exposed to Tailwind through `@theme inline`.
+- **One radius, two shadows, an 8px spacing scale.** Tailwind's default radius and shadow
+  scales are cleared, and `npm run check:tokens` fails on anything off-system.
+- **One CTA label**, imported from `content/cta.ts` by every call to action.
+- **Two motion effects only:** the one-time hero entrance and the card hover lift, both off
+  under `prefers-reduced-motion`.
+- **Blue means press, green means money.** Roles never leave their meaning.
 
-Two chromatic colors, each with one job:
+See `DESIGN-TOKENS.md` for values and `CLAUDE.md` for the full kill list.
 
-| Token       | Hex       | Role                                              |
-| ----------- | --------- | ------------------------------------------------- |
-| `--canvas`  | `#FFFFFF` | Page background                                   |
-| `--panel`   | `#EDF1EC` | Card surface, sidebar rail                        |
-| `--ink`     | `#0E1A12` | Primary text                                      |
-| `--muted`   | `#5F6F63` | Secondary text                                    |
-| `--payout`  | `#04773A` | Money, counters, primary CTA only (5.6:1 vs white)|
-| `--live`    | `#7A3AE0` | Scarcity and status only (tier badges)            |
+## Quality checks (Phase 7)
 
-Archivo (Google font, variable) is the single typeface. The `wdth` axis is used *only*
-for dollar figures and counters via the `.font-expanded` class — the visual identity of
-the money without needing a second font or a color highlight.
+Checked against the production build with a scripted Chrome pass:
 
-Type scale: 13 / 15 / 18 / 24 / 40 / 64. Body 15 / 1.6. Sentence case everywhere.
-Tabular figures site-wide so counters don't jitter.
-
-Layout shell: 240 (sidebar) · 640–880 (feed) · 300 (right rail). Right rail drops below
-1280, sidebar collapses to a 72px icon rail below 1024, becomes a bottom tab bar below 768.
-
-## What's not here
-
-Deliberately out of scope, per PLAN:
-
-- **No `/mcp`.** The live page is a complex interactive tool (tabs, client selector,
-  clipboard, simulated chat). Building it well costs more than it proves. Building it
-  badly is worse than not building it.
-- **No `/blog/[slug]`.** BlogCards on `/blog` render real titles/excerpts/covers from the
-  live site; article routes intentionally 404.
-- **No auth.** `/auth` is a stub. The homepage RightRail sign-in card is a non-functional
-  form clearly labeled "Prototype — form is not connected."
-- **No backend.** All content is static, hardcoded in `content/`. Counters use round-number
-  placeholders where the live site's runtime-JS values weren't scrapeable.
+- **375px:** no horizontal overflow on any marketing route; every tap target is at least 44px.
+- **Keyboard:** 28 tab stops on `/`, each with a visible focus indicator, none hidden under the
+  sticky header. Skip link moves focus to `main`. The lightbox keeps focus inside and returns
+  it on Escape. The FAQ toggles with Space and Enter.
+- **Reduced motion:** the hero entrance and card lift both switch off.
+- **Images:** every `<img>` has alt text; decorative images use `alt=""` next to a text label.
+- **Console:** no errors or failed requests while scrolling the marketing routes.
 
 ## Lighthouse
 
-Run against the production build (`npm run build && PORT=3100 npm start`):
+Production build on localhost, Lighthouse 12.8.2, single run (scores vary by a few points):
 
-|                | Desktop | Mobile |
-| -------------- | ------- | ------ |
-| Performance    | 80      | 89     |
-| Accessibility  | 100     | 100    |
-| Best Practices | 100     | 100    |
-| SEO            | 100     | 100    |
+| | Mobile | Desktop |
+| --- | --- | --- |
+| Performance | 92 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 100 | 100 |
 
-Performance sits below 100 because of framework-level costs (Next.js polyfills,
-render-blocking font CSS, unused JS in the bundle). LCP is the first proof card — flagged
-`priority` on the first `<Image>` so it preloads instead of lazy-loading.
+Mobile LCP is 3.4 s under simulated throttling (FCP 0.9 s, TBT 0 ms, CLS 0). Lighthouse picks
+the first section heading below the hero as the LCP element, most likely because the hero
+headline's entrance animation starts at opacity 0. The remaining findings are framework-level:
+about 120 KiB of unused JavaScript and 13 KiB of legacy polyfills.
 
-## Kill list
+## Known gaps
 
-Patterns from the live site that were deliberately not carried over:
+- Brand logos in the hero trust bar are named placeholders; no logo files exist.
+- The FAQ ships only questions with sourced answers — one today.
+- The six-figure headline carries no on-page qualifier; that was a deliberate decision
+  (see "Earnings claims" in `LANDING-PAGE.md`).
+- Phase 6 (`/for-brands` rebuild and stub copy) was skipped; `/blog` still jumps from h1 to h3.
 
-- No single-word italicized emphasis in headlines.
-- No `01 / 02 / 03` numbered markers (except MCP flow, which isn't built).
-- No all-caps eyebrow labels above every section.
-- No middle-dot stat strings (`17 accounts · 5,900 posts · 50/day`) — replaced with `StatGrid`.
-- No fade-and-slide-up entrance animations on every section — one orchestrated moment on
-  the homepage hero (`PageIntro`), nothing else.
-- No uniform border-radius + soft shadow on every card — `Card` has three variants
-  (`default | panel | spotlight`) so hierarchy is visible in the feed.
+## Credits
 
-## Quality floor
-
-- Responsive to 375px.
-- Visible keyboard focus on every interactive element (global `:focus-visible` outline).
-- `prefers-reduced-motion` respected (global CSS collapses transition/animation durations
-  to ~0ms; `Counter` explicitly jumps to final value).
-- Semantic landmarks (`nav[aria-label]`, `main`, `aside`), heading hierarchy, alt text
-  audited on every image.
-- Tap targets ≥44px throughout.
-
-## Deploy
-
-```bash
-vercel        # any Vercel account will work — no env vars needed
-```
-
-## Credits & scope
-
-Real screenshots, real earnings figures, real blurbs, real logos, real blog covers, all
-pulled from [mediamaxxing.com](https://mediamaxxing.com) — these are public marketing
-assets belonging to MediaMaxxing LLC. This project has no affiliation with MediaMaxxing
-and does not represent a real product or service. Nothing here is a live sign-up, a real
-form, or a working account.
+Creator screenshots, earnings figures, testimonial copy and blog covers come from
+mediamaxxing.com's public marketing, and leaderboard figures from their creator app. They
+belong to MediaMaxxing LLC. This project has no affiliation with MediaMaxxing and does not
+represent a real product or service.
