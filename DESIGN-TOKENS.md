@@ -60,16 +60,23 @@ alarming.
 
 ## Type
 
-Unchanged from Phase 1. **Archivo** for UI and body, **Archivo Expanded** for dollar figures,
-counters, and the campaign countdown. The live app appears to use a neutral default grotesque
+**Archivo** for UI and body. Dollar figures, counters, and the campaign countdown use
+**Archivo at wdth 125** — "Archivo Expanded" is not its own family in `next/font/google`; it
+is Archivo's width axis at its maximum, loaded with `axes: ["wdth"]` and applied by
+`.font-expanded`. Confirmed 2026-09-15; `/styleguide` shows both widths side by side so a
+silent fallback is visible. The live app appears to use a neutral default grotesque
 (assumed — read from a screenshot), so the expanded numerals are one of the few places our
 build will visibly differ. That's deliberate: the money should be the loudest thing on screen,
 and it currently isn't.
 
 Tabular figures everywhere numbers change — counters, leaderboards, rate pills, streaks.
 
-Scale: 13 / 15 / 18 / 24 / 40 / 64. Sentence case. No all-caps except the small eyebrows the
-app already uses ("NEW CREATOR BONUS", "DAILY MISSION", "REVENUE", "CAMPAIGNS").
+Scale: the table in `LANDING-PAGE.md` — H1 72/40, H2 44/32, H3 22/20, body 18/17, small 14
+(desktop/mobile, switching at 768px), exposed as `text-h1` … `text-small`. Decided
+2026-09-15; it replaces an earlier 13 / 15 / 18 / 24 / 40 / 64 scale that had no mobile sizes.
+
+Sentence case. No all-caps except the small eyebrows the app already uses ("NEW CREATOR
+BONUS", "DAILY MISSION", "REVENUE", "CAMPAIGNS").
 
 ## Geometry
 
@@ -92,6 +99,10 @@ don't count as a second value. There is no third option.
 `--shadow-1` on cards at rest. `--shadow-2` on hover and on overlays, lightboxes, and the
 sticky header. Flat surfaces keep the hairline border and no shadow at all.
 
+Both rules are structural. `@theme inline` in `app/globals.css` clears Tailwind's default
+radius and shadow scales, so the only utilities are `rounded`, `rounded-full`, `shadow-1`, and
+`shadow-2`. `npm run check:tokens` fails on anything else on the marketing surface.
+
 ## Spacing — the 8px rule
 
 Every vertical and horizontal gap is a multiple of 8. No exceptions at the layout level.
@@ -108,6 +119,9 @@ Every vertical and horizontal gap is a multiple of 8. No exceptions at the layou
 
 4px is permitted **only** for optical adjustment inside a pill or between an icon and its
 label, where 8 visibly over-spaces. Nowhere else, and never for layout.
+
+`npm run check:tokens` lists every spacing value off this scale. It reports rather than fails
+until the Phase 3 sweep clears the old build's 4px half-steps.
 
 ## Layout
 
@@ -133,3 +147,8 @@ The marketing page and the creator app share these tokens, this radius, these tw
 this spacing scale. They no longer share a shell — the marketing page is a centered column and
 the app keeps its sidebar. Continuity now lives in the details: same pills, same card
 geometry, same colour meanings.
+
+**Until Phase 9, the creator app holds its previous values** under `.creator-surface` —
+palette, 20px card radius, its own shadows, Instrument Serif headings (decided 2026-09-15). The
+roles already match; the values converge when Phase 9 is revisited. The legacy token names it
+still uses are app-only, and `check:tokens` keeps them off the marketing surface.
