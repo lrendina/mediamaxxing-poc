@@ -26,8 +26,8 @@ export const TESTIMONIALS_META: SourceMeta = {
   note:
     "The old README credits the figures and blurbs to the live site. Stats were middle-dot " +
     "strings there; the old build split them into label/value pairs. Earnings and handles " +
-    "disagree with the creator-app leaderboard (Steven $100,227 here vs $153,823 there) — " +
-    "see INVENTORY.md content flags before quoting either.",
+    "disagree with the creator-app leaderboard (Steven $100,227 here vs $153,823 there). " +
+    "Decided 2026-09-15: the testimonial section keeps these figures as they are.",
 };
 
 /* Ordered top earner first, as in the old build. */

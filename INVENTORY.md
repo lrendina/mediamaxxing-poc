@@ -305,8 +305,8 @@ and each needs a judgement call during the sweep.
    - ericanocode / ericaaaa
    - nattyluv_ai / nattylab
 
-   These are probably two snapshots taken at different times. They need a human call on which
-   one the page quotes.
+   These are probably two snapshots taken at different times. **Decided 2026-09-15:** the
+   testimonials keep their current figures and handles.
 2. **FAQ answers 2–5 are placeholders.** They are labelled "replace during copy pass" and are
    not authoritative, even though they're in the repo. Only "What exactly is MediaMaxxing?" is
    verbatim.
