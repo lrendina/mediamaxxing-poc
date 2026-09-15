@@ -238,6 +238,8 @@ html {
   /* Smooth scroll for in-page anchors. Overridden to `auto` in the
      prefers-reduced-motion block below. */
   scroll-behavior: smooth;
+  /* Keeps anchor targets and keyboard focus clear of the 56px sticky header. */
+  scroll-padding-top: 64px;
 }
 
 body {
