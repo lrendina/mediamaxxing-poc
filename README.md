@@ -78,7 +78,7 @@ Planning documents: `PLAN.md` (phases), `LANDING-PAGE.md` (page spec), `DESIGN-T
 
 See `DESIGN-TOKENS.md` for values and `CLAUDE.md` for the full kill list.
 
-## Quality checks (Phase 7)
+## Quality checks (Phase 8)
 
 Checked against the production build with a scripted Chrome pass:
 
