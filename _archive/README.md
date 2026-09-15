@@ -18,3 +18,7 @@ Every string these files held is in `content/source/`.
   paper-and-signal copy promoted from there, and `components/SiteFooter.tsx` here is already the
   loud one. Their nav constants (`SIDEBAR_NAV`, `TOP_NAV_CTA`) left
   `content/nav.ts`; the labels and destinations are in `content/source/nav.ts`.
+- `components/compat/ProofCard.tsx` and `components/compat/StatGrid.tsx` — Phase 4. Phase 3
+  kept them as aliases of `TestimonialCard` and `StatRow` for old callers; once
+  `content/creators.ts` stopped importing `Stat` from `StatGrid`, neither had a caller. They sit
+  under `compat/` so they don't collide with the loud copies archived at `components/`.
