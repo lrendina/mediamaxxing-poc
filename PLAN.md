@@ -85,6 +85,10 @@ one judgment an agent cannot make for you.
 
 ## Phase 3 — Primitives
 
+**Status (2026-09-15):** Implemented and verified; ready for visual review at `/styleguide`.
+Four DeepSeek MCP coding tasks, lead integration decisions, and validation results are in
+[`docs/phase-3/README.md`](docs/phase-3/README.md). Phase 4 has not started.
+
 Most of these already exist. Adapt them per the hazards in `MIGRATION.md` Step 4 — width
 assumptions, 8px spacing, single radius, two shadows — rather than rebuilding from scratch.
 Only the components marked new below have no predecessor.
