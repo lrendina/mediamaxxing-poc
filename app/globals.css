@@ -139,58 +139,6 @@
   outline: 2px solid var(--action);
 }
 
-/* /original demo route only — the same "paper and signal" tokens the
-   marketing surface used before the loud redesign (3be1d3d), kept so a
-   reviewer can compare the two homepages side by side. Values match
-   .creator-surface, which happens to be the same direction; kept as its
-   own scope since the two surfaces are conceptually independent (one is
-   the real creator app, this is a shelved marketing direction) and free
-   to diverge later. Not part of the design system proper — see
-   components/DemoVariantToggle.tsx. */
-.original-surface {
-  --canvas:        #f4f2ec;
-  --surface:       #ffffff;
-  --surface-sunk:  #ebe8df;
-  --surface-dark:  #0f1411;
-  --border:        #e1ddd2;
-  --border-strong: #c9c4b6;
-  --ink:           #14130f;
-  --muted:         #6b675c;
-  --ink-inverse:   #f7f6f1;
-  --action:        #2a4bd7;
-  --action-sunk:   #e3e8fb;
-  --money:         #0e9f5e;
-  --money-sunk:    #dcf3e6;
-  --streak:        #ef6420;
-  --streak-sunk:   #fde6d9;
-  --warn:          #96690f;
-  --warn-sunk:     #f8eed7;
-  --status:        #5b3fc9;
-  --status-sunk:   #ebe5fa;
-  --panel:      var(--surface-sunk);
-  --canvas-alt: var(--surface-dark);
-  --payout:     var(--money);
-  --live:       var(--status);
-  --radius-card:    20px;
-  --radius-control: 12px;
-  --radius-tile:    12px;
-  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
-  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
-  background: var(--canvas);
-  color: var(--ink);
-}
-.original-surface .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  font-variant-numeric: normal;
-  font-feature-settings: normal;
-  text-transform: none;
-}
-.original-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--action);
-}
-
 /* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
   --color-canvas:       var(--canvas);
@@ -259,7 +207,7 @@ body {
   font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--ink);
-  /* Background is set in the alternating-bg block below (--page-bg). */
+  background: var(--canvas);
   /* Tabular numbers everywhere so counters and figures do not jitter. */
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
@@ -289,69 +237,11 @@ body {
   line-height: 1;
 }
 
-/* Marquee — the earnings ticker. Duplicated content, translate by half.
-   Paused on hover and collapsed to a static row under reduced motion. */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee var(--marquee-duration, 40s) linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-}
-
 /* Visible keyboard focus on every interactive element. */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--streak);
   outline-offset: 3px;
   border-radius: 4px;
-}
-
-/* ------------------------------------------------------------------------- */
-/* Alternating page backgrounds                                               */
-/*                                                                            */
-/* The body carries the "current" background colour and transitions between   */
-/* values as the user scrolls between sections (a client-side observer picks  */
-/* the active section and updates --page-bg). Sections themselves declare     */
-/* their target colour via data-section-bg but don't paint it — the body      */
-/* does, so the colour extends behind the sidebar and right rail as well as   */
-/* the feed column.                                                           */
-/* ------------------------------------------------------------------------- */
-
-body {
-  background: var(--page-bg, var(--canvas));
-  /* Short transition so JS-driven per-frame updates from DeviceIntro
-     stay responsive, while BackdropController's discrete section jumps
-     still get a soft edge instead of a snap. */
-  transition: background 200ms ease;
-}
-
-/* Intro page starts on the dark background AND dark theme so first paint
-   doesn't flash canvas before the observer kicks in. */
-html:has(.intro-section) {
-  --page-bg: var(--canvas-alt);
-}
-
-/* Section headings sit directly on the page bg (outside cards). Cards
-   inside dark sections keep their own light bg + canonical text, so this
-   only reskins section-level h2s and equivalent sidebar labels. */
-.section-heading {
-  color: var(--ink);
-}
-[data-page-theme="dark"] .section-heading,
-[data-page-theme="dark"] .on-page-bg {
-  color: var(--ink-inverse);
-}
-[data-page-theme="dark"] .on-page-bg-muted {
-  color: rgba(247, 246, 241, 0.62);
-}
-[data-page-theme="dark"] .on-page-bg-border {
-  border-color: rgba(247, 246, 241, 0.12);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
@@ -363,148 +253,5 @@ html:has(.intro-section) {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* ------------------------------------------------------------------------- */
-/* Phase 8 — scroll-driven device intro                                       */
-/*                                                                            */
-/* Layout rules only apply on desktop + non-reduced-motion. Under either      */
-/* condition the .intro-* elements fall back to natural block flow and the    */
-/* hero content appears in place. No JS branching, no hydration flash.        */
-/*                                                                            */
-/* Shell fade tokens (--intro-shell-p) default to 1 site-wide. When a page    */
-/* contains an .intro-section (via :has()), the sidebar and right rail       */
-/* pre-hide so there's no first-paint flash of visible chrome that then      */
-/* slides out.                                                                */
-/* ------------------------------------------------------------------------- */
-
-:root {
-  --intro-shell-p: 1;
-}
-
-/* Collapse condition mirrors the JS matchMedia check in DeviceIntro.tsx
-   ("(prefers-reduced-motion: reduce), (max-width: 767px)"). The .intro-*
-   layout rules below are already gated to the opposite (desktop + motion)
-   query, which resets .intro-section/.intro-sticky/.intro-scene to plain
-   block flow — but the Iphone component's SVG chrome and its absolutely
-   positioned "screen" cutout are plain inline styles set unconditionally
-   by iphone.tsx, so without this block they still render on mobile and
-   pinch the hero into a tiny off-layout inset. This drops the chrome and
-   flattens the screen box so the hero renders exactly like the
-   INTRO_ENABLED=false fallback (PageIntro). */
-@media (max-width: 767px), (prefers-reduced-motion: reduce) {
-  .intro-iphone {
-    aspect-ratio: auto !important;
-  }
-  .intro-iphone > svg {
-    display: none;
-  }
-  .intro-viewport-screen {
-    position: static !important;
-    inset: auto !important;
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-  }
-  .intro-viewport {
-    padding: 0;
-  }
-
-  /* On desktop this content sits inside .intro-viewport-screen's own white
-     surface, so the default --ink text always has contrast regardless of
-     the page-level dark/light theme. Flattened here, it sits directly on
-     the real (theme-driven) page background, so it needs to invert too —
-     scoped to this query so desktop's white-card case is never touched. */
-  [data-page-theme="dark"] .hero-heading {
-    color: var(--ink-inverse);
-  }
-  [data-page-theme="dark"] .hero-subhead {
-    color: rgba(247, 246, 241, 0.7);
-  }
-  [data-page-theme="dark"] .hero-ghost-cta {
-    color: var(--ink-inverse);
-    border-color: rgba(247, 246, 241, 0.25);
-  }
-  [data-page-theme="dark"] .hero-ghost-cta:hover {
-    border-color: rgba(247, 246, 241, 0.45);
-    background: rgba(247, 246, 241, 0.06);
-  }
-}
-
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  html:has(.intro-section) {
-    --intro-shell-p: 0;
-  }
-
-  .intro-section {
-    position: relative;
-    height: var(--intro-h-vh, 250vh);
-  }
-  .intro-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .intro-field {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      60% 50% at 50% 45%,
-      rgba(14, 159, 94, 0.18) 0%,
-      transparent 65%
-    );
-    opacity: var(--field-opacity, 1);
-  }
-  .intro-scene-wrap {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .intro-scene {
-    position: relative;
-    width: 100%;
-    will-change: transform;
-    transform-origin: center center;
-    transform: scale(var(--scene-scale, 0.33));
-  }
-  /* iPhone SVG chrome fades to 0 over p 0.6→0.9. The screen area is
-     masked out of the SVG, so hero content underneath stays visible. */
-  .intro-iphone > svg {
-    opacity: var(--device-opacity, 1);
-    filter: drop-shadow(0 60px 120px rgba(0, 0, 0, 0.5));
-    transition: opacity 60ms linear;
-  }
-
-  /* screenClassName applied by Iphone to the screen wrapper — carries the
-     paper "screen" surface so the hero has a bg against dark section bg. */
-  .intro-viewport-screen {
-    background: var(--canvas);
-  }
-
-  /* Hero content inside the phone screen. Fills the screen area and centers
-     the hero vertically since the phone is ~2× as tall as the hero copy. */
-  .intro-viewport {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6% 8%;
-  }
-
-  /* Sidebar + right rail fade + slide in over p 0.75 → 1.0. The transform
-     direction differs per side (left slides in from -100%, right from +100%). */
-  aside[aria-label="Primary"] {
-    opacity: var(--intro-shell-p);
-    transform: translateX(calc((var(--intro-shell-p) - 1) * 100%));
-  }
-  aside[aria-label="Complementary"] {
-    opacity: var(--intro-shell-p);
-    transform: translateX(calc((1 - var(--intro-shell-p)) * 100%));
   }
 }

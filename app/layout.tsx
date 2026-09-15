@@ -21,9 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${archivo.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      {/* No bg-canvas here — body background is driven by --page-bg
-          in globals.css so it can fade between section colours. */}
-      <body className="min-h-full text-ink font-sans">
+      <body className="min-h-full bg-canvas text-ink font-sans">
         <SkipToContent />
         {children}
         {process.env.NODE_ENV === "development" && <Agentation />}
