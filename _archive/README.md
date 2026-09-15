@@ -13,3 +13,8 @@ routed. Paths mirror where each file used to live. See INVENTORY.md for why each
 - `public/*.svg` — unreferenced create-next-app boilerplate.
 
 Every string these files held is in `content/source/`.
+- `components/TopNav.tsx` and `components/original/SiteFooter.tsx` — Phase 2. Superseded by
+  `Header`, `StickyHeader` and `Footer`. The footer sits under `original/` because it was the
+  paper-and-signal copy promoted from there, and `components/SiteFooter.tsx` here is already the
+  loud one. Their nav constants (`SIDEBAR_NAV`, `TOP_NAV_CTA`) left
+  `content/nav.ts`; the labels and destinations are in `content/source/nav.ts`.

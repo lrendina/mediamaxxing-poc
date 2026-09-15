@@ -27,6 +27,14 @@ export const HEADER_CTAS = {
   getStarted: "Get started",
 };
 
+/* Destinations the old TopNav used. /creator/campaigns?welcome=1 is still
+   the only link into the creator app's first-run welcome modal; it works
+   by URL now that TopNav is archived. */
+export const HEADER_CTA_DESTINATIONS = {
+  signIn: "/auth",
+  getStarted: "/creator/campaigns?welcome=1",
+};
+
 export const FOOTER_META: SourceMeta = {
   provenance: "live-site",
   from: ["content/nav.ts"],

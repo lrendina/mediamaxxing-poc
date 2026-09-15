@@ -17,7 +17,7 @@ function isActive(href: string, pathname: string) {
 }
 
 /* Bottom tab bar below 768px. Shared by both surfaces — the marketing site
-   passes SIDEBAR_NAV, the creator app passes its own nav — so the mobile
+   passed SIDEBAR_NAV (TopNav, archived in Phase 2), the creator app passes its own nav — so the mobile
    chrome is literally the same component on both. Callers resolve icon
    names to components before passing items in (see MarketingTabBar). */
 export function MobileTabBar({
