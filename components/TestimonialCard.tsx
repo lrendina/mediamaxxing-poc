@@ -66,7 +66,7 @@ export function TestimonialCard({
                 src={data.dashboardSrc}
                 alt=""
                 fill
-                sizes="(min-width: 1120px) 1008px, calc(100vw - 96px)"
+                sizes="(min-width: 1024px) 320px, (min-width: 768px) calc(50vw - 112px), calc(100vw - 96px)"
                 className="object-contain"
                 preload={priority}
               />
