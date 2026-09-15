@@ -40,9 +40,10 @@ Our top creator has earned $153,823. Most earn far less — see the full numbers
 
 That line is not optional. See "Earnings claims" at the bottom of this file.
 
-**Visual:** a phone frame showing the real creator app — the campaigns screen or the earnings
-screen from `CREATOR-APP.md`. Reuse the actual product UI rather than an illustration. It
-supports "from your phone" literally, and showing the product beats describing it.
+**Visual:** none. No phone frame and no product screen (decided 2026-09-15). The hero follows
+general hero conventions: the headline, subheadline, CTA, friction strip, and substantiation
+line carry it, in that order, with nothing competing with the CTA. Keep it text-led and short
+enough that the CTA sits above the fold on a 375px phone.
 
 **Trust bar** at the base of the hero: a quiet logo row of brands running campaigns — OpenArt,
 Pump.fun, Speed, Lovable, 11Eleven Creative. Grayscale, low contrast, no heading. They have
@@ -128,23 +129,10 @@ hold is worse than nothing.
 
 **H2:** Questions before you start
 
-Categorized accordion, four groups. Reuse the five existing FAQs from the current site and
-distribute them, then fill the gaps below. One item open by default in the first group.
-
-**Getting started** — Do I need followers? Do I need experience? What equipment? How fast can
-I post my first video?
-
-**Getting paid** — How does pay per view work? When do payouts land? What happens if a video
-underperforms? Is there a minimum payout?
-
-**Campaigns & content** — Who picks the campaigns? Can I use my own idea? Do I have to
-disclose sponsorship? Who owns the video?
-
-**Eligibility** — Age requirements (13+, parental consent under 18). What verification is
-required (government ID and tax documentation before payouts). Which countries.
-
-That eligibility group handles the three objections most likely to kill a signup silently,
-and none of them appear on the current site.
+Accordion with the first item open by default. Only questions with a sourced answer ship
+(decided 2026-09-15). Today that is one live-site question, "What exactly is MediaMaxxing?".
+No categories, no gap questions, and no drafted answers. If more live answers are recovered
+into `content/source/faq.ts`, they appear automatically.
 
 ## Section 6 — Final CTA
 

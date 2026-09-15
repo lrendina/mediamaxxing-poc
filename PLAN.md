@@ -108,11 +108,12 @@ Only the components marked new below have no predecessor.
 
 ## Phase 4 — Content
 
-**Status (2026-09-15):** Agent work done; the human FAQ pass is open. Every module is typed
-and derives from `content/source/` or `content/creator/` rather than retyping copy. Beyond the
-list: `hero.ts` and `final-cta.ts`, so Phase 5 has no inline copy, and `claims.ts`, which reads
-the substantiation figure from the leaderboard. 15 FAQ answers are `null` until written, and two
-trust tiles need a copy decision (see the comment in `content/trust.ts`). Phase 5 has not started.
+**Status (2026-09-15):** Agent work done. Every module is typed and derives from
+`content/source/` or `content/creator/` rather than retyping copy. Beyond the list: `hero.ts` and
+`final-cta.ts`, so Phase 5 has no inline copy, and `claims.ts`, which reads the substantiation
+figure from the leaderboard. The FAQ ships only questions with sourced answers (one today); the
+gap questions were cut, so there is no human FAQ pass. Two trust tiles still need a copy
+decision (see the comment in `content/trust.ts`). Phase 5 has not started.
 
 Source everything from `content/source/`, extracted in Phase 0. The copy in the repo is
 authoritative — do not rewrite it or regenerate it from memory of the live site.
@@ -120,14 +121,12 @@ authoritative — do not rewrite it or regenerate it from memory of the live sit
 - [AGENT] `content/cta.ts` — the single CTA label string, imported by all five CTAs
 - [AGENT] `content/creators.ts` — eight testimonials, real figures and copy
 - [AGENT] `content/leaderboard.ts` — top earners from the creator app
-- [AGENT] `content/faq.ts` — categorized per `LANDING-PAGE.md`
+- [AGENT] `content/faq.ts` — only questions with sourced answers, per `LANDING-PAGE.md`
 - [AGENT] `content/steps.ts`, `content/features.ts`, `content/trust.ts`, `content/nav.ts`
 - [AGENT] Typed interfaces for each
 
-**[HUMAN] Write the FAQ answers for the gaps.** The eligibility group (age, ID and tax
-verification, countries) has no source copy on the live site — you're writing it from their
-legal page. Getting the tone right there matters more than anywhere else on the page, because
-it's the group that quietly kills signups.
+~~**[HUMAN] Write the FAQ answers for the gaps.**~~ Cut 2026-09-15: unanswered questions don't
+ship.
 
 ---
 
@@ -136,7 +135,7 @@ it's the group that quietly kills signups.
 Build sections in order from `LANDING-PAGE.md`: hero, solution, social proof, guarantee, FAQ,
 final CTA.
 
-- [AGENT] Hero with the phone frame showing real creator-app UI
+- [AGENT] Text-led hero per general hero conventions — no phone frame, no product screen
 - [AGENT] Hero entrance animation — staggered fade and 12px rise, once, reduced-motion safe
 - [AGENT] All five CTAs wired to the same label constant and the same destination
 - [AGENT] Substantiation line in the hero and the final CTA. Non-negotiable — see the earnings

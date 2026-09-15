@@ -130,10 +130,6 @@ work in progress. The same build with mismatched stock imagery reads as finished
 
 ### Assets the old build won't have
 
-The hero visual is new. It needs a screen capture of the real creator app — campaigns or
-earnings — which only exists in the screenshots taken from a logged-in account.
-
-**[HUMAN] Supply the hero screen capture**, or tell the agent to compose the phone screen out
-of the creator-app components from `CREATOR-APP.md` if Phase 9 was built. Don't let it
-improvise a fake app UI; a fabricated product screenshot is the fastest way to lose a
-reviewer's trust.
+~~The hero visual needs a screen capture of the real creator app.~~ Resolved 2026-09-15: the
+hero has no phone frame or product screen (see LANDING-PAGE.md, Section 1), so no capture is
+needed. Never improvise a fake app UI in its place.
