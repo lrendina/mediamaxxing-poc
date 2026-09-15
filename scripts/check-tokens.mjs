@@ -8,12 +8,14 @@
  *   - Tailwind palette colours, and the legacy token names the creator app
  *     still defines
  *
+ *   - spacing off the 8px scale (Phase 3); the Pill icon gap is the
+ *     documented 4px optical exception
+ *
  * Reported, never fails:
- *   - spacing off the 8px scale, until the Phase 3 sweep
  *   - everything in the creator app, which keeps its own .creator-surface
  *     tokens until Phase 9
  *
- * `--summary` hides the per-line spacing report.
+ * `--summary` is accepted for compatibility with earlier phase checks.
  */
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -29,6 +31,7 @@ const CREATOR = [
 
 const SPACING_PX = new Set([0, 8, 16, 24, 32, 48, 64, 96, 128]);
 const LAYOUT_VARS = new Set(["[var(--gutter)]", "[var(--section-pad)]"]);
+const OPTICAL_SPACING = new Map([["components/Pill.tsx", new Set(["gap-1"])]]);
 
 const SIDES = "ss|se|ee|es|tl|tr|br|bl|s|e|t|r|b|l";
 const RADIUS = new RegExp(`^rounded(?:-(?:${SIDES}))?(?:-(.+))?$`);
@@ -124,11 +127,13 @@ function check(file) {
           if (value === "auto" || LAYOUT_VARS.has(value)) continue;
           const px = spacingPx(value);
           if (px === null) {
-            if (value.startsWith("[")) add(line, "spacing — arbitrary value", util, false);
+            if (value.startsWith("[")) add(line, "spacing — arbitrary value", util, true);
           } else if (px === 4) {
-            add(line, "spacing — 4px, pills and icon gaps only", util, false);
+            if (!OPTICAL_SPACING.get(file)?.has(util)) {
+              add(line, "spacing — undocumented 4px optical exception", util, true);
+            }
           } else if (!SPACING_PX.has(px)) {
-            add(line, `spacing — ${px}px is off the 8px scale`, util, false);
+            add(line, `spacing — ${px}px is off the 8px scale`, util, true);
           }
         }
       }
@@ -137,7 +142,6 @@ function check(file) {
   return findings;
 }
 
-const summaryOnly = process.argv.includes("--summary");
 const files = ROOTS.flatMap(walk).sort();
 const isCreator = (file) => CREATOR.some((re) => re.test(file));
 
@@ -145,7 +149,6 @@ const marketing = files.filter((f) => !isCreator(f)).flatMap(check);
 const creator = files.filter(isCreator).flatMap(check);
 
 const hard = marketing.filter((f) => f.hard);
-const spacing = marketing.filter((f) => !f.hard);
 const print = (f) => console.log(`    ${f.file}:${f.line}  ${f.match}  (${f.rule})`);
 
 console.log("check:tokens — marketing surface");
@@ -153,14 +156,11 @@ if (hard.length) {
   console.log(`  ✗ ${hard.length} hard violation${hard.length === 1 ? "" : "s"}`);
   hard.forEach(print);
 } else {
-  console.log("  ✓ colour, radius and shadow rules hold");
+  console.log("  ✓ colour, radius, shadow and spacing rules hold");
 }
-console.log(`  • ${spacing.length} spacing value${spacing.length === 1 ? "" : "s"} to review — reported until the Phase 3 sweep`);
-if (!summaryOnly) spacing.forEach(print);
-
-const creatorHard = creator.filter((f) => f.hard).length;
+const creatorSpacing = creator.filter((f) => f.rule.startsWith("spacing")).length;
 const creatorFiles = new Set(creator.map((f) => f.file)).size;
 console.log("\ncheck:tokens — creator app (own tokens until Phase 9, never fails)");
-console.log(`  • ${creatorHard} rule hits and ${creator.length - creatorHard} spacing values across ${creatorFiles} files`);
+console.log(`  • ${creator.length - creatorSpacing} rule hits and ${creatorSpacing} spacing values across ${creatorFiles} files`);
 
 process.exitCode = hard.length ? 1 : 0;

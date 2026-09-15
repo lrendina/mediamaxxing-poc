@@ -33,7 +33,7 @@ export default function ForBrands() {
   return (
     <div id="top" className="w-full">
       <section aria-labelledby="hero-heading" className="bg-surface-dark text-ink-inverse">
-        <Container className="pt-16 md:pt-24 pb-12 md:pb-16 flex flex-col gap-10">
+        <Container className="pt-16 md:pt-24 pb-12 md:pb-16 flex flex-col gap-8">
           <h1 id="hero-heading" className="font-display text-[clamp(56px,11vw,160px)] max-w-[10ch]">
             {BRANDS_HERO.headlineVerbatim}
           </h1>
@@ -41,7 +41,7 @@ export default function ForBrands() {
             <p className="text-[20px] md:text-[24px] font-medium leading-[1.3] max-w-[30ch] text-ink-inverse/80">
               {BRANDS_HERO.subhead}
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4">
               <Button href={BRANDS_HERO.primaryCta.href} variant="secondary" size="lg">
                 {BRANDS_HERO.primaryCta.label}
               </Button>
@@ -69,7 +69,7 @@ export default function ForBrands() {
       </section>
 
       <section id="features" aria-labelledby="features-heading" className="bg-canvas scroll-mt-16">
-        <Container className="py-16 md:py-24 flex flex-col gap-10">
+        <Container className="py-16 md:py-24 flex flex-col gap-8">
           <h2 id="features-heading" className="font-display text-[clamp(40px,7vw,96px)] max-w-[12ch]">
             {BRANDS_FEATURES_HEADING}
           </h2>
@@ -77,7 +77,7 @@ export default function ForBrands() {
             {BRANDS_FEATURES.map((f, i) => (
               <div
                 key={f.title}
-                className={`flex flex-col gap-3 rounded p-7 md:p-9 border-2 border-ink ${
+                className={`flex flex-col gap-4 rounded p-8 md:p-8 border-2 border-ink ${
                   i === 0 ? "bg-surface-sunk" : "bg-surface"
                 }`}
               >

@@ -120,8 +120,9 @@ Every vertical and horizontal gap is a multiple of 8. No exceptions at the layou
 4px is permitted **only** for optical adjustment inside a pill or between an icon and its
 label, where 8 visibly over-spaces. Nowhere else, and never for layout.
 
-`npm run check:tokens` lists every spacing value off this scale. It reports rather than fails
-until the Phase 3 sweep clears the old build's 4px half-steps.
+`npm run check:tokens` fails on marketing spacing values off this scale after the Phase 3
+sweep. The Pill's 4px icon gap is an explicit optical exception; creator-app findings remain
+advisory until Phase 9.
 
 ## Layout
 

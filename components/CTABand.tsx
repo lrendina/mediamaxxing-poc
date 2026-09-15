@@ -20,7 +20,7 @@ export function CTABand({
     <section
       className="
         relative overflow-hidden rounded
-        bg-surface-dark text-ink-inverse p-7 md:p-10 flex flex-col gap-4
+        bg-surface-dark text-ink-inverse p-6 md:p-8 flex flex-col gap-4
       "
     >
       <span
@@ -36,7 +36,7 @@ export function CTABand({
       {children ? (
         <p className="text-[16px] text-ink-inverse/75 max-w-[48ch]">{children}</p>
       ) : null}
-      <div className="mt-3">
+      <div className="mt-4">
         <Button href={ctaHref} variant="secondary" size="lg">
           {ctaLabel}
         </Button>
