@@ -1,9 +1,14 @@
 export type NavIconName = "home" | "brands" | "agencies" | "mcp" | "blog";
 
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
 /* The marketing header's thin nav. Home is the wordmark's job, and the one
    CTA comes from content/cta.ts, so neither is listed. Labels as in
    content/source/nav.ts. */
-export const HEADER_NAV: { label: string; href: string }[] = [
+export const HEADER_NAV: NavLink[] = [
   { label: "For brands",   href: "/for-brands" },
   { label: "For agencies", href: "/for-agencies" },
   { label: "MCP",          href: "/mcp" },
@@ -19,10 +24,10 @@ export const SURFACE_SWITCH = {
 };
 
 /* Footer nav mirrors the live site's two-group layout. */
-export type FooterGroup = {
+export interface FooterGroup {
   heading: string;
-  items: { label: string; href: string }[];
-};
+  items: NavLink[];
+}
 
 export const FOOTER_NAV: FooterGroup[] = [
   {

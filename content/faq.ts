@@ -1,36 +1,100 @@
-import type { AccordionItem } from "@/components/Accordion";
+import { FAQ_ITEMS } from "@/content/source/faq";
 
-export const FAQ_HEADING = "Questions";
+export interface FaqItem {
+  question: string;
+  /* null until the answer has real copy. Never render a guess in its place. */
+  answer: string | null;
+  /* "live-site" questions are quoted; "spec" questions are worded from the
+     topics LANDING-PAGE.md lists. */
+  questionSource: "live-site" | "spec";
+}
 
-/* Only the first answer was extractable verbatim from the live site — the
-   other four answers are loaded inside a React streaming payload that our
-   fetch could not read. The stand-in answers below are our best summary of
-   what the site implies elsewhere (blurbs, hero copy, creator locations) and
-   MUST be replaced during the [HUMAN] copy pass before ship. */
-export const FAQ: AccordionItem[] = [
-  {
-    question: "What exactly is MediaMaxxing?",
-    answer:
-      "MediaMaxxing is a creator-first platform that connects you directly with brands running paid UGC campaigns. You pick a campaign, film your videos, submit them for review, and get paid automatically once approved. It's the easiest way to turn short-form content into income. No outreach, no clients, no middlemen.",
-  },
-  {
-    question: "Do I need experience or followers?",
-    answer:
-      "No. Templates walk you through what to film, and payouts are per-view — not per-follower. Natalie hit $30,361 on under 2,000 followers using the same playbook. (Placeholder answer — replace during copy pass.)",
-  },
-  {
-    question: "How fast can I start earning?",
-    answer:
-      "Sign-up is instant. Most creators submit their first campaign the same day and see approvals within 48 hours. Payouts are automatic once your work clears review. (Placeholder answer — replace during copy pass.)",
-  },
-  {
-    question: "What kinds of campaigns are available?",
-    answer:
-      "Brand campaigns across consumer products, apps, and services — each with a template that has already gone viral. New campaigns land weekly. (Placeholder answer — replace during copy pass.)",
-  },
-  {
-    question: "Is this available worldwide?",
-    answer:
-      "Creators from most countries are eligible — payouts land via standard international rails. (Placeholder answer — replace during copy pass.)",
-  },
-];
+export interface FaqGroup {
+  id: string;
+  title: string;
+  items: readonly FaqItem[];
+}
+
+export interface FaqSection {
+  heading: string;
+  groups: readonly FaqGroup[];
+}
+
+/* A live-site question. Its answer comes along only if the answer is
+   live-site copy too: the source's answers 2–5 are the old build's
+   placeholders, and they stay out. */
+function live(question: string): FaqItem {
+  const source = FAQ_ITEMS.find((item) => item.question === question);
+  if (!source) {
+    throw new Error(`content/faq: "${question}" is not in content/source/faq.ts`);
+  }
+  return {
+    question,
+    answer: source.provenance === "live-site" ? source.answer : null,
+    questionSource: "live-site",
+  };
+}
+
+/* A gap LANDING-PAGE.md asks us to fill. The answer is written in the
+   PLAN.md Phase 4 human pass. */
+function gap(question: string): FaqItem {
+  return { question, answer: null, questionSource: "spec" };
+}
+
+/* LANDING-PAGE.md, Section 5. The five live-site questions are distributed
+   first, then the spec's topics fill the gaps. Where a live question already
+   covers a spec topic, the live wording is used instead of adding a
+   near-duplicate:
+   - "Do I need experience or followers?" covers "Do I need followers?" and
+     "Do I need experience?"
+   - "How fast can I start earning?" covers "How fast can I post my first
+     video?"
+   - "Is this available worldwide?" covers "Which countries" */
+export const FAQ: FaqSection = {
+  heading: "Questions before you start",
+  groups: [
+    {
+      id: "getting-started",
+      title: "Getting started",
+      items: [
+        live("What exactly is MediaMaxxing?"),
+        live("Do I need experience or followers?"),
+        gap("What equipment do I need?"),
+        live("How fast can I start earning?"),
+      ],
+    },
+    {
+      id: "getting-paid",
+      title: "Getting paid",
+      items: [
+        gap("How does pay per view work?"),
+        gap("When do payouts land?"),
+        gap("What happens if a video underperforms?"),
+        gap("Is there a minimum payout?"),
+      ],
+    },
+    {
+      id: "campaigns",
+      title: "Campaigns & content",
+      items: [
+        gap("Who picks the campaigns?"),
+        live("What kinds of campaigns are available?"),
+        gap("Can I use my own idea?"),
+        gap("Do I have to disclose sponsorship?"),
+        gap("Who owns the video?"),
+      ],
+    },
+    {
+      /* The spec's facts for this group, to be written from the platform's
+         legal page: 13+, with parental consent under 18; government ID and
+         tax documentation before payouts. */
+      id: "eligibility",
+      title: "Eligibility",
+      items: [
+        gap("How old do I need to be?"),
+        gap("What verification is required?"),
+        live("Is this available worldwide?"),
+      ],
+    },
+  ],
+};
