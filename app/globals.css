@@ -284,3 +284,25 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero entrance — LANDING-PAGE.md, "Motion". Headline, subheadline, CTA and
+   friction strip fade and rise 12px, 400ms ease-out, once on load, staggered
+   60ms by --hero-step. CSS only, so nothing waits on hydration and nothing
+   replays on scroll. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 400ms ease-out both;
+  animation-delay: calc(var(--hero-step, 0) * 60ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+  }
+}
