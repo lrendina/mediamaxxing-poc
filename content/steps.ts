@@ -1,29 +1,22 @@
-export type Step = {
+export interface Step {
   title: string;
-  description: string;
+  body: string;
+}
+
+export interface StepsSection {
+  heading: string;
+  steps: readonly Step[];
+}
+
+/* LANDING-PAGE.md, Section 2a. Verbatim. Supersedes the live site's "Start
+   earning in three simple steps", which stays on record in
+   content/source/homepage.ts. Titles carry no number: the page prefixes the
+   plain step number, never a 01 / 02 / 03 display numeral. */
+export const STEPS: StepsSection = {
+  heading: "From signup to your first campaign in five minutes",
+  steps: [
+    { title: "Pick a campaign", body: "Browse live brand campaigns and join in one tap." },
+    { title: "Film from the template", body: "Every campaign ships with formats that have already gone viral." },
+    { title: "Post and get paid", body: "Submit the link. Payouts run automatically on views." },
+  ],
 };
-
-/* Section headline on the live site is "Start earning in three simple steps",
-   which the PLAN's [HUMAN] copy pass flags as reading flat without the
-   italicized "three simple steps" the original design leaned on.
-   Provided here verbatim — replace before Phase 5 ships. */
-export const STEPS_HEADLINE_VERBATIM =
-  "Start earning in three simple steps";
-
-export const STEPS: Step[] = [
-  {
-    title: "Browse Campaigns",
-    description:
-      "Explore available brand campaigns with ready-to-use viral templates designed for guaranteed views.",
-  },
-  {
-    title: "Create Content",
-    description:
-      "Follow step-by-step tutorials that show you exactly how to recreate already-viral videos. No experience needed.",
-  },
-  {
-    title: "Earn Per View",
-    description:
-      "Get paid for the views your content generates. Our proven templates help even beginners start earning right away.",
-  },
-];

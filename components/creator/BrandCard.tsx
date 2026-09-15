@@ -101,7 +101,7 @@ export function BrandCard({
       className="
         group block rounded-[var(--radius-card)] overflow-hidden
         bg-surface border border-border
-        hover:shadow-lift hover:-translate-y-0.5 transition
+        hover:shadow-2 hover:-translate-y-0.5 transition
       "
     >
       {artwork}

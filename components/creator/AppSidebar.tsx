@@ -37,7 +37,7 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
     >
       <Link
         href={href("/creator/campaigns")}
-        className={`mb-8 rounded-lg py-2 min-h-11 flex items-center ${collapsed ? "justify-center px-0" : "px-2"}`}
+        className={`mb-8 rounded py-2 min-h-11 flex items-center ${collapsed ? "justify-center px-0" : "px-2"}`}
       >
         <LogoLockup size="md" showWordmark={!collapsed} />
       </Link>

@@ -1,111 +1,115 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------------- */
-/* Design tokens — black and acid lime                                       */
+/* Design tokens — DESIGN-TOKENS.md                                          */
 /*                                                                           */
-/* Loud on purpose. Off-white paper for reading, pure black for weight, one  */
-/* acid lime that means money and is allowed to fill a whole section. The   */
-/* creator app inverts the same roles onto black (see .creator-surface).    */
+/* Blue for actions, green for money, orange for momentum, amber for         */
+/* attention. The roles come from the creator app; the values are ours.      */
+/* One radius, two shadows, an 8px spacing scale, and the type scale from    */
+/* LANDING-PAGE.md. `npm run check:tokens` enforces the geometry.            */
 /* ------------------------------------------------------------------------- */
 
 :root {
   /* surfaces */
-  --canvas:        #f2f1ea;
-  --surface:       #ffffff;
-  --surface-sunk:  #e6e5dc;
-  --surface-dark:  #0a0a0a;
-  --border:        #d9d7cc;
-  --border-strong: #b8b6aa;
+  --canvas:        #f6f7f9;   /* page */
+  --surface:       #ffffff;   /* cards, header */
+  --surface-sunk:  #eef0f4;   /* inset rows, tracks, chips */
+  --surface-dark:  #0b0d10;   /* final CTA band, artwork frames */
+  --border:        #e3e6eb;
 
   /* text */
-  --ink:           #0a0a0a;
-  --muted:         #5c5b54;
-  --ink-inverse:   #f5f5ee;
-  --on-pastel:     #0a0a0a;   /* text on avatar pastels, both surfaces */
-  --on-art:        #ffffff;   /* text over brand artwork, both surfaces */
+  --ink:           #0d1220;
+  --muted:         #5b6472;
+  --ink-inverse:   #ffffff;
 
-  /* roles */
-  --lime:          #d4ff3a;
-  --action:        #0a0a0a;   /* marketing: the press colour is ink */
-  --action-sunk:   #e6e5dc;
-  --money:         #d4ff3a;   /* the brand colour. Money is the brand. */
-  --money-ink:     #3f6b00;   /* lime as text on light surfaces */
-  --money-sunk:    #eeffb8;
-  --streak:        #ff5a1f;
-  --streak-sunk:   #ffe0d2;
-  --warn:          #b57f00;
-  --warn-sunk:     #fff1c2;
-  --discord:       #5865f2;
-  --status:        #ff3dae;
-  --status-sunk:   #ffd9ee;
+  /* roles — never outside their meaning */
+  --action:        #2f5bea;   /* something to press */
+  --action-sunk:   #e9effe;
+  --money:         #087f41;   /* dollars, payouts, acceptance */
+  --money-sunk:    #e4f6ec;
+  --streak:        #f4741f;   /* progress, XP, momentum, deadlines */
+  --streak-sunk:   #fdeee3;
+  --warn:          #a8761a;   /* attention, scarcity, bounty */
+  --warn-sunk:     #fbf3e2;
+  --discord:       #5865f2;   /* Join Discord only */
 
-  /* Legacy aliases */
-  --panel:      var(--surface-sunk);
-  --canvas-alt: var(--surface-dark);
-  --payout:     var(--money-ink);
-  --live:       var(--status);
+  /* Geometry — one radius (pills are full-round, a shape rather than a
+     step) and two shadows: rest, and hover/overlay. */
+  --radius:      12px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgb(13 18 32 / 0.04), 0 2px 8px rgb(13 18 32 / 0.04);
+  --shadow-2: 0 2px 4px rgb(13 18 32 / 0.06), 0 8px 24px rgb(13 18 32 / 0.08);
 
   /* Layout */
-  --topnav:       64px;
-  --mobile-tabs:  56px;
-  --content-max:  1440px;
-  --rail-left:    240px;
-  --rail-right:   300px;
-  --feed-max:     600px;
+  --content-max: 1120px;
+  --text-max:     720px;
+  --gutter:        24px;
+  --section-pad:   64px;
 
-  /* Creator app shell */
+  /* Type scale. --type-{level} is the live size; the -desktop and -mobile
+     values exist so /styleguide can show both at once. */
+  --type-h1-desktop:    72px;
+  --type-h1-mobile:     40px;
+  --type-h2-desktop:    44px;
+  --type-h2-mobile:     32px;
+  --type-h3-desktop:    22px;
+  --type-h3-mobile:     20px;
+  --type-body-desktop:  18px;
+  --type-body-mobile:   17px;
+  --type-small-desktop: 14px;
+  --type-small-mobile:  14px;
+
+  --type-h1:    var(--type-h1-mobile);
+  --type-h2:    var(--type-h2-mobile);
+  --type-h3:    var(--type-h3-mobile);
+  --type-body:  var(--type-body-mobile);
+  --type-small: var(--type-small-mobile);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter:      48px;
+    --section-pad: 96px;
+
+    --type-h1:    var(--type-h1-desktop);
+    --type-h2:    var(--type-h2-desktop);
+    --type-h3:    var(--type-h3-desktop);
+    --type-body:  var(--type-body-desktop);
+    --type-small: var(--type-small-desktop);
+  }
+}
+
+/* The creator app shares the marketing tokens (converged 2026-09-15, on
+   request): palette, the one radius, both shadows, Archivo headings and the
+   global focus ring all come from :root. This scope keeps only what the app
+   has and the page doesn't — shell widths, the 15px UI density, the rank
+   medallions and the purple status role — plus aliases for the legacy token
+   names its components still use. */
+.creator-surface {
+  --mobile-tabs: 56px;
   --app-sidebar:            248px;
   --app-sidebar-collapsed:  56px;
   --app-rail:               380px;
   --app-content-max:        1160px;
 
-  /* Geometry — sharper than before. Loud things have corners. */
-  --radius-card:    12px;
-  --radius-control: 8px;
-  --radius-tile:    8px;
-  --radius-pill:    999px;
+  /* Legacy names, now aliases of the shared tokens. */
+  --radius-card:    var(--radius);
+  --radius-control: var(--radius);
+  --radius-tile:    var(--radius);
+  --shadow-lift:    var(--shadow-1);
+  --shadow-pop:     var(--shadow-2);
+  --money-ink:      var(--money);
+  --on-pastel:      var(--ink);
+  --on-art:         var(--ink-inverse);
+  --border-strong:  #cdd2da;   /* a step darker than --border, for hover edges */
 
-  --shadow-lift: 0 1px 2px rgba(10, 10, 10, 0.06), 0 16px 40px -20px rgba(10, 10, 10, 0.35);
-  --shadow-pop:  0 2px 4px rgba(10, 10, 10, 0.1), 0 32px 64px -24px rgba(10, 10, 10, 0.6);
+  /* App-only roles. */
+  --status:      #5b3fc9;
+  --status-sunk: #ebe5fa;
+  --live:        var(--status);
 
-  --text-xs:  13px;
-  --text-sm:  15px;
-  --text-md:  18px;
-  --text-lg:  24px;
-  --text-xl:  40px;
-  --text-2xl: 64px;
-}
-
-/* The creator app keeps the "paper and signal" direction (the first
-   redesign after Phase 9): warm paper, white cards on hairline borders,
-   one saturated colour per role, Instrument Serif for display headings.
-   Scoped here so the marketing surface can be black-and-lime on top of
-   the same role names. */
-.creator-surface {
-  --canvas:        #f4f2ec;
-  --surface:       #ffffff;
-  --surface-sunk:  #ebe8df;
-  --surface-dark:  #0f1411;
-  --border:        #e1ddd2;
-  --border-strong: #c9c4b6;
-  --ink:           #14130f;
-  --muted:         #6b675c;
-  --ink-inverse:   #f7f6f1;
-  --action:        #2a4bd7;
-  --action-sunk:   #e3e8fb;
-  --money:         #0e9f5e;
-  --money-ink:     #0e9f5e;
-  --money-sunk:    #dcf3e6;
-  --streak:        #ef6420;
-  --streak-sunk:   #fde6d9;
-  --warn:          #96690f;
-  --warn-sunk:     #f8eed7;
-  --status:        #5b3fc9;
-  --status-sunk:   #ebe5fa;
-
-  /* Rank ladder medallions — Copper/Bronze/Silver/Gold/Platinum. Creator
-     app only; the marketing surface has no rank concept. Values are ours,
-     chosen to read distinctly at a glance rather than matched to a photo. */
+  /* Rank ladder medallions — Copper/Bronze/Silver/Gold/Platinum. The
+     marketing surface has no rank concept. */
   --rank-copper:      #b5622e;
   --rank-copper-sunk: #f4e2d4;
   --rank-bronze:      #93713f;
@@ -117,111 +121,69 @@
   --rank-platinum:    #6f8f89;
   --rank-platinum-sunk: #e4edeb;
 
-  --radius-card:    20px;
-  --radius-control: 12px;
-  --radius-tile:    12px;
-  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
-  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
   background: var(--canvas);
   color: var(--ink);
-}
-.creator-surface .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-variation-settings: normal;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: -0.015em;
-  line-height: 1.05;
-  font-variant-numeric: normal;
-  font-feature-settings: normal;
-}
-.creator-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--action);
-}
-
-/* /original demo route only — the same "paper and signal" tokens the
-   marketing surface used before the loud redesign (3be1d3d), kept so a
-   reviewer can compare the two homepages side by side. Values match
-   .creator-surface, which happens to be the same direction; kept as its
-   own scope since the two surfaces are conceptually independent (one is
-   the real creator app, this is a shelved marketing direction) and free
-   to diverge later. Not part of the design system proper — see
-   components/DemoVariantToggle.tsx. */
-.original-surface {
-  --canvas:        #f4f2ec;
-  --surface:       #ffffff;
-  --surface-sunk:  #ebe8df;
-  --surface-dark:  #0f1411;
-  --border:        #e1ddd2;
-  --border-strong: #c9c4b6;
-  --ink:           #14130f;
-  --muted:         #6b675c;
-  --ink-inverse:   #f7f6f1;
-  --action:        #2a4bd7;
-  --action-sunk:   #e3e8fb;
-  --money:         #0e9f5e;
-  --money-sunk:    #dcf3e6;
-  --streak:        #ef6420;
-  --streak-sunk:   #fde6d9;
-  --warn:          #96690f;
-  --warn-sunk:     #f8eed7;
-  --status:        #5b3fc9;
-  --status-sunk:   #ebe5fa;
-  --panel:      var(--surface-sunk);
-  --canvas-alt: var(--surface-dark);
-  --payout:     var(--money);
-  --live:       var(--status);
-  --radius-card:    20px;
-  --radius-control: 12px;
-  --radius-tile:    12px;
-  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
-  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
-  background: var(--canvas);
-  color: var(--ink);
-}
-.original-surface .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  font-variant-numeric: normal;
-  font-feature-settings: normal;
-  text-transform: none;
-}
-.original-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--action);
+  font-size: 15px;   /* app UI density, denser than the marketing body */
 }
 
 /* Tailwind v4 theme — exposes tokens as utilities. */
 @theme inline {
-  --color-canvas:       var(--canvas);
-  --color-canvas-alt:   var(--canvas-alt);
-  --color-panel:        var(--panel);
-  --color-ink:          var(--ink);
-  --color-muted:        var(--muted);
-  --color-payout:       var(--payout);
-  --color-live:         var(--live);
+  /* One radius and two shadows, structurally: Tailwind's default scales are
+     cleared, so rounded-lg and shadow-md don't exist. rounded-full stays —
+     it's the pill shape, not a step. */
+  --radius-*: initial;
+  --shadow-*: initial;
 
+  --color-canvas:       var(--canvas);
   --color-surface:      var(--surface);
   --color-surface-sunk: var(--surface-sunk);
   --color-surface-dark: var(--surface-dark);
   --color-border:       var(--border);
-  --color-border-strong: var(--border-strong);
+  --color-ink:          var(--ink);
+  --color-muted:        var(--muted);
   --color-ink-inverse:  var(--ink-inverse);
-  --color-on-pastel:    var(--on-pastel);
-  --color-on-art:       var(--on-art);
-  --color-lime:         var(--lime);
   --color-action:       var(--action);
   --color-action-sunk:  var(--action-sunk);
   --color-money:        var(--money);
-  --color-money-ink:    var(--money-ink);
   --color-money-sunk:   var(--money-sunk);
   --color-streak:       var(--streak);
   --color-streak-sunk:  var(--streak-sunk);
   --color-warn:         var(--warn);
   --color-warn-sunk:    var(--warn-sunk);
   --color-discord:      var(--discord);
-  --color-status:       var(--status);
-  --color-status-sunk:  var(--status-sunk);
+
+  --radius:   var(--radius);
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+
+  --text-h1: var(--type-h1);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+  --text-h2: var(--type-h2);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h2--font-weight: 700;
+  --text-h3: var(--type-h3);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.005em;
+  --text-h3--font-weight: 600;
+  --text-body: var(--type-body);
+  --text-body--line-height: 1.6;
+  --text-small: var(--type-small);
+  --text-small--line-height: 1.5;
+
+  --font-sans: var(--font-archivo);
+
+  /* Creator app only. .creator-surface defines these legacy names, most as
+     aliases of the shared tokens. The marketing surface may not use them —
+     `npm run check:tokens` fails if it does. */
+  --color-border-strong: var(--border-strong);
+  --color-on-pastel:     var(--on-pastel);
+  --color-on-art:        var(--on-art);
+  --color-status:        var(--status);
+  --color-status-sunk:   var(--status-sunk);
+  --color-live:          var(--live);
 
   --color-rank-copper:        var(--rank-copper);
   --color-rank-copper-sunk:   var(--rank-copper-sunk);
@@ -234,14 +196,8 @@
   --color-rank-platinum:      var(--rank-platinum);
   --color-rank-platinum-sunk: var(--rank-platinum-sunk);
 
-  --radius-card:    var(--radius-card);
-  --radius-control: var(--radius-control);
-  --radius-tile:    var(--radius-tile);
-
   --shadow-lift: var(--shadow-lift);
   --shadow-pop:  var(--shadow-pop);
-
-  --font-sans: var(--font-archivo);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -249,17 +205,19 @@
 /* ------------------------------------------------------------------------- */
 
 html {
-  /* Smooth scroll for anchor-based feed filter chips. Overridden to `auto`
-     in the prefers-reduced-motion block below. */
+  /* Smooth scroll for in-page anchors. Overridden to `auto` in the
+     prefers-reduced-motion block below. */
   scroll-behavior: smooth;
+  /* Keeps anchor targets and keyboard focus clear of the 56px sticky header. */
+  scroll-padding-top: 64px;
 }
 
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: var(--text-sm);
+  font-size: var(--type-body);
   line-height: 1.6;
   color: var(--ink);
-  /* Background is set in the alternating-bg block below (--page-bg). */
+  background: var(--canvas);
   /* Tabular numbers everywhere so counters and figures do not jitter. */
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
@@ -272,86 +230,19 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* The poster voice. Expanded, heavy, uppercase, tight. Headlines only. */
+/* Headings not yet on the text-h* scale (for-brands, stubs, blog cards and
+   the CTA band until Phases 3 and 6). Sentence case at normal width —
+   expanded is for numbers only. */
 .font-display {
-  font-variation-settings: "wdth" 125;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
-}
-
-/* A slightly quieter display — same voice, indoor volume. Card titles. */
-.font-display-sm {
-  font-variation-settings: "wdth" 118;
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-/* Marquee — the earnings ticker. Duplicated content, translate by half.
-   Paused on hover and collapsed to a static row under reduced motion. */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee var(--marquee-duration, 40s) linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+  line-height: 1.1;
 }
 
 /* Visible keyboard focus on every interactive element. */
-:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 3px solid var(--streak);
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid var(--action);
   outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* ------------------------------------------------------------------------- */
-/* Alternating page backgrounds                                               */
-/*                                                                            */
-/* The body carries the "current" background colour and transitions between   */
-/* values as the user scrolls between sections (a client-side observer picks  */
-/* the active section and updates --page-bg). Sections themselves declare     */
-/* their target colour via data-section-bg but don't paint it — the body      */
-/* does, so the colour extends behind the sidebar and right rail as well as   */
-/* the feed column.                                                           */
-/* ------------------------------------------------------------------------- */
-
-body {
-  background: var(--page-bg, var(--canvas));
-  /* Short transition so JS-driven per-frame updates from DeviceIntro
-     stay responsive, while BackdropController's discrete section jumps
-     still get a soft edge instead of a snap. */
-  transition: background 200ms ease;
-}
-
-/* Intro page starts on the dark background AND dark theme so first paint
-   doesn't flash canvas before the observer kicks in. */
-html:has(.intro-section) {
-  --page-bg: var(--canvas-alt);
-}
-
-/* Section headings sit directly on the page bg (outside cards). Cards
-   inside dark sections keep their own light bg + canonical text, so this
-   only reskins section-level h2s and equivalent sidebar labels. */
-.section-heading {
-  color: var(--ink);
-}
-[data-page-theme="dark"] .section-heading,
-[data-page-theme="dark"] .on-page-bg {
-  color: var(--ink-inverse);
-}
-[data-page-theme="dark"] .on-page-bg-muted {
-  color: rgba(247, 246, 241, 0.62);
-}
-[data-page-theme="dark"] .on-page-bg-border {
-  border-color: rgba(247, 246, 241, 0.12);
 }
 
 /* Reduced motion — collapse transitions and animations for users who opt out. */
@@ -366,145 +257,24 @@ html:has(.intro-section) {
   }
 }
 
-/* ------------------------------------------------------------------------- */
-/* Phase 8 — scroll-driven device intro                                       */
-/*                                                                            */
-/* Layout rules only apply on desktop + non-reduced-motion. Under either      */
-/* condition the .intro-* elements fall back to natural block flow and the    */
-/* hero content appears in place. No JS branching, no hydration flash.        */
-/*                                                                            */
-/* Shell fade tokens (--intro-shell-p) default to 1 site-wide. When a page    */
-/* contains an .intro-section (via :has()), the sidebar and right rail       */
-/* pre-hide so there's no first-paint flash of visible chrome that then      */
-/* slides out.                                                                */
-/* ------------------------------------------------------------------------- */
-
-:root {
-  --intro-shell-p: 1;
-}
-
-/* Collapse condition mirrors the JS matchMedia check in DeviceIntro.tsx
-   ("(prefers-reduced-motion: reduce), (max-width: 767px)"). The .intro-*
-   layout rules below are already gated to the opposite (desktop + motion)
-   query, which resets .intro-section/.intro-sticky/.intro-scene to plain
-   block flow — but the Iphone component's SVG chrome and its absolutely
-   positioned "screen" cutout are plain inline styles set unconditionally
-   by iphone.tsx, so without this block they still render on mobile and
-   pinch the hero into a tiny off-layout inset. This drops the chrome and
-   flattens the screen box so the hero renders exactly like the
-   INTRO_ENABLED=false fallback (PageIntro). */
-@media (max-width: 767px), (prefers-reduced-motion: reduce) {
-  .intro-iphone {
-    aspect-ratio: auto !important;
-  }
-  .intro-iphone > svg {
-    display: none;
-  }
-  .intro-viewport-screen {
-    position: static !important;
-    inset: auto !important;
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-  }
-  .intro-viewport {
-    padding: 0;
-  }
-
-  /* On desktop this content sits inside .intro-viewport-screen's own white
-     surface, so the default --ink text always has contrast regardless of
-     the page-level dark/light theme. Flattened here, it sits directly on
-     the real (theme-driven) page background, so it needs to invert too —
-     scoped to this query so desktop's white-card case is never touched. */
-  [data-page-theme="dark"] .hero-heading {
-    color: var(--ink-inverse);
-  }
-  [data-page-theme="dark"] .hero-subhead {
-    color: rgba(247, 246, 241, 0.7);
-  }
-  [data-page-theme="dark"] .hero-ghost-cta {
-    color: var(--ink-inverse);
-    border-color: rgba(247, 246, 241, 0.25);
-  }
-  [data-page-theme="dark"] .hero-ghost-cta:hover {
-    border-color: rgba(247, 246, 241, 0.45);
-    background: rgba(247, 246, 241, 0.06);
+/* Hero entrance — LANDING-PAGE.md, "Motion". Headline, subheadline, CTA and
+   friction strip fade and rise 12px, 400ms ease-out, once on load, staggered
+   60ms by --hero-step. CSS only, so nothing waits on hydration and nothing
+   replays on scroll. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
 }
 
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  html:has(.intro-section) {
-    --intro-shell-p: 0;
-  }
+.hero-rise {
+  animation: hero-rise 400ms ease-out both;
+  animation-delay: calc(var(--hero-step, 0) * 60ms);
+}
 
-  .intro-section {
-    position: relative;
-    height: var(--intro-h-vh, 250vh);
-  }
-  .intro-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .intro-field {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      60% 50% at 50% 45%,
-      rgba(14, 159, 94, 0.18) 0%,
-      transparent 65%
-    );
-    opacity: var(--field-opacity, 1);
-  }
-  .intro-scene-wrap {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .intro-scene {
-    position: relative;
-    width: 100%;
-    will-change: transform;
-    transform-origin: center center;
-    transform: scale(var(--scene-scale, 0.33));
-  }
-  /* iPhone SVG chrome fades to 0 over p 0.6→0.9. The screen area is
-     masked out of the SVG, so hero content underneath stays visible. */
-  .intro-iphone > svg {
-    opacity: var(--device-opacity, 1);
-    filter: drop-shadow(0 60px 120px rgba(0, 0, 0, 0.5));
-    transition: opacity 60ms linear;
-  }
-
-  /* screenClassName applied by Iphone to the screen wrapper — carries the
-     paper "screen" surface so the hero has a bg against dark section bg. */
-  .intro-viewport-screen {
-    background: var(--canvas);
-  }
-
-  /* Hero content inside the phone screen. Fills the screen area and centers
-     the hero vertically since the phone is ~2× as tall as the hero copy. */
-  .intro-viewport {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6% 8%;
-  }
-
-  /* Sidebar + right rail fade + slide in over p 0.75 → 1.0. The transform
-     direction differs per side (left slides in from -100%, right from +100%). */
-  aside[aria-label="Primary"] {
-    opacity: var(--intro-shell-p);
-    transform: translateX(calc((var(--intro-shell-p) - 1) * 100%));
-  }
-  aside[aria-label="Complementary"] {
-    opacity: var(--intro-shell-p);
-    transform: translateX(calc((1 - var(--intro-shell-p)) * 100%));
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
   }
 }

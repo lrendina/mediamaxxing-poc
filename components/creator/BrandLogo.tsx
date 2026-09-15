@@ -17,7 +17,7 @@ export function BrandLogo({
     <span
       role="img"
       aria-label={`${name} logo`}
-      className={`inline-flex shrink-0 items-center justify-center rounded-lg text-on-art font-medium ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded text-on-art font-medium ${className}`}
       style={{
         width: size,
         height: size,

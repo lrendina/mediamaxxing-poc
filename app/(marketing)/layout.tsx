@@ -1,18 +1,22 @@
-import { TopNav } from "@/components/TopNav";
+import type { ReactNode } from "react";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { StickyHeader } from "@/components/StickyHeader";
 
-/* Marketing surface: sticky black top bar, full-bleed sections below.
-   Each page owns its own footer so the CTA band can sit directly above it. */
-export default function MarketingLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/* Marketing shell: the page-top header, the sticky header that takes over
+   once it scrolls away, a column of sections, one footer. No sidebar, no
+   rails. Widths live in Section and Container rather than here, so the
+   final CTA can run full-bleed. The creator app mounts its own shell in
+   app/creator/layout.tsx. */
+export default function MarketingLayout({ children }: { children: ReactNode }) {
   return (
-    <>
-      <TopNav />
-      <main id="main" tabIndex={-1} className="min-w-0">
+    <div className="flex min-h-svh flex-col">
+      <Header />
+      <StickyHeader />
+      <main id="main" tabIndex={-1} className="min-w-0 flex-1">
         {children}
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }

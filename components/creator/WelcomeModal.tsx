@@ -33,10 +33,19 @@ export function WelcomeModal({
     if (e.target === dialogRef.current) onClose();
   };
 
+  /* Escape fires `cancel`. Route it through onClose like the buttons and the
+     backdrop, so it also drops ?welcome=1 instead of leaving the modal to
+     reopen on reload. */
+  const onDialogCancel = (e: React.SyntheticEvent<HTMLDialogElement>) => {
+    e.preventDefault();
+    onClose();
+  };
+
   return (
     <dialog
       ref={dialogRef}
       onClick={onDialogClick}
+      onCancel={onDialogCancel}
       aria-labelledby="welcome-modal-title"
       className="
         m-auto w-[min(480px,92vw)] max-h-[88vh]

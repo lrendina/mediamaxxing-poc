@@ -29,11 +29,11 @@ export function LeaderboardList({
         return (
           <li
             key={e.handle}
-            className="relative flex items-center gap-3 min-h-12 px-2 rounded-[10px] overflow-hidden"
+            className="relative flex items-center gap-3 min-h-12 px-2 rounded overflow-hidden"
           >
             <span
               aria-hidden
-              className={`absolute inset-y-1 left-0 rounded-[8px] ${metric === "earned" ? "bg-money-sunk/70" : "bg-surface-sunk"}`}
+              className={`absolute inset-y-1 left-0 rounded ${metric === "earned" ? "bg-money-sunk/70" : "bg-surface-sunk"}`}
               style={{ width: `${pct}%` }}
             />
             <span className="relative w-6 shrink-0 text-center text-[13px] text-muted tabular-nums">

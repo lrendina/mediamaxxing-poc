@@ -25,86 +25,32 @@ retuned brighter and cleaner. Fidelity of meaning, freedom of appearance.
 Never use a role outside its meaning. A neutral button does not get `money` because it looks
 good, and a deadline does not get `warn` because it feels urgent — deadlines are `streak`.
 
-## Values — "black and acid lime" (loud redesign, September 2026)
-
-Supersedes everything below. Lime `#D4FF3A` is the brand and means money; it is allowed to
-fill a whole section. Black `#0A0A0A` carries weight: top bar, how-it-works band, footer.
-Paper `#F2F1EA` is for reading. The creator app inverts the same roles onto black
-(`.creator-surface` in `app/globals.css`): surfaces go dark, lime stays lime, the featured
-campaign card becomes the one lime object on the page, `action` becomes violet.
-
-**Type.** One family. Archivo at wdth 125 / weight 800 / uppercase is the poster voice for
-every headline, at `clamp()` sizes that scale with the viewport. Archivo 400–500 is UI and
-body. Archivo Expanded 500 is every number. No serif.
-
-**Layout.** The marketing surface drops the three-column feed for a sticky black top bar
-and full-bleed colour blocks: lime hero, black ticker, paper proof wall (3-up at xl), black
-how-it-works with 120px numerals, black counters at viewport scale, paper FAQ, paper blog,
-lime CTA band, black footer with the wordmark at 13vw. The Phase 8 device intro is off
-(`INTRO_ENABLED = false`); it flew into a feed column that no longer exists.
-
-**Geometry.** Sharper: card 12, control 8. Proof and blog cards carry 2px black borders and
-hard offset shadows (lime under proof, black under blog on hover). Buttons stay pills.
-
-## Values — "paper and signal" (superseded)
-
-Supersedes the first draft below. Warm paper canvas, white cards on hairline borders,
-warm near-black ink, one saturated colour per role. `app/globals.css` is the source of
-truth; this is the reference.
+## Values
 
 ```css
 :root {
   /* surfaces */
-  --canvas:        #F4F2EC;   /* page — warm paper, both surfaces */
-  --surface:       #FFFFFF;   /* cards, panels */
-  --surface-sunk:  #EBE8DF;   /* inset rows, tracks, chips, tiles */
-  --surface-dark:  #0F1411;   /* dark bands, featured cards — green-black */
-  --border:        #E1DDD2;
-  --border-strong: #C9C4B6;
+  --canvas:        #F6F7F9;   /* page */
+  --surface:       #FFFFFF;   /* cards, sidebar */
+  --surface-sunk:  #EEF0F4;   /* inset rows, tracks, chips */
+  --surface-dark:  #0B0D10;   /* featured campaign cards, artwork frames */
+  --border:        #E3E6EB;
 
   /* text */
-  --ink:           #14130F;
-  --muted:         #6B675C;
-  --ink-inverse:   #F7F6F1;
+  --ink:           #0D1220;
+  --muted:         #5B6472;
+  --ink-inverse:   #FFFFFF;
 
   /* roles */
-  --action:        #2A4BD7;   --action-sunk: #E3E8FB;
-  --money:         #0E9F5E;   --money-sunk:  #DCF3E6;
-  --streak:        #EF6420;   --streak-sunk: #FDE6D9;
-  --warn:          #96690F;   --warn-sunk:   #F8EED7;
+  --action:        #2F5BEA;
+  --action-sunk:   #E9EFFE;
+  --money:         #087F41;
+  --money-sunk:    #E4F6EC;
+  --streak:        #F4741F;
+  --streak-sunk:   #FDEEE3;
+  --warn:          #A8761A;
+  --warn-sunk:     #FBF3E2;
   --discord:       #5865F2;
-  --status:        #5B3FC9;   --status-sunk: #EBE5FA;   /* marketing tier badges only */
-}
-```
-
-**Buttons.** Primary is ink, not a colour: on paper the darkest object is the most
-pressable one, and it leaves green free to mean money. Secondary is `money`, reserved for
-the one CTA per page that is literally about getting paid. In the app, `action` blue is the
-press colour (Submit, Apply, Explore), matching the live product.
-
-**Type.** Archivo for UI and body. **Instrument Serif** for display headings at 24px and
-up — h1, section h2, page headers, the CTA band, empty-state titles. Never for numbers
-(no tabular figures) and never for body. Archivo Expanded for every number, as before.
-
-**Geometry.** Card 20px, control 12px, tile 12px, pill 999px. Buttons are pills on both
-surfaces. Hairline borders everywhere; `--shadow-lift` only on the one object per section
-that should float (spotlight proof card, featured campaign, brand card on hover),
-`--shadow-pop` only on overlays.
-
-**Data.** Numbers get shape: the revenue chart carries gridlines, a gradient area, and an
-endpoint marker with the last value; leaderboard rows draw a proportional bar behind the
-figure; Earnings stat tiles carry sparklines; the rank bar is a segmented track; the
-streak meter is fourteen cells.
-
-### First draft (superseded)
-
-```css
-:root {
-  --canvas: #F6F7F9; --surface: #FFFFFF; --surface-sunk: #EEF0F4; --surface-dark: #0B0D10;
-  --border: #E3E6EB; --ink: #0D1220; --muted: #5B6472; --ink-inverse: #FFFFFF;
-  --action: #2F5BEA; --action-sunk: #E9EFFE; --money: #0FA958; --money-sunk: #E4F6EC;
-  --streak: #F4741F; --streak-sunk: #FDEEE3; --warn: #A8761A; --warn-sunk: #FBF3E2;
-  --discord: #5865F2;
 }
 ```
 
@@ -112,43 +58,86 @@ Every role has a `-sunk` companion for pill backgrounds and soft icon tiles. Tha
 what the app does throughout and it's why the gamification layer reads as cheerful rather than
 alarming.
 
+`--money` was darkened from `#0FA958` to `#087F41` on 2026-09-15. The original was 3.07:1 on
+white and failed WCAG AA for dollar figures; the new value is 5.09:1 on `--surface`, 4.75:1 on
+`--canvas` and 4.53:1 on `--money-sunk`. The creator app uses it too.
+
 ## Type
 
-Unchanged from Phase 1. **Archivo** for UI and body, **Archivo Expanded** for dollar figures,
-counters, and the campaign countdown. The live app appears to use a neutral default grotesque
+**Archivo** for UI and body. Dollar figures, counters, and the campaign countdown use
+**Archivo at wdth 125** — "Archivo Expanded" is not its own family in `next/font/google`; it
+is Archivo's width axis at its maximum, loaded with `axes: ["wdth"]` and applied by
+`.font-expanded`. Confirmed 2026-09-15; `/styleguide` shows both widths side by side so a
+silent fallback is visible. The live app appears to use a neutral default grotesque
 (assumed — read from a screenshot), so the expanded numerals are one of the few places our
 build will visibly differ. That's deliberate: the money should be the loudest thing on screen,
 and it currently isn't.
 
 Tabular figures everywhere numbers change — counters, leaderboards, rate pills, streaks.
 
-Scale: 13 / 15 / 18 / 24 / 40 / 64. Sentence case. No all-caps except the small eyebrows the
-app already uses ("NEW CREATOR BONUS", "DAILY MISSION", "REVENUE", "CAMPAIGNS").
+Scale: the table in `LANDING-PAGE.md` — H1 72/40, H2 44/32, H3 22/20, body 18/17, small 14
+(desktop/mobile, switching at 768px), exposed as `text-h1` … `text-small`. Decided
+2026-09-15; it replaces an earlier 13 / 15 / 18 / 24 / 40 / 64 scale that had no mobile sizes.
+
+Sentence case. No all-caps except the small eyebrows the app already uses ("NEW CREATOR
+BONUS", "DAILY MISSION", "REVENUE", "CAMPAIGNS").
 
 ## Geometry
 
-```
-radius-card       12px
-radius-control    10px
-radius-tile       10px   /* soft icon squares */
-radius-pill       999px
-```
+**One radius.** `12px`, everywhere — cards, buttons, inputs, icon tiles, images, the phone
+frame. Pills are full-round, which is a shape rather than a step on a radius scale, so they
+don't count as a second value. There is no third option.
 
-Spacing on a 4px base. Card padding 16–20px. Grid gap 12–16px.
-
-```
-sidebar           248px      collapsed 56px
-right-rail        380px      hidden below 1280px
-content-max       1160px
-feed-column       600px      marketing surface only
+```css
+--radius:      12px;
+--radius-pill: 999px;
 ```
 
-## Elevation
+**Two shadows.** A resting state and a hover state, nothing between.
 
-The app is almost entirely flat — hairline borders, no drop shadows except on overlays and
-tooltips. Keep it that way. Hierarchy comes from surface color and border, not shadow. One
-exception: the dark featured campaign card, which sits visually above the grid because it's
-the only dark object on the page.
+```css
+--shadow-1: 0 1px 2px rgb(13 18 32 / 0.04), 0 2px 8px rgb(13 18 32 / 0.04);
+--shadow-2: 0 2px 4px rgb(13 18 32 / 0.06), 0 8px 24px rgb(13 18 32 / 0.08);
+```
+
+`--shadow-1` on cards at rest. `--shadow-2` on hover and on overlays, lightboxes, and the
+sticky header. Flat surfaces keep the hairline border and no shadow at all.
+
+Both rules are structural. `@theme inline` in `app/globals.css` clears Tailwind's default
+radius and shadow scales, so the only utilities are `rounded`, `rounded-full`, `shadow-1`, and
+`shadow-2`. `npm run check:tokens` fails on anything else on the marketing surface.
+
+## Spacing — the 8px rule
+
+Every vertical and horizontal gap is a multiple of 8. No exceptions at the layout level.
+
+```
+8  16  24  32  48  64  96  128
+```
+
+- Section padding: 96 desktop, 64 mobile
+- Grid gap: 24
+- Card padding: 32 desktop, 24 mobile
+- Stack rhythm inside a card: 8 / 16
+- Heading to body: 16. Body to CTA: 32.
+
+4px is permitted **only** for optical adjustment inside a pill or between an icon and its
+label, where 8 visibly over-spaces. Nowhere else, and never for layout.
+
+`npm run check:tokens` fails on marketing spacing values off this scale after the Phase 3
+sweep. The Pill's 4px icon gap is an explicit optical exception; creator-app findings remain
+advisory.
+
+## Layout
+
+```
+content-max    1120px
+text-max        720px   /* any block of running prose */
+gutter           24px mobile / 48px tablet+
+```
+
+The marketing page is a single centered column. No sidebar, no rails. The creator app
+(Phase 9) keeps its own shell widths — those live in CREATOR-APP.md.
 
 ## Dark mode
 
@@ -159,7 +148,13 @@ the toggle disabled with a tooltip saying so.
 
 ## Continuity rule
 
-The marketing surface and the creator app use these exact tokens, the same sidebar component,
-the same card geometry, and the same rate and badge pills. If a reviewer can tell where the
-marketing site ends and the app begins by looking at anything other than the content, the
-build has failed its own premise.
+The marketing page and the creator app share these tokens, this radius, these two shadows, and
+this spacing scale. They no longer share a shell — the marketing page is a centered column and
+the app keeps its sidebar. Continuity now lives in the details: same pills, same card
+geometry, same colour meanings.
+
+**The creator app uses the shared tokens** (converged 2026-09-15, on request): palette, the
+12px radius, both shadows, Archivo headings and the global focus ring. `.creator-surface` keeps
+only what the page doesn't have — shell widths, the app's 15px UI density, rank medallions and a
+purple `status` role — plus aliases for the legacy token names its components still use.
+`check:tokens` keeps those names off the marketing surface.

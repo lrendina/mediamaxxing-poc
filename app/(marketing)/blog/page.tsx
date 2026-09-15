@@ -16,7 +16,7 @@ export default function Blog() {
       title="From the blog"
       extra={
         <section aria-label="Blog posts" className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {BLOG_POSTS.map((post) => (
               <BlogCard
                 key={post.slug}
