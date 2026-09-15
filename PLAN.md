@@ -132,6 +132,12 @@ ship.
 
 ## Phase 5 — Landing page
 
+**Status (2026-09-15):** Agent work done; ready for the human read on a phone. All six sections
+are built at `/` in spec order with the text-led hero, the CSS-only hero entrance, and the
+card lift on testimonial, feature and trust cards only. Trust tile and substantiation copy is
+kept as the spec wrote it. Feature and trust icons are new decorative glyphs
+(`components/LandingIcon.tsx`); brand logos are still named placeholders.
+
 Build sections in order from `LANDING-PAGE.md`: hero, solution, social proof, guarantee, FAQ,
 final CTA.
 
