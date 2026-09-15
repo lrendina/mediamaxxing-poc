@@ -12,7 +12,7 @@ export type BlogCardData = {
 
 export function BlogCard({ data }: { data: BlogCardData }) {
   return (
-    <Card variant="default" pad="none" className="overflow-hidden group">
+    <Card variant="default" pad="none" hover={false} className="overflow-hidden group">
       <Link href={data.href} className="flex flex-col h-full">
         <div className="relative aspect-[16/10] bg-surface-sunk overflow-hidden">
           <Image
@@ -20,10 +20,10 @@ export function BlogCard({ data }: { data: BlogCardData }) {
             alt=""
             fill
             sizes="(min-width: 1024px) 600px, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover"
           />
         </div>
-        <div className="p-4 flex flex-col gap-1.5 flex-1">
+        <div className="p-4 flex flex-col gap-2 flex-1">
           <h3 className="font-display text-[22px] leading-[1.15] group-hover:underline underline-offset-4 decoration-ink/30">
             {data.title}
           </h3>
