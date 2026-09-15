@@ -22,3 +22,5 @@ Every string these files held is in `content/source/`.
   kept them as aliases of `TestimonialCard` and `StatRow` for old callers; once
   `content/creators.ts` stopped importing `Stat` from `StatGrid`, neither had a caller. They sit
   under `compat/` so they don't collide with the loud copies archived at `components/`.
+- `content/home-placeholder.ts` — Phase 5. The Phase 2 shell preview's section labels, replaced
+  by the landing page.
