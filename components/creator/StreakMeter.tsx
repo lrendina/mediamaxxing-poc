@@ -43,7 +43,7 @@ export function StreakMeter({
             return (
               <li key={day}>
                 <span
-                  className={`block h-8 rounded-[6px] ${
+                  className={`block h-8 rounded ${
                     state === "done"
                       ? "bg-streak"
                       : state === "next"

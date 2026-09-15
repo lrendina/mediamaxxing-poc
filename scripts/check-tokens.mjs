@@ -12,8 +12,8 @@
  *     documented 4px optical exception
  *
  * Reported, never fails:
- *   - everything in the creator app, which keeps its own .creator-surface
- *     tokens until Phase 9
+ *   - everything in the creator app, whose legacy class names stay advisory
+ *     (it shares the marketing tokens through aliases)
  *
  * `--summary` is accepted for compatibility with earlier phase checks.
  */
@@ -160,7 +160,7 @@ if (hard.length) {
 }
 const creatorSpacing = creator.filter((f) => f.rule.startsWith("spacing")).length;
 const creatorFiles = new Set(creator.map((f) => f.file)).size;
-console.log("\ncheck:tokens — creator app (own tokens until Phase 9, never fails)");
+console.log("\ncheck:tokens — creator app (advisory, never fails)");
 console.log(`  • ${creator.length - creatorSpacing} rule hits and ${creatorSpacing} spacing values across ${creatorFiles} files`);
 
 process.exitCode = hard.length ? 1 : 0;

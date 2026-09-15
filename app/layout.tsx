@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Agentation } from "agentation";
-import { archivo, instrumentSerif } from "./fonts";
+import { archivo } from "./fonts";
 import { SkipToContent } from "@/components/SkipToContent";
 import { SITE } from "@/content/site";
 import "./globals.css";
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${archivo.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-canvas text-ink font-sans">
         <SkipToContent />

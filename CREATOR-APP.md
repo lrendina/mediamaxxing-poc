@@ -246,3 +246,13 @@ Build a `?state=populated` variant alongside the observed empty states so the pr
 demonstrates both — and so the contrast is legible in a single screenshot pair. The empty
 states are cheap to build and accurate; the populated ones are what make the prototype look
 finished.
+## Token convergence (2026-09-15)
+
+On request, the app was brought onto the marketing token system rather than rebuilt:
+`.creator-surface` no longer overrides the palette, radius, shadows, heading face or focus ring,
+so every screen picks up `DESIGN-TOKENS.md` directly. Legacy names (`--radius-card`,
+`--shadow-lift`, `--on-art` and the rest) are aliases of the shared tokens, and hard-coded radii
+and shadows in components moved onto `rounded`, `shadow-1` and `shadow-2`. Instrument Serif is no
+longer loaded. Kept app-only: shell widths, the 15px UI density and its per-component type
+sizes, rank medallions, and the purple `status` role. Layout, navigation and flows are
+unchanged. Every marketing CTA now opens `/creator/campaigns?welcome=1`.

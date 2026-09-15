@@ -60,7 +60,7 @@ alarming.
 
 `--money` was darkened from `#0FA958` to `#087F41` on 2026-09-15. The original was 3.07:1 on
 white and failed WCAG AA for dollar figures; the new value is 5.09:1 on `--surface`, 4.75:1 on
-`--canvas` and 4.53:1 on `--money-sunk`. The creator app keeps its own value until Phase 9.
+`--canvas` and 4.53:1 on `--money-sunk`. The creator app uses it too.
 
 ## Type
 
@@ -126,7 +126,7 @@ label, where 8 visibly over-spaces. Nowhere else, and never for layout.
 
 `npm run check:tokens` fails on marketing spacing values off this scale after the Phase 3
 sweep. The Pill's 4px icon gap is an explicit optical exception; creator-app findings remain
-advisory until Phase 9.
+advisory.
 
 ## Layout
 
@@ -153,7 +153,8 @@ this spacing scale. They no longer share a shell — the marketing page is a cen
 the app keeps its sidebar. Continuity now lives in the details: same pills, same card
 geometry, same colour meanings.
 
-**Until Phase 9, the creator app holds its previous values** under `.creator-surface` —
-palette, 20px card radius, its own shadows, Instrument Serif headings (decided 2026-09-15). The
-roles already match; the values converge when Phase 9 is revisited. The legacy token names it
-still uses are app-only, and `check:tokens` keeps them off the marketing surface.
+**The creator app uses the shared tokens** (converged 2026-09-15, on request): palette, the
+12px radius, both shadows, Archivo headings and the global focus ring. `.creator-surface` keeps
+only what the page doesn't have — shell widths, the app's 15px UI density, rank medallions and a
+purple `status` role — plus aliases for the legacy token names its components still use.
+`check:tokens` keeps those names off the marketing surface.

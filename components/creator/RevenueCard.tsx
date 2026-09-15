@@ -194,7 +194,7 @@ function CalendarGrid({
         <li
           key={s.date}
           title={`${formatDate(s.date)}: ${formatUsd(s.amountCents, { cents: true })}`}
-          className={`aspect-square rounded-[8px] ${muted ? "bg-ink/20" : "bg-money"}`}
+          className={`aspect-square rounded ${muted ? "bg-ink/20" : "bg-money"}`}
           style={{ opacity: 0.12 + (s.amountCents / max) * 0.88 }}
         >
           <span className="sr-only">

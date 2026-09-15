@@ -79,48 +79,37 @@
   }
 }
 
-/* The creator app keeps the "paper and signal" direction (the first
-   redesign after Phase 9): warm paper, white cards on hairline borders,
-   one saturated colour per role, Instrument Serif for display headings.
-   Scoped here so it holds still while the marketing surface moves to
-   DESIGN-TOKENS.md. Phase 9 brings the app onto the shared set; until
-   then the legacy names in this block are app-only. */
+/* The creator app shares the marketing tokens (converged 2026-09-15, on
+   request): palette, the one radius, both shadows, Archivo headings and the
+   global focus ring all come from :root. This scope keeps only what the app
+   has and the page doesn't — shell widths, the 15px UI density, the rank
+   medallions and the purple status role — plus aliases for the legacy token
+   names its components still use. */
 .creator-surface {
-  /* Read from :root before Phase 1; copied here unchanged so the
-     marketing retune can't reach the app. */
-  --on-pastel:   #0a0a0a;
-  --on-art:      #ffffff;
-  --live:        var(--status);
   --mobile-tabs: 56px;
   --app-sidebar:            248px;
   --app-sidebar-collapsed:  56px;
   --app-rail:               380px;
   --app-content-max:        1160px;
 
-  --canvas:        #f4f2ec;
-  --surface:       #ffffff;
-  --surface-sunk:  #ebe8df;
-  --surface-dark:  #0f1411;
-  --border:        #e1ddd2;
-  --border-strong: #c9c4b6;
-  --ink:           #14130f;
-  --muted:         #6b675c;
-  --ink-inverse:   #f7f6f1;
-  --action:        #2a4bd7;
-  --action-sunk:   #e3e8fb;
-  --money:         #0e9f5e;
-  --money-ink:     #0e9f5e;
-  --money-sunk:    #dcf3e6;
-  --streak:        #ef6420;
-  --streak-sunk:   #fde6d9;
-  --warn:          #96690f;
-  --warn-sunk:     #f8eed7;
-  --status:        #5b3fc9;
-  --status-sunk:   #ebe5fa;
+  /* Legacy names, now aliases of the shared tokens. */
+  --radius-card:    var(--radius);
+  --radius-control: var(--radius);
+  --radius-tile:    var(--radius);
+  --shadow-lift:    var(--shadow-1);
+  --shadow-pop:     var(--shadow-2);
+  --money-ink:      var(--money);
+  --on-pastel:      var(--ink);
+  --on-art:         var(--ink-inverse);
+  --border-strong:  #cdd2da;   /* a step darker than --border, for hover edges */
 
-  /* Rank ladder medallions — Copper/Bronze/Silver/Gold/Platinum. Creator
-     app only; the marketing surface has no rank concept. Values are ours,
-     chosen to read distinctly at a glance rather than matched to a photo. */
+  /* App-only roles. */
+  --status:      #5b3fc9;
+  --status-sunk: #ebe5fa;
+  --live:        var(--status);
+
+  /* Rank ladder medallions — Copper/Bronze/Silver/Gold/Platinum. The
+     marketing surface has no rank concept. */
   --rank-copper:      #b5622e;
   --rank-copper-sunk: #f4e2d4;
   --rank-bronze:      #93713f;
@@ -132,28 +121,9 @@
   --rank-platinum:    #6f8f89;
   --rank-platinum-sunk: #e4edeb;
 
-  --radius-card:    20px;
-  --radius-control: 12px;
-  --radius-tile:    12px;
-  --shadow-lift: 0 1px 2px rgba(20, 19, 15, 0.04), 0 12px 32px -16px rgba(20, 19, 15, 0.18);
-  --shadow-pop:  0 2px 4px rgba(20, 19, 15, 0.06), 0 24px 48px -20px rgba(20, 19, 15, 0.35);
   background: var(--canvas);
   color: var(--ink);
-  font-size: 15px;   /* the pre-Phase 1 body size */
-}
-.creator-surface .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-variation-settings: normal;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: -0.015em;
-  line-height: 1.05;
-  font-variant-numeric: normal;
-  font-feature-settings: normal;
-}
-.creator-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--action);
-  border-radius: 4px;   /* the pre-Phase 1 global focus shape */
+  font-size: 15px;   /* app UI density, denser than the marketing body */
 }
 
 /* Tailwind v4 theme — exposes tokens as utilities. */
@@ -205,8 +175,8 @@
 
   --font-sans: var(--font-archivo);
 
-  /* Creator app only. .creator-surface still defines these legacy names
-     until Phase 9. The marketing surface may not use them —
+  /* Creator app only. .creator-surface defines these legacy names, most as
+     aliases of the shared tokens. The marketing surface may not use them —
      `npm run check:tokens` fails if it does. */
   --color-border-strong: var(--border-strong);
   --color-on-pastel:     var(--on-pastel);

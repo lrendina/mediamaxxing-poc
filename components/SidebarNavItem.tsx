@@ -13,12 +13,12 @@ const toneClasses: Record<
 > = {
   marketing: {
     base: "rounded-[var(--radius-control)]",
-    active: "bg-surface text-ink border border-border shadow-[0_1px_2px_rgba(20,19,15,0.04)]",
+    active: "bg-surface text-ink border border-border shadow-1",
     idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
   },
   app: {
     base: "rounded-[var(--radius-control)]",
-    active: "bg-surface text-ink border border-border shadow-[0_1px_2px_rgba(20,19,15,0.04)]",
+    active: "bg-surface text-ink border border-border shadow-1",
     idle: "text-ink/75 border border-transparent hover:text-ink hover:bg-ink/[0.04]",
   },
   promoted: {

@@ -17,7 +17,7 @@ export function DarkModeToggle() {
         bottom-[calc(var(--mobile-tabs)+env(safe-area-inset-bottom)+1rem)] md:bottom-4
         inline-flex h-11 w-11 items-center justify-center rounded-full
         bg-surface border border-border text-muted
-        shadow-[0_2px_8px_rgba(13,18,32,0.10)]
+        shadow-2
         disabled:cursor-not-allowed disabled:opacity-60
       "
     >

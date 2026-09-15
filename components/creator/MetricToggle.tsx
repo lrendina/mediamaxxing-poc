@@ -32,7 +32,7 @@ export function MetricToggle<T extends string>({
             className={`
               inline-flex items-center gap-1.5 min-h-8 px-3 rounded-full
               text-[13px] font-medium transition
-              ${active ? "bg-surface text-ink shadow-[0_1px_2px_rgba(13,18,32,0.08)]" : "text-muted hover:text-ink"}
+              ${active ? "bg-surface text-ink shadow-1" : "text-muted hover:text-ink"}
             `}
           >
             {o.icon}

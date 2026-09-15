@@ -52,7 +52,7 @@ export function MobileTabBar({
                 aria-label={item.shortLabel ? item.label : undefined}
                 className={`
                   flex flex-col items-center justify-center gap-1
-                  min-h-12 py-1.5 rounded-[10px]
+                  min-h-12 py-1.5 rounded
                   text-[11px] font-medium leading-none whitespace-nowrap
                   ${active ? "text-ink" : "text-muted"}
                 `}
