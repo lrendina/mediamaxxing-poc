@@ -1,4 +1,9 @@
-import type { HeroCounter } from "./counters";
+export type HeroCounter = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+};
 
 /* Copy pulled verbatim from mediamaxxing.com/for-brands, with two kill-list
    modifications: italicized single-word emphasis is stripped ("Drive Growth
