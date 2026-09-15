@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Archived designs (MIGRATION.md) — kept for reference, not built.
+    "_archive/**",
   ]),
 ]);
 
