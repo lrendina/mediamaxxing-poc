@@ -29,13 +29,13 @@ export function PayRateTable({ tiers }: { tiers: PayTier[] }) {
             const top = i === tiers.length - 1;
             return (
               <tr key={t.minViews} className={top ? "bg-money-sunk/60" : "bg-surface-sunk/50"}>
-                <th scope="row" className="py-2.5 pl-3 text-left font-normal text-ink/85 rounded-l-[10px]">
+                <th scope="row" className="py-2.5 pl-3 text-left font-normal text-ink/85 rounded-l">
                   {CAMPAIGN_DETAIL.payRate.range(
                     formatViews(t.minViews),
                     t.maxViews === null ? null : formatViews(t.maxViews)
                   )}
                 </th>
-                <td className={`py-2.5 pr-3 text-right font-expanded text-[17px] rounded-r-[10px] ${top ? "text-money" : "text-ink"}`}>
+                <td className={`py-2.5 pr-3 text-right font-expanded text-[17px] rounded-r ${top ? "text-money" : "text-ink"}`}>
                   {formatRate(t.rateCentsPerThousand)}
                 </td>
               </tr>
