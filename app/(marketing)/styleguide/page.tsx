@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { TokenReadout } from "@/components/TokenReadout";
+import { PrimitiveShowcase } from "@/components/PrimitiveShowcase";
 import {
   BUTTONS,
   NUMERALS,
@@ -29,8 +30,7 @@ import {
 
 export const metadata: Metadata = STYLEGUIDE_META;
 
-/* Phase 1 sign-off surface: tokens, type, geometry, buttons and pills.
-   Page primitives join in Phase 3, once they're adapted. */
+/* Tokens and every Phase 3 primitive share this review surface. */
 
 const TYPE_CLASS: Record<TypeLevelId, string> = {
   h1: "text-h1",
@@ -212,6 +212,7 @@ export default function Styleguide() {
             ))}
           </div>
         </Section>
+        <PrimitiveShowcase />
       </div>
     </div>
   );
