@@ -13,7 +13,7 @@ export type BlogCardData = {
 export function BlogCard({ data }: { data: BlogCardData }) {
   return (
     <Card variant="default" pad="none" hover={false} className="overflow-hidden group">
-      <Link href={data.href} className="flex flex-col h-full">
+      <Link href={data.href} prefetch={false} className="flex flex-col h-full">
         <div className="relative aspect-[16/10] bg-surface-sunk overflow-hidden">
           <Image
             src={data.cover}
