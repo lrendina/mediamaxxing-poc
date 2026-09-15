@@ -33,6 +33,7 @@ export function TestimonialCard({
       as="article"
       variant="spotlight"
       pad="none"
+      hover
       className="flex h-full flex-col overflow-hidden"
     >
       <header className="flex flex-col items-start gap-2 px-6 pt-6 md:px-8 md:pt-8">

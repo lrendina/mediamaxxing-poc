@@ -212,7 +212,7 @@ export function PrimitiveShowcase() {
           <div className="flex flex-col gap-4">
             <SpecimenLabel title={CARD_SECTION.hoverLabel} note={CARD_SECTION.hoverNote} />
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <Card pad="md" className="flex min-w-0 flex-col gap-4">
+              <Card pad="md" hover className="flex min-w-0 flex-col gap-4">
                 <p className="text-h3">{CARD_SECTION.specimenTitle}</p>
                 <p className="text-body">{CARD_SECTION.specimenBody}</p>
                 <p className="text-small text-muted">

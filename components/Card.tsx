@@ -34,9 +34,9 @@ const hoverClasses = "hover:shadow-2 motion-safe:hover:-translate-y-0.5";
 export type CardProps = {
   variant?: CardVariant;
   pad?: CardPad;
-  /* Cards settle from shadow-1 to shadow-2 and rise 2px on hover. Static
-     cards — step cards — opt out so a column of them doesn't
-     twitch as the pointer crosses it. */
+  /* Opt-in: shadow-1 to shadow-2 and a 2px rise on hover. Only testimonial
+     cards, feature cards and badge tiles take it (LANDING-PAGE.md, "Motion":
+     nothing else lifts). */
   hover?: boolean;
   as?: ElementType;
   className?: string;
@@ -46,7 +46,7 @@ export type CardProps = {
 export function Card({
   variant = "default",
   pad = "md",
-  hover = true,
+  hover = false,
   as: Tag = "div",
   className = "",
   children,

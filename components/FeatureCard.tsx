@@ -20,6 +20,7 @@ export function FeatureCard({
     <Card
       variant="default"
       pad="lg"
+      hover
       className={`flex flex-col gap-4 ${className}`}
     >
       {icon ? (

@@ -22,6 +22,7 @@ export function BadgeTile({
     <Card
       variant="default"
       pad="md"
+      hover
       className={`flex items-start gap-4 ${className}`}
     >
       {icon ? (

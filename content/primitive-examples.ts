@@ -46,7 +46,7 @@ export interface CardPadCopy {
 export const CARD_SECTION = {
   id: "cards",
   title: "Cards",
-  note: "Four variants and four padding steps. Base is shadow-1; hover moves to shadow-2 with a 2px lift that stops under prefers-reduced-motion. Flat surfaces keep the hairline border and no shadow at all.",
+  note: "Four variants and four padding steps, all resting at shadow-1. The hover lift to shadow-2 is opt-in: only testimonial cards, feature cards and badge tiles take it, and the 2px rise stops under prefers-reduced-motion.",
   specimenTitle: "Specimen card",
   specimenBody:
     "Fixture copy at the body step, so the inset above and below the text is visible at every padding.",
@@ -98,8 +98,8 @@ export const CARD_SECTION = {
   hoverLabel: "Hover",
   hoverNote:
     "Both cards are variant default at pad md. Point at each one: the left card lifts, the right card does not.",
-  hoverOnLabel: "hover — default: shadow-1 to shadow-2 with a 2px lift",
-  hoverOffLabel: "hover={false} — rests at shadow-1",
+  hoverOnLabel: "hover — shadow-1 to shadow-2 with a 2px lift",
+  hoverOffLabel: "hover={false}, the default — rests at shadow-1",
 };
 
 /* Step cards -------------------------------------------------------------- */
