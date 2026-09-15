@@ -30,7 +30,7 @@ Text blocks cap at 720px. Never let a paragraph run the full 1120.
 **Subheadline:** Brands pay you for every view. The campaigns are already signed, the video
 templates already work, and you can post your first one tonight.
 
-**Primary CTA:** `Start earning — it's free` → `/auth`
+**Primary CTA:** `Start earning — it's free` → `/creator/campaigns?welcome=1` (the creator app, opening its first-run welcome)
 
 **Friction strip** directly under the button, small and muted, separated by thin dividers:
 Free to join · No followers needed · First campaign in under five minutes
