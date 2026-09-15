@@ -24,3 +24,5 @@ Every string these files held is in `content/source/`.
   under `compat/` so they don't collide with the loud copies archived at `components/`.
 - `content/home-placeholder.ts` — Phase 5. The Phase 2 shell preview's section labels, replaced
   by the landing page.
+- `content/claims.ts` — Phase 5. The substantiation line, removed from the hero and final CTA on
+  request (2026-09-15). The spec's original wording for it is in git history.
