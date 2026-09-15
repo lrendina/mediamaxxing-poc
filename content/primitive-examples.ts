@@ -9,8 +9,7 @@
    Two rules the showcase keeps:
    - Figures in the specimen cards and the stat rows are layout fixtures, not
      payout promises, and the leaderboard ships with its non-typicality note.
-   - FAQ answers without source copy carry an explicit pending label instead
-     of a guessed answer. */
+   - The FAQ shows only questions with sourced answers. */
 
 export interface ShowcaseSectionCopy {
   id: string;
@@ -265,13 +264,10 @@ export const ACCORDION_SECTION = {
   title: "Accordions",
   note: "Native details and summary, so keyboard, screen-reader and find-in-page behaviour is the browser's. Several panels can be open at once.",
   faqWarning:
-    "The questions and groups are the landing-page FAQ from content/faq. Only answers with source copy are shown; the rest are labelled pending until the human copy pass writes them.",
-  pendingLabel: "Answer pending",
-  pendingDetail:
-    "No source copy exists for this answer yet. It is written in the PLAN.md Phase 4 human pass, never guessed.",
+    "The landing-page FAQ from content/faq, which ships only questions with sourced answers.",
   grouped: {
     label: "Grouped",
-    note: "The four landing-page groups. The first item of the first group opens by default.",
+    note: "One group under the section heading. The first item of the first group opens by default.",
   },
   flat: {
     label: "Flat",

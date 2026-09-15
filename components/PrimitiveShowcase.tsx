@@ -22,7 +22,7 @@ import { StatRow } from "@/components/StatRow";
 import { StepCard } from "@/components/StepCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { TESTIMONIALS } from "@/content/creators";
-import { FAQ, type FaqItem } from "@/content/faq";
+import { FAQ } from "@/content/faq";
 import { LEADERBOARD } from "@/content/leaderboard";
 import {
   ACCORDION_SECTION,
@@ -98,32 +98,15 @@ function ShowcaseSection({
   );
 }
 
-/* Answers without source copy are withheld and labelled, never guessed. */
-function faqAnswer(item: FaqItem): ReactNode {
-  if (item.answer !== null) {
-    return <p className="max-w-[var(--text-max)] text-body">{item.answer}</p>;
-  }
-  return (
-    <div className="flex max-w-[var(--text-max)] flex-col gap-2">
-      <p className="text-small font-semibold">{ACCORDION_SECTION.pendingLabel}</p>
-      <p className="text-small text-muted">{ACCORDION_SECTION.pendingDetail}</p>
-    </div>
-  );
-}
-
 export function PrimitiveShowcase() {
   const testimonials = ["sam", "steven", "jennifer"].flatMap((id) =>
     TESTIMONIALS.filter((entry) => entry.id === id),
   );
-  const faqGroups = FAQ.groups.map((group) => ({
-    id: group.id,
-    title: group.title,
-    items: group.items.map((item) => ({
-      question: item.question,
-      answer: faqAnswer(item),
-    })),
+  const faqItems = FAQ.items.map((item) => ({
+    question: item.question,
+    answer: <p className="max-w-[var(--text-max)] text-body">{item.answer}</p>,
   }));
-  const faqFlatItems = faqGroups.flatMap((group) => group.items);
+  const faqGroups = [{ id: "faq", title: FAQ.heading, items: faqItems }];
 
   return (
     <div id={SHOWCASE_INTRO.id} className="flex flex-col gap-16">
@@ -385,7 +368,7 @@ export function PrimitiveShowcase() {
               title={ACCORDION_SECTION.flat.label}
               note={ACCORDION_SECTION.flat.note}
             />
-            <Accordion items={faqFlatItems} />
+            <Accordion items={faqItems} />
           </div>
           <div className="flex flex-col gap-4">
             <SpecimenLabel
