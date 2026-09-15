@@ -1,292 +1,218 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Accordion } from "@/components/Accordion";
 import { Badge } from "@/components/Badge";
-import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
-import { CTABand } from "@/components/CTABand";
-import { LogoLockup } from "@/components/LogoLockup";
-import { ProofCard } from "@/components/ProofCard";
-import { StatGrid } from "@/components/StatGrid";
-import { StepCard } from "@/components/StepCard";
-import { CREATORS } from "@/content/creators";
-import { STEPS } from "@/content/steps";
-import { FAQ } from "@/content/faq";
-import { BLOG_POSTS } from "@/content/blog";
+import { TokenReadout } from "@/components/TokenReadout";
+import {
+  BUTTONS,
+  NUMERALS,
+  PALETTE_GROUPS,
+  PILLS,
+  RADIUS_SPECIMENS,
+  ROLES,
+  SECTIONS,
+  SHADOW_SPECIMENS,
+  SPACING_STEPS,
+  STYLEGUIDE_INTRO,
+  STYLEGUIDE_META,
+  SURFACES,
+  TEXT,
+  TYPE_FRAMES,
+  TYPE_LEVELS,
+  TYPE_TABLE,
+  type RoleSwatch,
+  type SectionId,
+  type ShadowId,
+  type Swatch,
+  type TypeLevelId,
+} from "@/content/styleguide";
 
-export const metadata: Metadata = {
-  title: "Styleguide — MediaMaxxing",
-  description:
-    "Design tokens and every primitive with every state — the design-system review surface.",
+export const metadata: Metadata = STYLEGUIDE_META;
+
+/* Phase 1 sign-off surface: tokens, type, geometry, buttons and pills.
+   Page primitives join in Phase 3, once they're adapted. */
+
+const TYPE_CLASS: Record<TypeLevelId, string> = {
+  h1: "text-h1",
+  h2: "text-h2",
+  h3: "text-h3",
+  body: "text-body",
+  small: "text-small text-muted",
 };
 
-/* Hex values are documentation only — every component reads the CSS
-   variable. Keep this list in sync with app/globals.css. */
-const swatches = [
-  { name: "lime",         hex: "#D4FF3A", role: "the brand. Money, hero, CTA band",  text: "ink"         },
-  { name: "surface-dark", hex: "#0A0A0A", role: "black bands, top bar, footer",     text: "ink-inverse" },
-  { name: "canvas",       hex: "#F2F1EA", role: "paper — reading sections",          text: "ink"         },
-  { name: "surface",      hex: "#FFFFFF", role: "cards",                             text: "ink"         },
-  { name: "surface-sunk", hex: "#E6E5DC", role: "inset rows, chips, tiles",          text: "ink"         },
-  { name: "ink",          hex: "#0A0A0A", role: "text, primary button",              text: "ink-inverse" },
-  { name: "muted",        hex: "#5C5B54", role: "secondary text",                    text: "ink-inverse" },
-  { name: "money-ink",    hex: "#3F6B00", role: "lime as text on light surfaces",    text: "ink-inverse" },
-  { name: "streak",       hex: "#FF5A1F", role: "progress, XP, urgency, focus ring", text: "ink-inverse" },
-  { name: "warn",         hex: "#B57F00", role: "attention, scarcity, bounty",       text: "ink-inverse" },
-  { name: "status",       hex: "#FF3DAE", role: "tier badges",                       text: "ink-inverse" },
-  { name: "discord",      hex: "#5865F2", role: "Join Discord only",                 text: "ink-inverse" },
-] as const;
-
-const typeScale = [
-  { label: "xs",  px: 13, use: "meta, captions, table figures" },
-  { label: "sm",  px: 15, use: "body — the workhorse size"     },
-  { label: "md",  px: 18, use: "lead paragraphs, card titles"  },
-  { label: "lg",  px: 24, use: "section headings inside a card"},
-  { label: "xl",  px: 40, use: "page-level headings"           },
-  { label: "2xl", px: 64, use: "hero — one per page, at most"  },
-] as const;
-
-const sampleProof = CREATORS[0];
-const samplePost = BLOG_POSTS[0];
-const sampleBlogCardData = {
-  href: `/blog/${samplePost.slug}`,
-  title: samplePost.title,
-  excerpt: samplePost.excerpt,
-  cover: samplePost.cover,
-  readMinutes: samplePost.readMinutes,
+const SHADOW_CLASS: Record<ShadowId, string> = {
+  flat: "border border-border",
+  "shadow-1": "shadow-1",
+  "shadow-2": "shadow-2",
+  hover:
+    "shadow-1 transition-[box-shadow,transform] duration-150 ease-out hover:shadow-2 motion-safe:hover:-translate-y-0.5",
 };
 
 export default function Styleguide() {
   return (
-    <div className="mx-auto max-w-[900px] px-6 py-16">
-      <header className="mb-16 flex flex-col gap-3">
-        <h1 className="font-display text-[clamp(48px,9vw,120px)]">Styleguide</h1>
-        <p className="text-muted max-w-[60ch]">
-          Every primitive, every state — the design-system review surface. Any
-          change to the palette, typeface, or type scale after this page is
-          signed off requires stopping and asking.
-        </p>
+    <div className="mx-auto w-full max-w-[var(--content-max)] px-[var(--gutter)] py-[var(--section-pad)]">
+      <header className="flex max-w-[var(--text-max)] flex-col gap-4">
+        <h1 className="text-h2">{STYLEGUIDE_INTRO.heading}</h1>
+        <p className="text-body text-muted">{STYLEGUIDE_INTRO.body}</p>
       </header>
 
-      {/* ── Palette ────────────────────────────────────────────────────── */}
-      <Section title="Palette" note="Black and acid lime. Lime is the brand and is allowed to fill a section. The creator app inverts the same roles onto black.">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {swatches.map((s) => (
-            <div key={s.name} className="rounded-[var(--radius-card)] overflow-hidden border border-border">
+      <div className="mt-16 flex flex-col gap-16 md:mt-24 md:gap-24">
+        <Section id="palette">
+          <div className="flex flex-col gap-8">
+            <SwatchGroup title={PALETTE_GROUPS.surfaces} swatches={SURFACES} />
+            <SwatchGroup title={PALETTE_GROUPS.text} swatches={TEXT} />
+            <Group title={PALETTE_GROUPS.roles}>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {ROLES.map((role) => (
+                  <RoleCard key={role.token} role={role} />
+                ))}
+              </div>
+            </Group>
+          </div>
+        </Section>
+
+        <Section id="type">
+          <div className="flex flex-col gap-8">
+            <div className="overflow-x-auto rounded border border-border bg-surface">
+              <table className="w-full text-left text-small">
+                <thead className="text-muted">
+                  <tr className="border-b border-border">
+                    {[TYPE_TABLE.level, TYPE_TABLE.desktop, TYPE_TABLE.mobile, TYPE_TABLE.use].map((heading) => (
+                      <th key={heading} scope="col" className="whitespace-nowrap px-4 py-2 font-medium">
+                        {heading}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {TYPE_LEVELS.map((level) => (
+                    <tr key={level.id} className="border-b border-border last:border-0">
+                      <th scope="row" className="whitespace-nowrap px-4 py-2 font-medium">{level.label}</th>
+                      <td className="whitespace-nowrap px-4 py-2">{level.desktop}</td>
+                      <td className="whitespace-nowrap px-4 py-2">{level.mobile}</td>
+                      <td className="px-4 py-2 text-muted">{level.use}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <Frame label={TYPE_FRAMES.desktop}>
+              <TypeStack size="desktop" />
+            </Frame>
+            <Frame label={TYPE_FRAMES.mobile} mobile>
+              <TypeStack size="mobile" />
+            </Frame>
+          </div>
+        </Section>
+
+        <Section id="numerals">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="flex flex-col gap-8 rounded border border-border bg-surface p-6 md:p-8">
+              {NUMERALS.rows.map((row) => {
+                const face = row.expanded ? "font-expanded" : "";
+                return (
+                  <div key={row.label} className="flex flex-col gap-2">
+                    <span className="text-small text-muted">{row.label}</span>
+                    <span className={`text-h2 font-medium ${face}`}>{NUMERALS.specimen}</span>
+                    <span className={`text-h3 font-medium ${face}`}>{NUMERALS.digits}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex flex-col gap-4 rounded border border-border bg-surface p-6 md:p-8">
+              <span className="text-small text-muted">{NUMERALS.columnLabel}</span>
+              <ul className="flex flex-col gap-2 text-right">
+                {NUMERALS.column.map((figure) => (
+                  <li key={figure} className="text-h3 font-expanded">
+                    {figure}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="radius">
+          <div className="flex flex-wrap items-end gap-8">
+            <Specimen label={RADIUS_SPECIMENS.radius}>
+              <div className="size-32 rounded border border-border bg-surface" />
+            </Specimen>
+            <Specimen label={RADIUS_SPECIMENS.pill}>
+              <div className="h-8 w-32 rounded-full bg-surface-sunk" />
+            </Specimen>
+          </div>
+        </Section>
+
+        <Section id="shadows">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SHADOW_SPECIMENS.map((specimen) => (
               <div
-                className="h-20 flex items-end px-4 py-3"
-                style={{ backgroundColor: `var(--${s.name})`, color: `var(--${s.text})` }}
+                key={specimen.id}
+                className={`flex min-h-32 flex-col gap-2 rounded bg-surface p-6 ${SHADOW_CLASS[specimen.id]}`}
               >
-                <span className="font-mono text-[12px]">{s.hex}</span>
+                <code className="text-small font-medium">{specimen.label}</code>
+                <p className="text-small text-muted">{specimen.body}</p>
               </div>
-              <div className="bg-surface px-4 py-3 flex flex-col gap-1">
-                <code className="text-[13px]">--{s.name}</code>
-                <p className="text-[13px] text-muted">{s.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
+        </Section>
 
-      {/* ── Type scale ─────────────────────────────────────────────────── */}
-      <Section title="Type scale" note="One family. Archivo Expanded 800 uppercase is the poster voice (24 and up); Archivo 400–500 is UI and body; Archivo Expanded 500 is every number.">
-        <div className="flex flex-col divide-y divide-border">
-          {typeScale.map((t) => (
-            <div key={t.label} className="grid grid-cols-[80px_1fr] gap-4 py-4 items-baseline">
-              <div className="text-[13px] text-muted font-mono">{t.label} · {t.px}</div>
-              <div className="flex flex-col gap-1 min-w-0">
-                <div
-                  style={{ fontSize: `${t.px}px`, lineHeight: 1.1 }}
-                  className={`truncate ${t.px >= 24 ? "font-display" : ""}`}
-                >
-                  The order is the product.
+        <Section id="spacing">
+          <ul className="flex flex-col gap-4">
+            {SPACING_STEPS.map((px) => (
+              <li key={px} className="flex items-center gap-4">
+                <span className="w-12 shrink-0 text-right text-small text-muted">{px}</span>
+                <span className="h-4 bg-surface-dark" style={{ width: px }} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section id="buttons">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {BUTTONS.variants.map((variant) => (
+              <div key={variant.id} className="flex flex-col gap-6 rounded border border-border bg-surface p-6">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-h3">{variant.label}</h3>
+                  <p className="text-small text-muted">{variant.note}</p>
                 </div>
-                <div className="text-[13px] text-muted">{t.use}</div>
+                {BUTTONS.sizes.map((size) => (
+                  <StateRow key={size.id} label={size.label}>
+                    <Button variant={variant.id} size={size.id}>
+                      {BUTTONS.sample}
+                    </Button>
+                  </StateRow>
+                ))}
+                <StateRow label={BUTTONS.states.disabled}>
+                  <Button variant={variant.id} disabled>
+                    {BUTTONS.sample}
+                  </Button>
+                </StateRow>
+                <StateRow label={BUTTONS.states.link}>
+                  <Button variant={variant.id} href="#buttons">
+                    {BUTTONS.sample}
+                  </Button>
+                </StateRow>
+                <StateRow label={BUTTONS.states.dark} dark>
+                  <Button variant={variant.id}>{BUTTONS.sample}</Button>
+                </StateRow>
               </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
+        </Section>
 
-      {/* ── Numerals ──────────────────────────────────────────────────── */}
-      <Section
-        title="Numerals"
-        note="Archivo's expanded width, reserved for dollar figures and counters. Tabular figures on every number so counters do not jitter."
-      >
-        <div className="rounded-[var(--radius-card)] bg-surface border border-border px-6 py-8 flex flex-col gap-4">
-          <NumeralRow label="default">
-            <span className="text-[40px] leading-none">$100,227</span>
-          </NumeralRow>
-          <NumeralRow label="expanded">
-            <span className="text-[40px] leading-none font-expanded">$100,227</span>
-          </NumeralRow>
-          <NumeralRow label="expanded lg">
-            <span className="text-[64px] leading-none font-expanded text-money">$45,402</span>
-          </NumeralRow>
-          <NumeralRow label="counter">
-            <span className="text-[24px] leading-none font-expanded">1,204,908</span>
-          </NumeralRow>
-        </div>
-      </Section>
-
-      {/* ── LogoLockup ────────────────────────────────────────────────── */}
-      <Section title="LogoLockup" note="Icon + wordmark. Wordmark hides when the sidebar collapses to its icon rail.">
-        <div className="flex flex-col gap-5">
-          <StateRow label="sm">           <LogoLockup size="sm" /></StateRow>
-          <StateRow label="md (default)"> <LogoLockup size="md" /></StateRow>
-          <StateRow label="lg">           <LogoLockup size="lg" /></StateRow>
-          <StateRow label="icon-only">    <LogoLockup size="md" showWordmark={false} /></StateRow>
-        </div>
-      </Section>
-
-      {/* ── Button ────────────────────────────────────────────────────── */}
-      <Section
-        title="Button"
-        note="Primary is ink. Secondary is money, for the one CTA that is literally about getting paid. Ghost is a hairline."
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(["primary", "secondary", "ghost"] as const).map((variant) => (
-            <div key={variant} className="rounded-[var(--radius-card)] border border-border p-5 flex flex-col gap-5">
-              <div className="text-[13px] text-muted">{variant}</div>
-              <StateRow label="default">
-                <Button variant={variant}>Get started</Button>
-              </StateRow>
-              <StateRow label="disabled">
-                <Button variant={variant} disabled>Get started</Button>
-              </StateRow>
-              <StateRow label="small">
-                <Button variant={variant} size="sm">Get started</Button>
-              </StateRow>
-              <StateRow label="as link">
-                <Button variant={variant} href="#">Get started</Button>
-              </StateRow>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── Badge ─────────────────────────────────────────────────────── */}
-      <Section
-        title="Badge"
-        note="Tier badges use --status so they read as status, not decoration. Payout badges use --money. Neutral for everything non-urgent."
-      >
-        <div className="flex flex-col gap-6">
-          <StateRow label="tier">
-            <div className="flex flex-wrap gap-2">
-              <Badge tone="neutral">Beginner</Badge>
-              <Badge tone="neutral">Intermediate</Badge>
-              <Badge tone="live">Advanced</Badge>
-            </div>
-          </StateRow>
-          <StateRow label="status">
-            <div className="flex flex-wrap gap-2">
-              <Badge tone="payout">Payouts open</Badge>
-              <Badge tone="live">Limited spots</Badge>
-              <Badge tone="neutral">Waitlist</Badge>
-            </div>
-          </StateRow>
-        </div>
-      </Section>
-
-      {/* ── Card ──────────────────────────────────────────────────────── */}
-      <Section
-        title="Card"
-        note="Variants exist so hierarchy is visible in the feed. Never render every card with the same radius and shadow."
-      >
-        <div className="grid grid-cols-1 gap-4">
-          {(["default", "panel", "spotlight"] as const).map((variant) => (
-            <Card key={variant} variant={variant} className="flex flex-col gap-1">
-              <p className="text-[13px] text-muted">variant: {variant}</p>
-              <p className="text-[18px]">The container for one item in the feed.</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── StatGrid ──────────────────────────────────────────────────── */}
-      <Section title="StatGrid" note="Replaces the middle-dot stat strings from the kill list.">
-        <div className="flex flex-col gap-6">
-          <Card variant="panel"><StatGrid stats={[
-            { label: "Accounts", value: "17" },
-            { label: "Posts",    value: "5,900" },
-          ]} /></Card>
-          <Card variant="panel"><StatGrid stats={[
-            { label: "Accounts", value: "17"    },
-            { label: "Posts",    value: "5,900" },
-            { label: "Per day",  value: "50"    },
-          ]} /></Card>
-          <Card variant="panel"><StatGrid stats={[
-            { label: "Accounts", value: "17"      },
-            { label: "Posts",    value: "5,900"   },
-            { label: "Per day",  value: "50"      },
-            { label: "Earned",   value: "$100,227", expanded: true },
-          ]} /></Card>
-        </div>
-      </Section>
-
-      {/* ── StepCard ──────────────────────────────────────────────────── */}
-      <Section title="StepCard" note="Icon + title + body. No numeric markers, except in the MCP flow.">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 rounded-[var(--radius-card)] bg-surface-dark p-6">
-          {STEPS.map((step) => (
-            <StepCard key={step.title} title={step.title}>
-              {step.description}
-            </StepCard>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── Accordion ─────────────────────────────────────────────────── */}
-      <Section
-        title="Accordion"
-        note="Wraps native <details>/<summary> — keyboard nav and ARIA come for free. No JS state, no animation library."
-      >
-        <Card variant="panel" pad="lg">
-          <Accordion items={FAQ} />
-        </Card>
-      </Section>
-
-      {/* ── BlogCard ──────────────────────────────────────────────────── */}
-      <Section title="BlogCard" note="Cover image + title + excerpt + read-time meta.">
-        <div className="max-w-[520px]">
-          <BlogCard data={sampleBlogCardData} />
-        </div>
-      </Section>
-
-      {/* ── CTABand ───────────────────────────────────────────────────── */}
-      <Section title="CTABand" note="Full-bleed lime band that ends a page. Headline at viewport scale, ink button.">
-        <CTABand
-          eyebrow="For creators"
-          headline="Turn your feed into a paycheck."
-          ctaLabel="Get started"
-          ctaHref="#"
-        >
-          Free to join. Weekly payouts. No résumé, no follower count. It works the way a real creator economy should.
-        </CTABand>
-      </Section>
-
-      {/* ── ProofCard ─────────────────────────────────────────────────── */}
-      <Section
-        title="ProofCard"
-        note="The center of gravity of the feed. Click the dashboard to open the full screenshot + phone shot in a native modal."
-      >
-        <ProofCard data={sampleProof} />
-      </Section>
-
-      {/* ── Layout ────────────────────────────────────────────────────── */}
-      <Section
-        title="Layout"
-        note="Marketing: sticky black top bar, full-bleed colour sections, 1440 content max. Creator app: 248px sidebar (56 collapsed), content 1160 max, 380 right rail below 1280 stacks."
-      >
-        <div className="hidden md:grid rounded-[var(--radius-card)] border border-border overflow-hidden [grid-template-columns:240px_1fr_300px]">
-          <div className="bg-surface-sunk h-40 flex items-center justify-center text-[13px] text-muted">sidebar · 240</div>
-          <div className="bg-canvas h-40 flex items-center justify-center text-[13px] text-muted border-x border-border">feed · max 600</div>
-          <div className="bg-surface-sunk h-40 flex items-center justify-center text-[13px] text-muted">right rail · 300</div>
-        </div>
-        <p className="mt-3 text-[13px] text-muted md:hidden">
-          (Diagram is a desktop preview — you&rsquo;re currently on a narrower viewport.)
-        </p>
-      </Section>
+        <Section id="pills">
+          <div className="flex flex-wrap gap-6 rounded border border-border bg-surface p-6 md:p-8">
+            {PILLS.map((pill) => (
+              <div key={pill.tone} className="flex flex-col items-start gap-2">
+                <Badge tone={pill.tone}>{pill.label}</Badge>
+                <code className="text-small text-muted">{pill.tone}</code>
+              </div>
+            ))}
+          </div>
+        </Section>
+      </div>
     </div>
   );
 }
@@ -295,39 +221,116 @@ export default function Styleguide() {
 /* Local rendering helpers — inline, not exported                         */
 /* ────────────────────────────────────────────────────────────────────── */
 
-function Section({
-  title,
-  note,
-  children,
-}: {
-  title: string;
-  note?: string;
-  children: ReactNode;
-}) {
+function Section({ id, children }: { id: SectionId; children: ReactNode }) {
+  const copy = SECTIONS[id];
   return (
-    <section className="mb-16">
-      <div className="mb-6 flex flex-col gap-2">
-        <h2 className="text-[24px] leading-tight font-medium">{title}</h2>
-        {note ? <p className="text-[15px] text-muted max-w-[60ch]">{note}</p> : null}
+    <section id={id} aria-labelledby={`${id}-heading`} className="flex scroll-mt-24 flex-col gap-8">
+      <div className="flex max-w-[var(--text-max)] flex-col gap-4">
+        <h2 id={`${id}-heading`} className="text-h3">
+          {copy.title}
+        </h2>
+        <p className="text-body text-muted">{copy.note}</p>
       </div>
       {children}
     </section>
   );
 }
 
-function StateRow({ label, children }: { label: string; children: ReactNode }) {
+function Group({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col items-start gap-2">
-      <span className="text-[13px] text-muted">{label}</span>
+    <div className="flex flex-col gap-4">
+      <h3 className="text-small font-medium text-muted">{title}</h3>
       {children}
     </div>
   );
 }
 
-function NumeralRow({ label, children }: { label: string; children: ReactNode }) {
+function SwatchGroup({ title, swatches }: { title: string; swatches: Swatch[] }) {
   return (
-    <div className="flex items-baseline gap-6">
-      <span className="text-[13px] text-muted w-24">{label}</span>
+    <Group title={title}>
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+        {swatches.map((swatch) => (
+          <div key={swatch.token} className="overflow-hidden rounded border border-border bg-surface">
+            <div className="h-24 border-b border-border" style={{ background: `var(--${swatch.token})` }} />
+            <div className="flex flex-col gap-2 p-4">
+              <code className="break-all text-small font-medium">--{swatch.token}</code>
+              <TokenReadout token={swatch.token} className="text-small text-muted" />
+              <p className="text-small text-muted">{swatch.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Group>
+  );
+}
+
+function RoleCard({ role }: { role: RoleSwatch }) {
+  return (
+    <div className="flex flex-col overflow-hidden rounded border border-border bg-surface">
+      <div className="flex h-24 border-b border-border">
+        <div className="flex-1" style={{ background: `var(--${role.token})` }} />
+        {role.sunk ? <div className="flex-1" style={{ background: `var(--${role.sunk})` }} /> : null}
+      </div>
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <code className="text-small font-medium">--{role.token}</code>
+            <TokenReadout token={role.token} className="text-small text-muted" />
+          </div>
+          <p className="text-body font-medium">{role.meaning}</p>
+          <p className="text-small text-muted">{role.where}</p>
+        </div>
+        <dl className="mt-auto flex flex-col gap-2 border-t border-border pt-4 text-small">
+          {role.contrast.map((pair) => (
+            <div key={pair.label} className="flex justify-between gap-4">
+              <dt className="text-muted">{pair.label}</dt>
+              <dd>
+                <TokenReadout token={pair.fg} against={pair.bg} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  );
+}
+
+function Frame({ label, mobile = false, children }: { label: string; mobile?: boolean; children: ReactNode }) {
+  return (
+    <figure className={`flex w-full flex-col gap-2 ${mobile ? "max-w-[375px]" : ""}`}>
+      <figcaption className="text-small text-muted">{label}</figcaption>
+      <div className={`rounded border border-border bg-surface ${mobile ? "px-6 py-8" : "p-6 md:p-8"}`}>
+        {children}
+      </div>
+    </figure>
+  );
+}
+
+function TypeStack({ size }: { size: "desktop" | "mobile" }) {
+  return (
+    <div className="flex flex-col gap-4 break-words">
+      {TYPE_LEVELS.map((level) => (
+        <p key={level.id} className={TYPE_CLASS[level.id]} style={{ fontSize: `var(--type-${level.id}-${size})` }}>
+          {level.sample}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function Specimen({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <figure className="flex flex-col items-start gap-4">
+      {children}
+      <figcaption className="text-small text-muted">{label}</figcaption>
+    </figure>
+  );
+}
+
+function StateRow({ label, dark = false, children }: { label: string; dark?: boolean; children: ReactNode }) {
+  return (
+    <div className={`flex flex-col items-start gap-2 ${dark ? "self-stretch rounded bg-surface-dark p-4" : ""}`}>
+      <span className={`text-small ${dark ? "text-ink-inverse" : "text-muted"}`}>{label}</span>
       {children}
     </div>
   );
