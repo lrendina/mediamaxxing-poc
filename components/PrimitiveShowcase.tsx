@@ -21,7 +21,9 @@ import { LogoRow } from "@/components/LogoRow";
 import { StatRow } from "@/components/StatRow";
 import { StepCard } from "@/components/StepCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import { TOP_EARNERS } from "@/content/creator/leaderboard";
+import { TESTIMONIALS } from "@/content/creators";
+import { FAQ, type FaqItem } from "@/content/faq";
+import { LEADERBOARD } from "@/content/leaderboard";
 import {
   ACCORDION_SECTION,
   BADGE_TILE_SECTION,
@@ -35,18 +37,6 @@ import {
   STEP_SECTION,
   TESTIMONIAL_SECTION,
 } from "@/content/primitive-examples";
-import { FAQ_ITEMS } from "@/content/source/faq";
-import { TESTIMONIALS } from "@/content/source/creators";
-
-/* Local shapes. They mirror the frozen contracts structurally so the showcase
-   does not have to import the primitives' own types. */
-type ShowcaseAccordionItem = { question: string; answer: ReactNode };
-type ShowcaseAccordionGroup = {
-  id: string;
-  title: string;
-  items: ShowcaseAccordionItem[];
-};
-
 /* The 1, 2 and 3 column grids behind the testimonial block. */
 const TESTIMONIAL_GRID_CLASS: Record<string, string> = {
   one: "grid grid-cols-1 gap-6",
@@ -108,59 +98,32 @@ function ShowcaseSection({
   );
 }
 
-/* FAQ answer 1 is published copy; the rest are still placeholders upstream. */
-function faqItemAt(index: number): ShowcaseAccordionItem | null {
-  const source = FAQ_ITEMS[index];
-  if (!source) return null;
-
-  if (source.provenance === "live-site") {
-    return {
-      question: source.question,
-      answer: (
-        <div className="flex max-w-[var(--text-max)] flex-col gap-2">
-          <p className="text-body">{source.answer}</p>
-          <p className="text-small text-muted">
-            {ACCORDION_SECTION.publishedNote}
-          </p>
-        </div>
-      ),
-    };
+/* Answers without source copy are withheld and labelled, never guessed. */
+function faqAnswer(item: FaqItem): ReactNode {
+  if (item.answer !== null) {
+    return <p className="max-w-[var(--text-max)] text-body">{item.answer}</p>;
   }
-
-  return {
-    question: source.question,
-    answer: (
-      <div className="flex max-w-[var(--text-max)] flex-col gap-2">
-        <p className="text-small font-semibold">{ACCORDION_SECTION.pendingLabel}</p>
-        <p className="text-small text-muted">
-          {ACCORDION_SECTION.pendingDetail}
-        </p>
-      </div>
-    ),
-  };
-}
-
-function buildFaqItems(indexes: readonly number[]): ShowcaseAccordionItem[] {
-  const items: ShowcaseAccordionItem[] = [];
-  for (const index of indexes) {
-    const item = faqItemAt(index);
-    if (item) items.push(item);
-  }
-  return items;
+  return (
+    <div className="flex max-w-[var(--text-max)] flex-col gap-2">
+      <p className="text-small font-semibold">{ACCORDION_SECTION.pendingLabel}</p>
+      <p className="text-small text-muted">{ACCORDION_SECTION.pendingDetail}</p>
+    </div>
+  );
 }
 
 export function PrimitiveShowcase() {
   const testimonials = ["sam", "steven", "jennifer"].flatMap((id) =>
     TESTIMONIALS.filter((entry) => entry.id === id),
   );
-  const faqFlatItems = buildFaqItems(FAQ_ITEMS.map((_item, index) => index));
-  const faqGroups: ShowcaseAccordionGroup[] = ACCORDION_SECTION.groups
-    .map((group) => ({
-      id: group.id,
-      title: group.title,
-      items: buildFaqItems(group.itemIndexes),
-    }))
-    .filter((group) => group.items.length > 0);
+  const faqGroups = FAQ.groups.map((group) => ({
+    id: group.id,
+    title: group.title,
+    items: group.items.map((item) => ({
+      question: item.question,
+      answer: faqAnswer(item),
+    })),
+  }));
+  const faqFlatItems = faqGroups.flatMap((group) => group.items);
 
   return (
     <div id={SHOWCASE_INTRO.id} className="flex flex-col gap-16">
@@ -386,12 +349,12 @@ export function PrimitiveShowcase() {
         <div className="flex flex-col gap-4">
           <SpecimenLabel title={LEADERBOARD_SECTION.label} />
           <ol className="flex flex-col gap-2">
-            {TOP_EARNERS.entries.map((entry) => (
+            {LEADERBOARD.entries.map((entry) => (
               <LeaderboardRow key={entry.position} entry={entry} />
             ))}
           </ol>
           <p className="max-w-[var(--text-max)] text-small text-muted">
-            {LEADERBOARD_SECTION.nonTypical}
+            {LEADERBOARD.note}
           </p>
           <SpecimenLabel title={LEADERBOARD_SECTION.avatarLabel} note={LEADERBOARD_SECTION.avatarNote} />
           <ol>

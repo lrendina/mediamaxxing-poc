@@ -2,18 +2,15 @@
    appends to the existing /styleguide route after the pills section.
 
    Every label, note and specimen string the reader sees is declared here. The
-   showcase pulls its real fixtures from their source modules — FAQ questions
-   from content/source/faq, the leaderboard from content/creator/leaderboard,
-   testimonials from content/source/creators — so this page never restates
-   product copy or invents a claim.
+   showcase pulls its real fixtures from the landing-page content modules —
+   content/faq, content/leaderboard and content/creators — so this page never
+   restates product copy or invents a claim.
 
    Two rules the showcase keeps:
    - Figures in the specimen cards and the stat rows are layout fixtures, not
-     payout promises, and the leaderboard ships with its non-typicality warning.
-   - Only the first FAQ answer is published copy. Answers 2–5 are still
-     placeholders in the source, so they carry an explicit “Copy pending —
-     Phase 4” label instead of unverified timing, eligibility or earnings
-     facts. */
+     payout promises, and the leaderboard ships with its non-typicality note.
+   - FAQ answers without source copy carry an explicit pending label instead
+     of a guessed answer. */
 
 export interface ShowcaseSectionCopy {
   id: string;
@@ -168,7 +165,7 @@ export interface TestimonialWidthCopy {
 export const TESTIMONIAL_SECTION = {
   id: "testimonials",
   title: "Testimonials",
-  note: "Three real entries from content/source/creators, the lowest earner first, shown at one, two and three columns. The numbers are the creators' own — nothing is rounded up for the styleguide.",
+  note: "Three real entries from content/creators, the lowest earner first, shown at one, two and three columns. The numbers are the creators' own — nothing is rounded up for the styleguide.",
   widths: [
     {
       id: "one",
@@ -250,9 +247,7 @@ export const LEADERBOARD_SECTION = {
   id: "leaderboard",
   title: "Leaderboard rows",
   label: "Eight published entries",
-  note: "Every entry in content/creator/leaderboard, in published order. Several carry the placeholder avatar sentinel, so it renders the initials fallback — no stand-in face is invented for it.",
-  nonTypical:
-    "These are the platform’s highest earners, not typical results.",
+  note: "The eight entries from content/leaderboard, in rank order. No avatar photos exist, so every row renders the initials fallback — no stand-in face is invented for it.",
   avatarLabel: "Local avatar asset — layout fixture",
   avatarNote: "The MediaMaxxing logo demonstrates an available avatar. The zero balance below is a fixture, separate from the published ranking.",
   avatarExample: {
@@ -265,26 +260,18 @@ export const LEADERBOARD_SECTION = {
 
 /* Accordions -------------------------------------------------------------- */
 
-export interface AccordionGroupCopy {
-  id: string;
-  title: string;
-  itemIndexes: readonly number[];
-}
-
 export const ACCORDION_SECTION = {
   id: "accordions",
   title: "Accordions",
   note: "Native details and summary, so keyboard, screen-reader and find-in-page behaviour is the browser's. Several panels can be open at once.",
   faqWarning:
-    "Only the first answer below is published copy, quoted from content/source/faq. The other four answers are still placeholders in the source, and the placeholder text carries unverified timing, eligibility and earnings figures — they are labelled “Copy pending — Phase 4” here rather than shown. See FAQ_META for the conflict between the placeholder timing and the landing-page promise.",
-  pendingLabel: "Copy pending — Phase 4",
+    "The questions and groups are the landing-page FAQ from content/faq. Only answers with source copy are shown; the rest are labelled pending until the human copy pass writes them.",
+  pendingLabel: "Answer pending",
   pendingDetail:
-    "The source answer is still a placeholder, so it is withheld until the copy pass rather than published as fact.",
-  publishedNote: "Published verbatim from content/source/faq.",
-  publishedAnswerIndex: 0,
+    "No source copy exists for this answer yet. It is written in the PLAN.md Phase 4 human pass, never guessed.",
   grouped: {
     label: "Grouped",
-    note: "Four groups, built from the source questions that fit them. The first item of the first group opens by default.",
+    note: "The four landing-page groups. The first item of the first group opens by default.",
   },
   flat: {
     label: "Flat",
@@ -294,12 +281,6 @@ export const ACCORDION_SECTION = {
     label: "All closed",
     note: "defaultOpenIndex={null} overrides the grouped default, so every panel starts shut.",
   },
-  groups: [
-    { id: "getting-started", title: "Getting started", itemIndexes: [0, 1] },
-    { id: "getting-paid", title: "Getting paid", itemIndexes: [2] },
-    { id: "campaigns", title: "Campaigns & content", itemIndexes: [3] },
-    { id: "eligibility", title: "Eligibility", itemIndexes: [4] },
-  ] satisfies AccordionGroupCopy[],
 };
 
 /* Logo rows --------------------------------------------------------------- */

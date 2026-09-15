@@ -11,10 +11,10 @@ import {
   phoneImageAlt,
   proofUi,
 } from "@/content/proof-ui";
-import type { SourceTestimonial } from "@/content/source/creators";
+import type { Testimonial } from "@/content/creators";
 
 export type TestimonialCardProps = {
-  data: SourceTestimonial;
+  data: Testimonial;
   /* Set true on the first card in a feed so its dashboard image loads eagerly
      and Next.js emits a preload hint — matters for LCP. */
   priority?: boolean;
