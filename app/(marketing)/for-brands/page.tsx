@@ -12,7 +12,6 @@ import {
 
 import { Button } from "@/components/Button";
 import { CTABand } from "@/components/CTABand";
-import { SiteFooter } from "@/components/SiteFooter";
 import { StepCard } from "@/components/StepCard";
 
 export const metadata: Metadata = {
@@ -120,7 +119,6 @@ export default function ForBrands() {
           {BRANDS_FOOTER_CTA.body}
         </CTABand>
       </div>
-      <SiteFooter />
     </div>
   );
 }

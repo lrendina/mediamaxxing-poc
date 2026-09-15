@@ -268,7 +268,7 @@ body {
 }
 
 /* Visible keyboard focus on every interactive element. */
-:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
   outline: 3px solid var(--action);
   outline-offset: 3px;
 }

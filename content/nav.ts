@@ -16,6 +16,16 @@ export const SIDEBAR_NAV: NavItem[] = [
   { label: "Blog",         href: "/blog",         icon: "blog" },
 ];
 
+/* The marketing header's thin nav. Home is the wordmark's job, and the one
+   CTA comes from content/cta.ts, so neither is listed. Labels as in
+   content/source/nav.ts. */
+export const HEADER_NAV: { label: string; href: string }[] = [
+  { label: "For brands",   href: "/for-brands" },
+  { label: "For agencies", href: "/for-agencies" },
+  { label: "MCP",          href: "/mcp" },
+  { label: "Blog",         href: "/blog" },
+];
+
 /* Dev-only switch between the two surfaces. Lives in content so the
    label is not inlined in JSX. */
 export const SURFACE_SWITCH = {

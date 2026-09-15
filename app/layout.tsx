@@ -2,13 +2,10 @@ import type { Metadata } from "next";
 import { Agentation } from "agentation";
 import { archivo, instrumentSerif } from "./fonts";
 import { SkipToContent } from "@/components/SkipToContent";
+import { SITE } from "@/content/site";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "MediaMaxxing",
-  description:
-    "A proof-of-concept reskin of mediamaxxing.com — a three-column app shell built for a design interview.",
-};
+export const metadata: Metadata = SITE.metadata;
 
 /* Root layout owns only the document: fonts, tokens, skip link, dev tools.
    The two surfaces each mount their own shell one level down —
