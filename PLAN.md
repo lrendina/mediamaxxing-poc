@@ -110,8 +110,8 @@ Only the components marked new below have no predecessor.
 
 **Status (2026-09-15):** Agent work done. Every module is typed and derives from
 `content/source/` or `content/creator/` rather than retyping copy. Beyond the list: `hero.ts` and
-`final-cta.ts`, so Phase 5 has no inline copy, and `claims.ts`, which reads the substantiation
-figure from the leaderboard. The FAQ ships only questions with sourced answers (one today); the
+`final-cta.ts`, so Phase 5 has no inline copy, and `claims.ts` (archived in Phase 5 with the
+substantiation line). The FAQ ships only questions with sourced answers (one today); the
 gap questions were cut, so there is no human FAQ pass. Two trust tiles still need a copy
 decision (see the comment in `content/trust.ts`). Phase 5 has not started.
 
@@ -134,8 +134,9 @@ ship.
 
 **Status (2026-09-15):** Agent work done; ready for the human read on a phone. All six sections
 are built at `/` in spec order with the text-led hero, the CSS-only hero entrance, and the
-card lift on testimonial, feature and trust cards only. Trust tile and substantiation copy is
-kept as the spec wrote it. Feature and trust icons are new decorative glyphs
+card lift on testimonial, feature and trust cards only. Trust tile copy is kept as the spec
+wrote it. On review, the substantiation lines, the leaderboard note and the CTA under the
+features were removed, and the FAQ heading became "FAQ". Feature and trust icons are new decorative glyphs
 (`components/LandingIcon.tsx`); brand logos are still named placeholders.
 
 Build sections in order from `LANDING-PAGE.md`: hero, solution, social proof, guarantee, FAQ,
@@ -143,9 +144,8 @@ final CTA.
 
 - [AGENT] Text-led hero per general hero conventions — no phone frame, no product screen
 - [AGENT] Hero entrance animation — staggered fade and 12px rise, once, reduced-motion safe
-- [AGENT] All five CTAs wired to the same label constant and the same destination
-- [AGENT] Substantiation line in the hero and the final CTA. Non-negotiable — see the earnings
-  claims section of `LANDING-PAGE.md`.
+- [AGENT] Every CTA wired to the same label constant and the same destination
+- ~~[AGENT] Substantiation line in the hero and the final CTA.~~ Removed on request 2026-09-15.
 - [AGENT] No scroll-triggered reveals anywhere
 
 **[HUMAN] Read it as a prospect, on a phone.** Scroll the whole thing and ask whether you'd

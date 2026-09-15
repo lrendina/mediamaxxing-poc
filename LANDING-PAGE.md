@@ -35,14 +35,9 @@ templates already work, and you can post your first one tonight.
 **Friction strip** directly under the button, small and muted, separated by thin dividers:
 Free to join · No followers needed · First campaign in under five minutes
 
-**Substantiation line** below that, smaller still:
-Our top creator has earned $153,823. Most earn far less — see the full numbers below.
-
-That line is not optional. See "Earnings claims" at the bottom of this file.
-
 **Visual:** none. No phone frame and no product screen (decided 2026-09-15). The hero follows
-general hero conventions: the headline, subheadline, CTA, friction strip, and substantiation
-line carry it, in that order, with nothing competing with the CTA. Keep it text-led and short
+general hero conventions: the headline, subheadline, CTA, and friction strip
+carry it, in that order, with nothing competing with the CTA. Keep it text-led and short
 enough that the CTA sits above the fold on a 375px phone.
 
 **Trust bar** at the base of the hero: a quiet logo row of brands running campaigns — OpenArt,
@@ -79,8 +74,6 @@ feature underneath in body text. Benefit leads, feature supports — never the r
 | You don't need an audience | Post to your own accounts at any size. Pay is based on views, not followers. |
 | You never send an invoice | Views are tracked automatically and payouts run on their own. No chasing, no middlemen. |
 
-**CTA #2** directly beneath the grid, centered, same label as the hero.
-
 ## Section 3 — Social Proof
 
 Reused from the existing site, restructured.
@@ -92,8 +85,6 @@ Reused from the existing site, restructured.
 Pull the top-earners list straight out of the creator app — handles, avatars, dollar figures.
 It exists in the product and has never appeared on the marketing site. Eight rows, ranked,
 money right-aligned in expanded numerals.
-
-Under it, one muted line: These are the platform's highest earners, not typical results.
 
 ### 3b. Testimonial grid
 
@@ -107,7 +98,7 @@ screenshot in a lightbox. Keep the existing copy from the current site.
 Include the real stat lines but render them as a small labelled stat row, not a
 middle-dot string.
 
-**CTA #3** beneath the grid.
+**CTA #2** beneath the grid.
 
 ## Section 4 — Guarantee & Trust
 
@@ -127,7 +118,7 @@ hold is worse than nothing.
 
 ## Section 5 — FAQ
 
-**H2:** Questions before you start
+**H2:** FAQ
 
 Accordion with the first item open by default. Only questions with a sourced answer ship
 (decided 2026-09-15). Today that is one live-site question, "What exactly is MediaMaxxing?".
@@ -140,15 +131,14 @@ High contrast: the dark surface token against the bright page. Full-bleed, gener
 
 **H2:** Your first campaign is five minutes away
 One line of body: Free to join. No followers required. Get paid for every view.
-**CTA #4**, same label, oversized.
-Beneath: the same substantiation line as the hero, small and muted.
+**CTA #3**, same label, oversized.
 
 ## Persistent CTA
 
 A slim header appears after the hero scrolls out: wordmark left, single button right. Same
 label. Hidden while the hero is visible, hidden inside the final CTA section.
 
-Five CTAs total, **one label across all of them**. Varying the wording ("Get started", "Join
+Four CTAs total, **one label across all of them**. Varying the wording ("Get started", "Join
 now", "Sign up free") reads as indecision and splits the action in the reader's head. Pick one
 string, put it in `content/cta.ts`, import it everywhere.
 
@@ -187,16 +177,7 @@ page — they delay reading and every section already has a job.
 "Make six figures from your phone" is an income claim, and the platform's own legal page
 states that past performance and earnings examples don't guarantee future results.
 
-The headline stays as briefed. Three things make it defensible, and all three are required:
-
-1. The substantiation line appears in the hero and again in the final CTA.
-2. The leaderboard carries its non-typicality note.
-3. The testimonial section shows real figures spanning a wide range, not only the top.
-
-This is standard practice for income-opportunity marketing and it converts better anyway.
-"Steven earned $153,823" is more persuasive than "make six figures" because it's specific,
-named, and checkable. Vague promises trigger skepticism; documented ones don't.
-
-Worth raising in the presentation. Noticing a compliance exposure in a marketing brief and
-solving it without weakening the pitch is a stronger signal than any layout decision on
-this page.
+The headline stays as briefed. An earlier version of this spec required a substantiation line
+under the hero and final CTAs and a non-typicality note under the leaderboard. All three were
+removed on request (2026-09-15), so the page carries no on-page qualifier for the claim. The
+testimonial section still shows real figures spanning a wide range, not only the top.

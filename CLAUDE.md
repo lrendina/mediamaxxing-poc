@@ -98,7 +98,6 @@ part of the redesign, so do not reintroduce them:
 - More than one border radius or more than two shadow strengths. One radius, two shadows,
   8px spacing scale. These are hard constraints, not preferences — see DESIGN-TOKENS.md.
 - Varying the CTA label between sections. One string, imported from `content/cta.ts`.
-- Any earnings claim without its substantiation line. See LANDING-PAGE.md.
 
 ## Quality floor
 
