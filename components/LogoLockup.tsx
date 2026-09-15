@@ -28,7 +28,7 @@ export function LogoLockup({
         alt=""
         width={s.icon}
         height={s.icon}
-        className="rounded-md shrink-0"
+        className="rounded shrink-0"
         priority
       />
       {showWordmark ? (

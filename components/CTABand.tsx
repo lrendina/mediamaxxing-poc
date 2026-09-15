@@ -19,7 +19,7 @@ export function CTABand({
   return (
     <section
       className="
-        relative overflow-hidden rounded-[var(--radius-card)]
+        relative overflow-hidden rounded
         bg-surface-dark text-ink-inverse p-7 md:p-10 flex flex-col gap-4
       "
     >

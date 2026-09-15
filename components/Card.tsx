@@ -8,13 +8,13 @@ export type CardVariant = "default" | "panel" | "spotlight" | "dark";
    a section (CTA band, featured campaign). */
 const variantClasses: Record<CardVariant, string> = {
   default:
-    "rounded-[var(--radius-card)] bg-surface border border-border",
+    "rounded bg-surface border border-border",
   panel:
-    "rounded-[var(--radius-card)] bg-surface-sunk/70",
+    "rounded bg-surface-sunk/70",
   spotlight:
-    "rounded-[var(--radius-card)] bg-surface border border-border shadow-lift",
+    "rounded bg-surface border border-border shadow-1",
   dark:
-    "rounded-[var(--radius-card)] bg-surface-dark text-ink-inverse",
+    "rounded bg-surface-dark text-ink-inverse",
 };
 
 const padClasses = {

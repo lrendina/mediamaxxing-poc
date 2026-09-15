@@ -50,7 +50,7 @@ export function ProofCard({
             <p className="text-[13px] text-muted truncate">@{data.handle}</p>
           </div>
           <Badge
-            tone={data.tier === "Advanced" ? "live" : "neutral"}
+            tone="neutral"
             className="ml-auto"
           >
             {data.tier}
@@ -74,7 +74,7 @@ export function ProofCard({
               chart is visible, never cropped. */}
           <div
             className="
-              relative aspect-[2/1] rounded-[14px] overflow-hidden
+              relative aspect-[2/1] rounded overflow-hidden
               bg-surface-sunk ring-1 ring-border
               transition group-hover:brightness-[0.98]
             "
@@ -96,9 +96,9 @@ export function ProofCard({
             className="
               absolute bottom-3 right-8
               h-[88%] aspect-[900/1955]
-              rounded-[18px] overflow-hidden
+              rounded overflow-hidden
               bg-surface-sunk ring-1 ring-ink/10
-              shadow-pop
+              shadow-2
               transition-transform group-hover:-translate-y-1
             "
           >
@@ -116,7 +116,7 @@ export function ProofCard({
           <StatGrid stats={data.stats} />
         </div>
 
-        <blockquote className="mx-5 my-5 rounded-[var(--radius-control)] bg-surface-sunk/60 px-4 py-3 text-[14px] leading-[1.55] text-ink/85">
+        <blockquote className="mx-5 my-5 rounded bg-surface-sunk/60 px-4 py-3 text-[14px] leading-[1.55] text-ink/85">
           &ldquo;{data.blurb}&rdquo;
         </blockquote>
       </Card>
@@ -126,8 +126,8 @@ export function ProofCard({
         onClick={onDialogClick}
         className="
           m-auto w-[min(920px,92vw)] max-h-[92vh]
-          rounded-[var(--radius-card)] p-0 bg-surface text-ink
-          shadow-pop backdrop:bg-surface-dark/70 backdrop:backdrop-blur-sm
+          rounded p-0 bg-surface text-ink
+          shadow-2 backdrop:bg-surface-dark/70 backdrop:backdrop-blur-sm
         "
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
@@ -151,7 +151,7 @@ export function ProofCard({
           </button>
         </div>
         <div className="grid gap-4 p-6 md:grid-cols-[2fr_1fr] overflow-auto max-h-[calc(92vh-73px)] bg-canvas">
-          <div className="relative rounded-[14px] overflow-hidden bg-surface aspect-[16/9] ring-1 ring-border">
+          <div className="relative rounded overflow-hidden bg-surface aspect-[16/9] ring-1 ring-border">
             <Image
               src={data.dashboardSrc}
               alt={`${data.name}'s earnings dashboard`}
@@ -160,7 +160,7 @@ export function ProofCard({
               className="object-contain"
             />
           </div>
-          <div className="relative rounded-[14px] overflow-hidden bg-surface aspect-[9/16] md:aspect-auto md:min-h-[400px] ring-1 ring-border">
+          <div className="relative rounded overflow-hidden bg-surface aspect-[9/16] md:aspect-auto md:min-h-[400px] ring-1 ring-border">
             <Image
               src={data.phoneSrc}
               alt={`${data.name}'s content on mobile`}

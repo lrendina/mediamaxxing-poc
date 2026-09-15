@@ -11,15 +11,15 @@ function isActive(href: string, pathname: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-/* Sticky black bar. Links are pills; the active one is lime. On phones
+/* Sticky black bar. Links are pills; the active one inverts. On phones
    the link row scrolls sideways under the logo. */
 export function TopNav() {
   const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 bg-surface-dark text-ink-inverse">
-      <div className="mx-auto max-w-[var(--content-max)] px-4 md:px-8 flex items-center gap-4 min-h-[var(--topnav)]">
-        <Link href="/" className="shrink-0 flex items-center rounded-md min-h-11">
+      <div className="mx-auto max-w-[var(--content-max)] px-4 md:px-8 flex items-center gap-4 min-h-16">
+        <Link href="/" className="shrink-0 flex items-center rounded min-h-11">
           <LogoLockup size="md" className="text-ink-inverse" />
         </Link>
 
@@ -37,7 +37,7 @@ export function TopNav() {
                 className={`
                   inline-flex items-center min-h-10 px-4 rounded-full
                   text-[14px] font-medium transition
-                  ${active ? "bg-lime text-surface-dark" : "text-ink-inverse/80 hover:text-ink-inverse hover:bg-ink-inverse/10"}
+                  ${active ? "bg-ink-inverse text-ink" : "text-ink-inverse/80 hover:text-ink-inverse hover:bg-ink-inverse/10"}
                 `}
               >
                 {item.label}
@@ -73,7 +73,7 @@ export function TopNav() {
               className={`
                 inline-flex shrink-0 items-center min-h-9 px-3.5 rounded-full
                 text-[13px] font-medium whitespace-nowrap
-                ${active ? "bg-lime text-surface-dark" : "text-ink-inverse/80 bg-ink-inverse/10"}
+                ${active ? "bg-ink-inverse text-ink" : "text-ink-inverse/80 bg-ink-inverse/10"}
               `}
             >
               {item.label}

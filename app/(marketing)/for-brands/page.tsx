@@ -78,11 +78,11 @@ export default function ForBrands() {
             {BRANDS_FEATURES.map((f, i) => (
               <div
                 key={f.title}
-                className={`flex flex-col gap-3 rounded-[var(--radius-card)] p-7 md:p-9 border-2 border-ink ${
-                  i === 0 ? "bg-lime text-surface-dark" : "bg-surface"
+                className={`flex flex-col gap-3 rounded p-7 md:p-9 border-2 border-ink ${
+                  i === 0 ? "bg-surface-sunk" : "bg-surface"
                 }`}
               >
-                <h3 className="font-display-sm text-[28px] md:text-[34px]">{f.title}</h3>
+                <h3 className="font-display text-[28px] md:text-[34px]">{f.title}</h3>
                 <p className={`text-[16px] leading-[1.5] max-w-[44ch] ${i === 0 ? "text-surface-dark/75" : "text-muted"}`}>
                   {f.body}
                 </p>

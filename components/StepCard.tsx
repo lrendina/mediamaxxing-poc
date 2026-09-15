@@ -18,7 +18,7 @@ export function StepCard({
       {icon ? (
         <span
           aria-hidden
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-tile)] bg-money-sunk text-money"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded bg-money-sunk text-money"
         >
           {icon}
         </span>
