@@ -20,7 +20,7 @@ export function Header() {
   return (
     <header id={SITE_HEADER_ID}>
       <Container className="flex min-h-16 items-center gap-8">
-        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center rounded">
+        <Link href="/" className="inline-flex min-h-11 min-w-11 shrink-0 items-center rounded">
           <LogoLockup size="md" showWordmark="sm" />
         </Link>
 
@@ -33,7 +33,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-11 items-center rounded text-small font-medium transition-colors hover:text-ink ${
+                    className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded text-small font-medium transition-colors hover:text-ink ${
                       active ? "text-ink" : "text-muted"
                     }`}
                   >

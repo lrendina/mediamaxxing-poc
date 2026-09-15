@@ -52,7 +52,7 @@ export function StickyHeader() {
   return (
     <div className={`fixed inset-x-0 top-0 z-40 bg-surface shadow-2 ${visible ? "" : "invisible"}`}>
       <Container className="flex min-h-14 items-center justify-between gap-4">
-        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center rounded">
+        <Link href="/" className="inline-flex min-h-11 min-w-11 shrink-0 items-center rounded">
           <LogoLockup size="sm" showWordmark="sm" />
         </Link>
         <Button href={CTA.href} size="sm">
