@@ -44,7 +44,7 @@ good, and a deadline does not get `warn` because it feels urgent — deadlines a
   /* roles */
   --action:        #2F5BEA;
   --action-sunk:   #E9EFFE;
-  --money:         #0FA958;
+  --money:         #087F41;
   --money-sunk:    #E4F6EC;
   --streak:        #F4741F;
   --streak-sunk:   #FDEEE3;
@@ -57,6 +57,10 @@ good, and a deadline does not get `warn` because it feels urgent — deadlines a
 Every role has a `-sunk` companion for pill backgrounds and soft icon tiles. That pairing is
 what the app does throughout and it's why the gamification layer reads as cheerful rather than
 alarming.
+
+`--money` was darkened from `#0FA958` to `#087F41` on 2026-09-15. The original was 3.07:1 on
+white and failed WCAG AA for dollar figures; the new value is 5.09:1 on `--surface`, 4.75:1 on
+`--canvas` and 4.53:1 on `--money-sunk`. The creator app keeps its own value until Phase 9.
 
 ## Type
 
