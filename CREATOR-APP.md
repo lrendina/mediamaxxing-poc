@@ -6,10 +6,14 @@ rather than observed — flag it rather than inventing detail around it.
 
 ## The finding that reframes this project
 
-The real app is **already** a left sidebar, a centered content column, and a right rail. The
-redesign is not imposing an app shell onto a marketing site. It is extending the shell the
-product already uses to the marketing site that currently ignores it.
+The real app is **already** a left sidebar, a centered content column, and a right rail, and
+the marketing site currently ignores all of it.
 
+The marketing page and the creator app are **one app**. They don't share a shell — the
+marketing page is a centered conversion column and the app keeps the sidebar it already has —
+but they share everything underneath: tokens, radius, shadows, spacing, pills, card geometry,
+and colour meanings (see the continuity rule in DESIGN-TOKENS.md). The creator app is where
+that continuity is visible.
 
 The app is also densely gamified — XP, ranks, streaks, daily missions, bounties, XP
 multipliers, leaderboards, progressive unlocks — and the marketing site contains none of that
@@ -26,7 +30,7 @@ energy. That gap is the strongest observation available and it should drive the 
 | `/creator/retainers` | 5 | Locked state observed |
 | `/creator/courses` | 6 | One course, 0% progress |
 | `/creator/white-label` | 7 | Marketing page living inside the app shell |
-| `/creator/welcome` | — | **Not observed.** Added per explicit request as the destination of the marketing top nav's "Get started" button, since this prototype has no real session to gate a first-run screen behind. |
+| `/creator/campaigns?welcome=1` | — | **Not observed.** `WelcomeModal` over Campaigns, opened by the marketing top nav's "Get started" button. Added per explicit request, since this prototype has no real session to gate a first-run moment behind. |
 
 ## Global shell
 
@@ -73,17 +77,20 @@ Also per explicit request: account creation now grants a **25 XP signup bonus**,
 is Unranked at 25 XP rather than the previously-observed 0 XP. See the note on `newCreator` in
 `content/creator/profiles.ts`.
 
-**`WelcomeScreen`** (`/creator/welcome`) — **entirely not observed**, added per explicit
-request as the first thing a brand-new account sees. The marketing top nav's "Get started"
-button now points here instead of straight to `/creator/campaigns`; since this prototype has no
-real session, every click plays the same brand-new-account moment rather than only a true
-first visit. Plays the `newCreator` XP bar filling from 0 to 25 once on mount (`useCountUp`,
-`lib/useCountUp.ts` — mirrors `Counter.tsx`'s easing and its `prefers-reduced-motion` handling,
-but fires on mount instead of on-scroll-into-view), then lists three onboarding actions as
-linked rows: Browse campaigns, Join OpenArt, Link an account. "Join OpenArt" and "Link an
-account" both route to the OpenArt Director Advanced campaign detail page — that page's
-`CampaignSidebar` onboarding checklist is where "Link an account" already lives in this build,
-so this doesn't invent a second, unobserved account-settings page.
+**`WelcomeModal`** (`/creator/campaigns?welcome=1`) — **entirely not observed**, added per
+explicit request as the first thing a brand-new account sees. It began as a separate
+`/creator/welcome` page and was moved to a native `<dialog>` over Campaigns, also per explicit
+request, so the get-started moment doesn't leave the page it's about to send you back to. The
+marketing top nav's "Get started" button opens it (`TOP_NAV_CTA` in `content/nav.ts`); since this
+prototype has no real session, every click plays the same brand-new-account moment rather than
+only a true first visit. Closing it, or "I'll look around first", drops the query param.
+Content: "You're in.", then the `newCreator` XP bar filling from 0 to the 25 XP signup bonus
+once (`XpFillBar` via `useCountUp`, `lib/useCountUp.ts` — mirrors `Counter.tsx`'s easing and its
+`prefers-reduced-motion` handling, but fires on mount instead of on-scroll-into-view), then two
+onboarding steps as linked rows: Join OpenArt and Link an account. Both route to the OpenArt
+Director Advanced campaign detail page — that page's `CampaignSidebar` onboarding checklist is
+where "Link an account" already lives in this build, so this doesn't invent a second,
+unobserved account-settings page.
 
 **`PageHeader`** — h1 plus one-line subtitle. Optional right-aligned action slot (Withdraw,
 Auto Submit).
