@@ -5,9 +5,7 @@ import { Badge } from "@/components/Badge";
 import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
-import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
-import { FeatureStatCard } from "@/components/FeatureStatCard";
 import { LogoLockup } from "@/components/LogoLockup";
 import { ProofCard } from "@/components/ProofCard";
 import { StatGrid } from "@/components/StatGrid";
@@ -145,10 +143,10 @@ export default function Styleguide() {
       {/* ── Button ────────────────────────────────────────────────────── */}
       <Section
         title="Button"
-        note="Primary is ink. Lime is the brand pill, one per viewport. Ghost is a hairline. Inverse is paper on black."
+        note="Primary is ink. Secondary is money, for the one CTA that is literally about getting paid. Ghost is a hairline."
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(["primary", "lime", "ghost"] as const).map((variant) => (
+          {(["primary", "secondary", "ghost"] as const).map((variant) => (
             <div key={variant} className="rounded-[var(--radius-card)] border border-border p-5 flex flex-col gap-5">
               <div className="text-[13px] text-muted">{variant}</div>
               <StateRow label="default">
@@ -227,37 +225,14 @@ export default function Styleguide() {
         </div>
       </Section>
 
-      {/* ── Counter ───────────────────────────────────────────────────── */}
-      <Section
-        title="Counter"
-        note="Count-up on first view only. Respects prefers-reduced-motion — reduced-motion users see the final value immediately."
-      >
-        <Card variant="panel" className="flex items-baseline gap-3">
-          <span className="text-[13px] text-muted w-24">Paid this month</span>
-          <Counter value={1204908} prefix="$" className="text-[40px] leading-none font-expanded text-money" />
-        </Card>
-      </Section>
-
       {/* ── StepCard ──────────────────────────────────────────────────── */}
       <Section title="StepCard" note="Icon + title + body. No numeric markers, except in the MCP flow.">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 rounded-[var(--radius-card)] bg-surface-dark p-6">
-          {STEPS.map((step, i) => (
-            <StepCard key={step.title} title={step.title} index={i}>
+          {STEPS.map((step) => (
+            <StepCard key={step.title} title={step.title}>
               {step.description}
             </StepCard>
           ))}
-        </div>
-      </Section>
-
-      {/* ── FeatureStatCard ───────────────────────────────────────────── */}
-      <Section title="FeatureStatCard" note="Anchors a section with a single expanded numeral.">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FeatureStatCard value="$1.2M" label="Paid to creators this month" tone="payout">
-            The number keeps climbing — updated as payouts land.
-          </FeatureStatCard>
-          <FeatureStatCard value="342" label="Creators earning right now">
-            Median payout is up 41% year over year.
-          </FeatureStatCard>
         </div>
       </Section>
 

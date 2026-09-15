@@ -53,7 +53,7 @@ export function TopNav() {
           <Button href={TOP_NAV_CTA.signIn.href} variant="ghost" size="sm" className="hidden sm:inline-flex !border-ink-inverse/30 !text-ink-inverse hover:!border-ink-inverse">
             {TOP_NAV_CTA.signIn.label}
           </Button>
-          <Button href={TOP_NAV_CTA.getStarted.href} variant="lime" size="sm">
+          <Button href={TOP_NAV_CTA.getStarted.href} variant="secondary" size="sm">
             {TOP_NAV_CTA.getStarted.label}
           </Button>
         </div>

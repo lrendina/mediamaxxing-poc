@@ -11,7 +11,6 @@ import {
 } from "@/content/for-brands";
 
 import { Button } from "@/components/Button";
-import { Counter } from "@/components/Counter";
 import { CTABand } from "@/components/CTABand";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StepCard } from "@/components/StepCard";
@@ -44,10 +43,10 @@ export default function ForBrands() {
               {BRANDS_HERO.subhead}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button href={BRANDS_HERO.primaryCta.href} variant="lime" size="xl">
+              <Button href={BRANDS_HERO.primaryCta.href} variant="secondary" size="lg">
                 {BRANDS_HERO.primaryCta.label}
               </Button>
-              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost" size="xl" className="!border-ink-inverse/40 !text-ink-inverse hover:!border-ink-inverse">
+              <Button href={BRANDS_HERO.secondaryCta.href} variant="ghost" size="lg" className="!border-ink-inverse/40 !text-ink-inverse hover:!border-ink-inverse">
                 {BRANDS_HERO.secondaryCta.label}
               </Button>
             </div>
@@ -61,8 +60,8 @@ export default function ForBrands() {
             {BRANDS_STEPS_HEADLINE_VERBATIM}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-6">
-            {BRANDS_STEPS.map((step, i) => (
-              <StepCard key={step.title} title={step.title} index={i}>
+            {BRANDS_STEPS.map((step) => (
+              <StepCard key={step.title} title={step.title}>
                 {step.description}
               </StepCard>
             ))}
@@ -101,12 +100,11 @@ export default function ForBrands() {
               className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-8 py-6 md:py-8 min-w-0"
             >
               <p className="text-[13px] uppercase tracking-[0.12em] font-bold text-muted shrink-0">{c.label}</p>
-              <Counter
-                value={c.value}
-                prefix={c.prefix}
-                suffix={c.suffix}
-                className="font-display text-[clamp(56px,9vw,144px)] whitespace-nowrap"
-              />
+              <p className="font-display text-[clamp(56px,9vw,144px)] whitespace-nowrap">
+                {c.prefix}
+                {c.value.toLocaleString()}
+                {c.suffix}
+              </p>
             </div>
           ))}
         </Container>
