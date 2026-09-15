@@ -10,9 +10,6 @@ export interface TopEarner {
 
 export interface LeaderboardSection {
   heading: string;
-  /* The non-typicality note. Required under the list (LANDING-PAGE.md,
-     "Earnings claims"). */
-  note: string;
   entries: readonly TopEarner[];
 }
 
@@ -23,7 +20,6 @@ export interface LeaderboardSection {
    "placeholder" sentinel becomes null and every row renders initials. */
 export const LEADERBOARD: LeaderboardSection = {
   heading: "Real creators, real payouts",
-  note: "These are the platform's highest earners, not typical results.",
   entries: [...APP_TOP_EARNERS.entries]
     .sort((a, b) => a.position - b.position)
     .slice(0, 8)

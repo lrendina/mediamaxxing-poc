@@ -15,8 +15,8 @@ export interface HeroContent {
 }
 
 /* LANDING-PAGE.md, Section 1. Verbatim. The CTA label comes from
-   content/cta.ts and the substantiation line from content/claims.ts. The
-   live site's hero copy stays on record in content/source/homepage.ts.
+   content/cta.ts. The live site's hero copy stays on record in
+   content/source/homepage.ts.
    Trust brands are the five observed in the creator app (OBSERVED_BRANDS in
    content/source/platform.ts), in the spec's order. */
 export const HERO: HeroContent = {

@@ -26,7 +26,7 @@ export interface Testimonial {
 /* LANDING-PAGE.md, Section 3b. The eight live-site testimonials, read from
    content/source/creators.ts rather than copied, so every name, figure and
    story exists once. Top earner first. The range runs $100,227 down to
-   $8,227, the spread "Earnings claims" rule 3 asks for. These figures
+   $8,227, so the proof is not only the top. These figures
    disagree with the leaderboard (Steven $100,227 here, $153,823 there);
    keeping both as they are was decided 2026-09-15. */
 export const TESTIMONIALS: readonly Testimonial[] = SOURCE_TESTIMONIALS;

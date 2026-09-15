@@ -16,7 +16,7 @@ export interface FaqSection {
    than filled with guesses. If more live answers are recovered into the
    source, they appear here without further changes. */
 export const FAQ: FaqSection = {
-  heading: "Questions before you start",
+  heading: "FAQ",
   items: FAQ_ITEMS.filter((item) => item.provenance === "live-site").map(
     ({ question, answer }) => ({ question, answer }),
   ),

@@ -8,7 +8,7 @@
 
    Two rules the showcase keeps:
    - Figures in the specimen cards and the stat rows are layout fixtures, not
-     payout promises, and the leaderboard ships with its non-typicality note.
+     payout promises.
    - The FAQ shows only questions with sourced answers. */
 
 export interface ShowcaseSectionCopy {

@@ -336,9 +336,6 @@ export function PrimitiveShowcase() {
               <LeaderboardRow key={entry.position} entry={entry} />
             ))}
           </ol>
-          <p className="max-w-[var(--text-max)] text-small text-muted">
-            {LEADERBOARD.note}
-          </p>
           <SpecimenLabel title={LEADERBOARD_SECTION.avatarLabel} note={LEADERBOARD_SECTION.avatarNote} />
           <ol>
             <LeaderboardRow entry={LEADERBOARD_SECTION.avatarExample} />

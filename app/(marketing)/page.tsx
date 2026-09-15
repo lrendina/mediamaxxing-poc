@@ -9,7 +9,6 @@ import { LogoRow } from "@/components/LogoRow";
 import { Section } from "@/components/Section";
 import { StepCard } from "@/components/StepCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import { SUBSTANTIATION_LINE } from "@/content/claims";
 import { TESTIMONIALS } from "@/content/creators";
 import { CTA } from "@/content/cta";
 import { FAQ } from "@/content/faq";
@@ -73,7 +72,6 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <p className="text-small text-muted">{SUBSTANTIATION_LINE}</p>
           </div>
         </div>
         <LogoRow logos={HERO.trustBrands} className="justify-center" />
@@ -93,7 +91,7 @@ export default function Home() {
         </ol>
       </Section>
 
-      {/* 2b. Feature → benefit grid, CTA #2. */}
+      {/* 2b. Feature → benefit grid. */}
       <Section id="features" aria-labelledby="features-heading" className="flex flex-col gap-12">
         <SectionHeading id="features-heading">{FEATURES.heading}</SectionHeading>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -103,22 +101,18 @@ export default function Home() {
             </FeatureCard>
           ))}
         </div>
-        <SectionCta />
       </Section>
 
-      {/* 3. Social proof: leaderboard, testimonials, CTA #3. */}
+      {/* 3. Social proof: leaderboard, testimonials, section CTA. */}
       <Section id="proof" aria-labelledby="proof-heading" className="flex flex-col gap-12">
         <SectionHeading id="proof-heading">{LEADERBOARD.heading}</SectionHeading>
-        <div className="mx-auto flex w-full max-w-[var(--text-max)] flex-col gap-4">
-          <Card pad="none" className="px-6 md:px-8">
-            <ol className="divide-y divide-border">
-              {LEADERBOARD.entries.map((entry) => (
-                <LeaderboardRow key={entry.position} entry={entry} />
-              ))}
-            </ol>
-          </Card>
-          <p className="text-center text-small text-muted">{LEADERBOARD.note}</p>
-        </div>
+        <Card pad="none" className="mx-auto w-full max-w-[var(--text-max)] px-6 md:px-8">
+          <ol className="divide-y divide-border">
+            {LEADERBOARD.entries.map((entry) => (
+              <LeaderboardRow key={entry.position} entry={entry} />
+            ))}
+          </ol>
+        </Card>
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {TESTIMONIALS.map((testimonial) => (
             <li key={testimonial.id} className="min-w-0">
@@ -164,7 +158,6 @@ export default function Home() {
         <Button href={CTA.href} size="lg">
           {CTA.label}
         </Button>
-        <p className="max-w-[var(--text-max)] text-small text-ink-inverse/70">{SUBSTANTIATION_LINE}</p>
       </Section>
     </>
   );
