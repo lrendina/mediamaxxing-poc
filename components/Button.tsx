@@ -8,28 +8,28 @@ import type {
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 export type ButtonSize = "md" | "sm" | "lg";
 
-/* Primary is ink, not a colour: on a paper canvas the darkest object is
-   the most pressable one, and it leaves green free to mean money.
-   Secondary is the money role for the one CTA per page that is literally
-   about getting paid. Ghost is a hairline. */
+/* Primary is the action role and the only variant the page CTA uses.
+   Secondary is a neutral surface for an action beside a primary; ghost is
+   action-coloured text. Money never colours a button — green means a
+   dollar figure. Every size clears the 44px tap target. */
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-ink text-ink-inverse hover:bg-ink/90 active:bg-ink/80 shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)]",
+    "bg-action text-ink-inverse hover:bg-action/90 active:bg-action/80",
   secondary:
-    "bg-money text-ink-inverse hover:brightness-95 active:brightness-90",
+    "bg-surface text-ink border border-border hover:bg-surface-sunk active:bg-surface-sunk",
   ghost:
-    "bg-transparent text-ink border border-border-strong hover:border-ink hover:bg-ink/[0.03] active:bg-ink/[0.06]",
+    "bg-transparent text-action hover:bg-action-sunk active:bg-action-sunk",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  lg: "px-6 py-3.5 min-h-12 text-[16px]",
-  md: "px-5 py-3 min-h-11 text-[15px]",
-  sm: "px-4 py-2 min-h-9  text-[13px]",
+  lg: "px-8 min-h-14 text-body",
+  md: "px-6 min-h-12 text-body",
+  sm: "px-4 min-h-11 text-small",
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full " +
-  "font-medium leading-none tracking-[-0.005em] transition " +
+  "inline-flex items-center justify-center gap-2 rounded " +
+  "font-medium leading-none transition-colors " +
   "disabled:opacity-40 disabled:cursor-not-allowed";
 
 function classesFor(variant: ButtonVariant, size: ButtonSize, extra: string) {

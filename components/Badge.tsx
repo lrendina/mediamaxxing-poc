@@ -1,12 +1,15 @@
 import type { ReactNode } from "react";
 
-export type BadgeTone = "neutral" | "payout" | "live";
+export type BadgeTone = "neutral" | "action" | "money" | "streak" | "warn";
 
-/* Soft tile + role colour, same pairing the creator app's pills use. */
+/* The pill: role colour on its sunk companion, the same pairing the
+   creator app's pills use. Full-round is a shape, not a second radius. */
 const toneClasses: Record<BadgeTone, string> = {
   neutral: "bg-surface-sunk text-ink",
-  payout:  "bg-money-sunk text-money",
-  live:    "bg-status-sunk text-status",
+  action:  "bg-action-sunk text-action",
+  money:   "bg-money-sunk text-money",
+  streak:  "bg-streak-sunk text-streak",
+  warn:    "bg-warn-sunk text-warn",
 };
 
 export function Badge({
@@ -20,7 +23,7 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-medium leading-none tracking-[0.01em] ${toneClasses[tone]} ${className}`}
+      className={`inline-flex min-h-8 items-center gap-1 rounded-full px-4 text-small font-medium leading-none ${toneClasses[tone]} ${className}`}
     >
       {children}
     </span>
