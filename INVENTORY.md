@@ -332,3 +332,82 @@ and each needs a judgement call during the sweep.
    - `/loud`: "Real dashboards, real phones, real handles…"
    - `LogoLockup`: the wordmark
    - stub page bodies
+
+   All of these are now in `content/source/chrome.ts`.
+
+---
+
+## Step 2 — Extraction results
+
+Every string from the old build is copied into `content/source/`, tagged by provenance:
+`live-site`, `creator-app`, `placeholder`, `invented`, `prototype`, `unknown`. Nothing imports
+it yet.
+
+| File | Holds |
+|---|---|
+| `types.ts` | `Provenance` and `SourceMeta` |
+| `creators.ts` | 8 testimonials: name, handle, tier, earnings, image paths, stats, blurb |
+| `faq.ts` | 5 questions; answer 1 verbatim, answers 2–5 placeholders |
+| `homepage.ts` | Live-site hero, proof headline, three steps; the old footer CTA (unknown origin) |
+| `blog.ts` | 3 posts; read times flagged as estimates |
+| `nav.ts` | Primary nav, header CTAs, footer groups, copyright, surface switch |
+| `for-brands.ts` | All `/for-brands` copy |
+| `platform.ts` | Re-exports `TOP_EARNERS`; the 5 observed brands; "over $1M"; the 48-hour review string; every invented figure, quarantined |
+| `chrome.ts` | Hardcoded JSX strings, stub page bodies, route metadata |
+
+The asset manifest in MIGRATION.md is filled in with real filenames and dimensions.
+
+Doc corrections since Step 1 (the Step 1 text above is left as written):
+- The `tailwind.config.ts` references in CLAUDE.md, PLAN.md and MIGRATION.md now point at
+  `globals.css`.
+- CLAUDE.md and MIGRATION.md scope "stale sidebar/rail" to the marketing surface. The
+  creator app is the same app and keeps its own shell.
+
+## What LANDING-PAGE.md needs that the old build doesn't contain
+
+The spec supplies its own copy for the hero, friction strip, substantiation line, steps,
+feature grid, trust tiles, section headings, final CTA, and the CTA label, so none of those
+are gaps. These are:
+
+**Assets**
+- Five brand logos for the trust bar (OpenArt, Pump.fun, Speed, Lovable, 11Eleven Creative).
+- Eight leaderboard avatars.
+- The hero screen capture. MIGRATION.md allows composing the phone screen from the creator-app
+  components instead; that app is built, so it's available as an option.
+- Low-res sources: the enel and sam phones (276×600) and the natalie dashboard (706×353) will
+  look soft in the lightbox.
+
+**FAQ.** The spec wants about 15 questions in four groups. The old build has 5 questions and
+1 real answer.
+
+| Existing question | Spec slot |
+|---|---|
+| Do I need experience or followers? | Getting started — followers, experience |
+| How fast can I start earning? | Getting started — first video |
+| What kinds of campaigns are available? | Campaigns & content — nearest is "Who picks the campaigns?" |
+| Is this available worldwide? | Eligibility — countries |
+| What exactly is MediaMaxxing? | **No slot** in the spec's four groups |
+
+- **No source copy at all** for: equipment, how pay per view works, when payouts land,
+  underperforming videos, minimum payout, using your own idea, sponsorship disclosure, video
+  ownership, age requirements, and verification. The creator app's pay-rate table
+  (`$/1K views`) is the closest source for "how pay per view works".
+- **Eligibility** is the [HUMAN] task PLAN Phase 4 already names; there is no legal page copy
+  in the repo.
+
+**Claims without a source in the repo**
+- "Reviewed in 7 days". The repo says 48 hours, with no source for either.
+- "Free to join". It appears only in prototype and unknown-origin copy, never in anything
+  marked live-site.
+- "First campaign in under five minutes" and "signup to first campaign in five minutes".
+
+**Earnings range.** Rule 3 of LANDING-PAGE.md's earnings claims asks for figures spanning a
+wide range. Seven of the eight testimonials are $30K or more; Sam at $8,227 is the only
+lower one.
+
+**Other**
+- The `/mcp` footer variant PLAN Phase 2 asks to reconcile was never captured. Only the
+  standard footer is in the repo.
+- Icons for the feature cards and trust tiles. `components/icons.tsx` has only nav and
+  arrow icons. `components/creator/app-icons.tsx` has gift, link, medal, lock and others;
+  whether to share them is a Phase 3 decision.

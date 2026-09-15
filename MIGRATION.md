@@ -107,13 +107,17 @@ Fill this in during Step 2 from what's actually in `public/`, then flag the gaps
 
 | Asset | Expected filename | Used by | Present? |
 |---|---|---|---|
-| Testimonial dashboard screenshots ×8 | `public/proof/{handle}-earnings.png` | `TestimonialCard` | |
-| Testimonial phone screenshots ×8 | `public/proof/{handle}-phone.png` | lightbox | |
-| Brand logos ×5 | `public/brands/{slug}.svg` | hero trust bar | |
-| Creator avatars ×8 | `public/avatars/{handle}.png` | `LeaderboardRow` | |
-| Phone frame | CSS or inline SVG | hero visual | n/a |
-| Hero screen capture | `public/hero/app-screen.png` | hero visual | |
-| Logo lockup | existing | header, footer | |
+| Testimonial dashboard screenshots ×8 | `public/proof/{handle}-earnings.png` | `TestimonialCard` | **Yes, 8/8**, at `public/proof/creators/{name}/dashboard.png`, all 2:1. brayden 1450×725 · enel 1160×580 · erica 1430×715 · jennifer 1350×675 · natalie **706×353 (low-res)** · rachael 910×455 · sam 1160×580 · steven 1340×670 |
+| Testimonial phone screenshots ×8 | `public/proof/{handle}-phone.png` | lightbox | **Yes, 8/8**, at `public/proof/creators/{name}/phone.jpg`. 900×1955 for brayden, erica, jennifer, rachael, steven · natalie 900×1956 · enel and sam **276×600 (low-res)** |
+| Brand logos ×5 | `public/brands/{slug}.svg` | hero trust bar | **No.** No logo files anywhere; `content/creator/brands.ts` has wordmark text only |
+| Creator avatars ×8 | `public/avatars/{handle}.png` | `LeaderboardRow` | **No.** Leaderboard fixture uses `"placeholder"` or `null`; three entries render as initials in the real app, so initials are an observed state |
+| Phone frame | CSS or inline SVG | hero visual | n/a — `components/iphone.tsx`, inline SVG (433×882 viewBox), 11 hex fills to move onto tokens |
+| Hero screen capture | `public/hero/app-screen.png` | hero visual | **No** |
+| Logo lockup | existing | header, footer | **Yes** — `public/proof/brand/logo.png` 256×256 + `components/LogoLockup.tsx` |
+
+Also in `public/`, outside the spec's list: three blog covers at `public/proof/blog/*.png`
+(1200×630, used by the `/blog` stub), and five unreferenced create-next-app SVGs (`file`,
+`globe`, `next`, `vercel`, `window`).
 
 ### Missing-asset rule
 
