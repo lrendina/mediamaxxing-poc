@@ -109,7 +109,6 @@ about 120 KiB of unused JavaScript and 13 KiB of legacy polyfills.
 ## Known gaps
 
 - Brand logos in the hero trust bar are named placeholders; no logo files exist.
-- The FAQ ships only questions with sourced answers — one today.
 - The six-figure headline carries no on-page qualifier; that was a deliberate decision
   (see "Earnings claims" in `LANDING-PAGE.md`).
 - Phase 6 (`/for-brands` rebuild and stub copy) was skipped; `/blog` still jumps from h1 to h3.

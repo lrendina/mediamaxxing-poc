@@ -8,12 +8,11 @@ export type SourceFaqItem = {
 
 export const FAQ_META: SourceMeta = {
   provenance: "live-site",
-  from: ["content/faq.ts"],
+  from: ["content/faq.ts", "screenshot of the live FAQ, supplied 2026-09-15"],
   note:
-    "All five questions are from the live site. Only the first answer was extractable " +
-    "verbatim; the old build marked answers 2–5 as placeholders to replace, and they still " +
-    "carry that marker. Answer 3's \"within 48 hours\" conflicts with LANDING-PAGE.md's " +
-    "\"Reviewed in 7 days\".",
+    "All five questions and answers are from the live site. Answer 1 was extracted verbatim by " +
+    "the old build; answers 2–5 were transcribed verbatim from a screenshot of the live FAQ " +
+    "supplied on 2026-09-15, replacing the old build's placeholders.",
 };
 
 export const FAQ_HEADING = { text: "Questions", provenance: "unknown" as Provenance };
@@ -28,25 +27,25 @@ export const FAQ_ITEMS: SourceFaqItem[] = [
   {
     question: "Do I need experience or followers?",
     answer:
-      "No. Templates walk you through what to film, and payouts are per-view — not per-follower. Natalie hit $30,361 on under 2,000 followers using the same playbook. (Placeholder answer — replace during copy pass.)",
-    provenance: "placeholder",
+      "No followers, no fancy setup. All you need is a phone, decent lighting, and effort. We care about video quality and creativity, not audience size. Most creators who start with zero experience earn their first payouts within days.",
+    provenance: "live-site",
   },
   {
     question: "How fast can I start earning?",
     answer:
-      "Sign-up is instant. Most creators submit their first campaign the same day and see approvals within 48 hours. Payouts are automatic once your work clears review. (Placeholder answer — replace during copy pass.)",
-    provenance: "placeholder",
+      "Immediately. From creating your account to your first post takes less than 60 seconds. From there, you can start posting right away using the viral formats provided inside your dashboard, or get creative and participate in our exclusive bounties. Once your videos are approved, payouts are processed automatically through Stripe.",
+    provenance: "live-site",
   },
   {
     question: "What kinds of campaigns are available?",
     answer:
-      "Brand campaigns across consumer products, apps, and services — each with a template that has already gone viral. New campaigns land weekly. (Placeholder answer — replace during copy pass.)",
-    provenance: "placeholder",
+      "Everything from app demos and SaaS walkthroughs to product reviews, lifestyle ads, and voiceover UGC. Campaigns update weekly, with clear briefs, payout caps, and performance-based bonuses.",
+    provenance: "live-site",
   },
   {
     question: "Is this available worldwide?",
     answer:
-      "Creators from most countries are eligible — payouts land via standard international rails. (Placeholder answer — replace during copy pass.)",
-    provenance: "placeholder",
+      "Yes. Creators from any country can apply. As long as you can receive Stripe payouts, you can earn from anywhere.",
+    provenance: "live-site",
   },
 ];

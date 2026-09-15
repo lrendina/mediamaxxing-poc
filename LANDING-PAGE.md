@@ -121,9 +121,8 @@ hold is worse than nothing.
 **H2:** FAQ
 
 Accordion with the first item open by default. Only questions with a sourced answer ship
-(decided 2026-09-15). Today that is one live-site question, "What exactly is MediaMaxxing?".
-No categories, no gap questions, and no drafted answers. If more live answers are recovered
-into `content/source/faq.ts`, they appear automatically.
+(decided 2026-09-15): the live site's five FAQs, verbatim, from `content/source/faq.ts`. No
+categories, no gap questions, and no drafted answers.
 
 ## Section 6 — Final CTA
 
